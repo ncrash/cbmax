@@ -21,7 +21,6 @@ public class CbmaxTestcaseFixtureExcel {
 
 	String smsContent;
 	String mmsContent;
-	
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
