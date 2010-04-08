@@ -33,7 +33,7 @@ public class CbmaxTestcaseFixtureExcel {
 	@Before
 	public void setUp() throws Exception {
 		testFixtureExcelFile = new File(getClass().getClassLoader().getResource("cbmax-testcase-fixture.xls").getFile());
-		
+
 		workbook = Workbook.getWorkbook(testFixtureExcelFile);
 		sheet = workbook.getSheet(0);
 	}
@@ -46,10 +46,10 @@ public class CbmaxTestcaseFixtureExcel {
 	@Test
 	public void excelFileLoad() throws Exception {
 		assertTrue(sheet.getRows() > 0);
-		
+
 		mmsContent = sheet.getCell(1, 1).getContents();
 		smsContent = sheet.getCell(2, 1).getContents();
-		
+
 		assertTrue(mmsContent.length() > 0);
 		assertTrue(smsContent.length() > 0);
 	}
@@ -60,9 +60,8 @@ public class CbmaxTestcaseFixtureExcel {
 			mmsContent = sheet.getCell(1, i).getContents();
 			smsContent = sheet.getCell(2, i).getContents();
 
-			assertEquals("mms를 sms로 convert한 결과과 excel에 기술된 sms 내용과 동일해야 한다.",
-					smsContent, receiptMessageResolver
-							.convertOriginalSms(mmsContent));
+			assertEquals("mms를 sms로 convert한 결과과 excel에 기술된 sms 내용과 동일해야 한다.", smsContent, receiptMessageResolver
+					.convertOriginalSms(mmsContent));
 		}
 	}
 
