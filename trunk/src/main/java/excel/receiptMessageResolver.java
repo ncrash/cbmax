@@ -12,10 +12,17 @@ public class receiptMessageResolver {
 
 		String[] split = mmsContent.split("\n");
 		for (int i = 0; i < split.length; i++) {
+			if (split[i].length() == 0) {
+				continue;
+			}
 
 			if (split[i].getBytes().length > 50) {
+				if (smsContentPerLine.length() > 0) {
+					result.append(smsContentPerLine + "\n");
+					smsContentPerLine = new String();
+				}
+
 				result.append(split[i] + "\n");
-				smsContentPerLine = new String();
 			} else {
 				if (smsContentPerLine.length() > 0 && split[i].indexOf("[") > -1) {
 					result.append(smsContentPerLine + "\n");

@@ -68,5 +68,8 @@ public class CbmaxTestcaseFixtureExcel {
 	@Test
 	public void testjavacode() throws Exception {
 		// 단순한 javacode 테스트하기 위해 만들어 둔 test method
+		
+		String abcd = "강대권님 4/1일은 우리BC 결제일입니다. 환절기 감기 조심하세요 ";
+		System.out.println(abcd.getBytes().length);
 	}
 }
