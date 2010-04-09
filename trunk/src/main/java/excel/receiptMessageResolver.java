@@ -1,5 +1,12 @@
 package excel;
 
+/** 
+ * mms messages convert to original sms messages
+ *
+ * @author Daekwon Kang
+ * @since 2010. 4. 7.
+ * @see
+ */
 public class receiptMessageResolver {
 
 	public static String convertOriginalSms(String mmsContent) {

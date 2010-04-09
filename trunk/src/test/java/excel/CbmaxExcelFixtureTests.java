@@ -14,7 +14,16 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class CbmaxTestcaseFixtureExcel {
+/**
+ * Unit tests for the {@link receiptMessageResolver} class.
+ *
+ * <p>cbmax-testcase-fixture.xls test case
+ *
+ * @author Daekwon Kang
+ * @since 2010. 4. 7.
+ * @see
+ */
+public class CbmaxExcelFixtureTests {
 	static File testFixtureExcelFile;
 	Workbook workbook;
 	Sheet sheet;
