@@ -1,4 +1,4 @@
-package excel;
+package net.cbmax.www;
 
 /** 
  * mms messages convert to original sms messages
