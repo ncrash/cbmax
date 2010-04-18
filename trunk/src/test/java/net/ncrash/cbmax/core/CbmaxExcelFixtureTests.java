@@ -1,4 +1,4 @@
-package net.cbmax.www;
+package net.ncrash.cbmax.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,7 +8,7 @@ import java.io.File;
 import jxl.Sheet;
 import jxl.Workbook;
 
-import net.cbmax.www.receiptMessageResolver;
+import net.ncrash.cbmax.core.receiptMessageResolver;
 
 import org.junit.After;
 import org.junit.AfterClass;

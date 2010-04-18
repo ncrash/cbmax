@@ -1,4 +1,4 @@
-package net.cbmax.www;
+package net.ncrash.cbmax.core;
 
 /** 
  * mms messages convert to original sms messages
