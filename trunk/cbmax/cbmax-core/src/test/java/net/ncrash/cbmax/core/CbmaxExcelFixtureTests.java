@@ -71,16 +71,16 @@ public class CbmaxExcelFixtureTests {
 			mmsContent = sheet.getCell(1, i).getContents();
 			smsContent = sheet.getCell(2, i).getContents();
 
-			assertEquals("mms¸¦ sms·Î convertÇÑ °á°ú°ú excel¿¡ ±â¼úµÈ sms ³»¿ë°ú µ¿ÀÏÇØ¾ß ÇÑ´Ù.", smsContent, receiptMessageResolver
+			assertEquals("mmsë¥¼ smsë¡œ convertí•œ ê²°ê³¼ê³¼ excelì— ê¸°ìˆ ëœ sms ë‚´ìš©ê³¼ ë™ì¼í•´ì•¼ í•œë‹¤.", smsContent, receiptMessageResolver
 					.convertOriginalSms(mmsContent));
 		}
 	}
 
 	@Test
 	public void testjavacode() throws Exception {
-		// ´Ü¼øÇÑ javacode Å×½ºÆ®ÇÏ±â À§ÇØ ¸¸µé¾î µĞ test method
+		// ë‹¨ìˆœí•œ javacode í…ŒìŠ¤íŠ¸í•˜ê¸° ìœ„í•´ ë§Œë“¤ì–´ ë‘” test method
 		
-		String abcd = "°­´ë±Ç´Ô 4/1ÀÏÀº ¿ì¸®BC °áÁ¦ÀÏÀÔ´Ï´Ù. È¯Àı±â °¨±â Á¶½ÉÇÏ¼¼¿ä ";
+		String abcd = "ê°•ëŒ€ê¶Œë‹˜ 4/1ì¼ì€ ìš°ë¦¬BC ê²°ì œì¼ì…ë‹ˆë‹¤. í™˜ì ˆê¸° ê°ê¸° ì¡°ì‹¬í•˜ì„¸ìš” ";
 		System.out.println(abcd.getBytes().length);
 	}
 }

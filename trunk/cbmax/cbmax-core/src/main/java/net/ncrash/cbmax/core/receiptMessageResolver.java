@@ -10,9 +10,9 @@ package net.ncrash.cbmax.core;
 public class receiptMessageResolver {
 
 	public static String convertOriginalSms(String mmsContent) {
-		// TODO mms¹®ÀÚ¸¦ sms¹®ÀÚ °Çº°·Î ºĞ¸® ÇØ¾ßÇÔ
-		// Ã³¸®´Â mmsContentÀÇ ³»¿ëÀ» fileÀ» ÀĞµíÀÌ ÇÑÁÙ ÇÑÁÙ ÀĞ¾îµé¾î¿©¼­
-		// ÇÑÁÙÀÇ ±æÀÌ°¡ Æ¯Á¤ ±æÀÌº¸´Ù ÂªÀº °æ¿ì ÇÑÁÙ·Î ÇÕÄ¡±â
+		// TODO mmsë¬¸ìë¥¼ smsë¬¸ì ê±´ë³„ë¡œ ë¶„ë¦¬ í•´ì•¼í•¨
+		// ì²˜ë¦¬ëŠ” mmsContentì˜ ë‚´ìš©ì„ fileì„ ì½ë“¯ì´ í•œì¤„ í•œì¤„ ì½ì–´ë“¤ì–´ì—¬ì„œ
+		// í•œì¤„ì˜ ê¸¸ì´ê°€ íŠ¹ì • ê¸¸ì´ë³´ë‹¤ ì§§ì€ ê²½ìš° í•œì¤„ë¡œ í•©ì¹˜ê¸°
 
 		StringBuffer result = new StringBuffer();
 		String smsContentPerLine = new String();

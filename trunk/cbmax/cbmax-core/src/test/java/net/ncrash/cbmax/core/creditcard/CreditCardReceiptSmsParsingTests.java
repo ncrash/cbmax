@@ -29,38 +29,38 @@ public class CreditCardReceiptSmsParsingTests {
 
 	@Before
 	public void setUp() throws Exception {
-	 	receiptSmsList.add("¾¾Æ¼Ä«µå °­´ë±Ç´Ô ½ÂÀÎ³»¿ª 03¿ù13ÀÏ 19:47 ÀÌ¸¶Æ®±¸·ÎÁ¡ 40,410¿ø ÀÏ½ÃºÒ");
+	 	receiptSmsList.add("ì”¨í‹°ì¹´ë“œ ê°•ëŒ€ê¶Œë‹˜ ìŠ¹ì¸ë‚´ì—­ 03ì›”13ì¼ 19:47 ì´ë§ˆíŠ¸êµ¬ë¡œì  40,410ì› ì¼ì‹œë¶ˆ");
 
 	 	sb = new StringBuffer();
-	 	sb.append("[ÀÏ½ÃºÒ.½ÂÀÎ]");
-	 	sb.append("\n").append("186,000¿ø");
-	 	sb.append("\n").append("¿ì¸®BC(3*8*)°­´ë±Ç´Ô");
+	 	sb.append("[ì¼ì‹œë¶ˆ.ìŠ¹ì¸]");
+	 	sb.append("\n").append("186,000ì›");
+	 	sb.append("\n").append("ìš°ë¦¬BC(3*8*)ê°•ëŒ€ê¶Œë‹˜");
 	 	sb.append("\n").append("04/07 23:17");
-	 	sb.append("\n").append("¾çÀº³¿ºñ");
+	 	sb.append("\n").append("ì–‘ì€ëƒ„ë¹„");
 	 	
 	 	receiptSmsList.add(sb.toString());
 	 	
 	 	sb = new StringBuffer();
-	 	sb.append("[ÀÏ½ÃºÒ.½ÂÀÎ]");
-	 	sb.append("\n").append("348,600¿ø");
-	 	sb.append("\n").append("³óÇùBC(1*0*)°­´ë±Ç´Ô");
+	 	sb.append("[ì¼ì‹œë¶ˆ.ìŠ¹ì¸]");
+	 	sb.append("\n").append("348,600ì›");
+	 	sb.append("\n").append("ë†í˜‘BC(1*0*)ê°•ëŒ€ê¶Œë‹˜");
 	 	sb.append("\n").append("01/24 16:16");
-	 	sb.append("\n").append("(ÁÖ)Å×Å©³ë¿¡¾îÆ÷Æ®¸ô");
+	 	sb.append("\n").append("(ì£¼)í…Œí¬ë…¸ì—ì–´í¬íŠ¸ëª°");
 	 	
 	 	receiptSmsList.add(sb.toString());
 
-	 	receiptSmsList.add("[KBÄ«µå]°­´ë±Ç´Ô Ä«µå°¡ 04¿ù12ÀÏ SKÅÚ·¹ÄŞ-ÀÚµ¿³³ºÎ¿¡¼­ 13,080¿ø »ç¿ë");
+	 	receiptSmsList.add("[KBì¹´ë“œ]ê°•ëŒ€ê¶Œë‹˜ ì¹´ë“œê°€ 04ì›”12ì¼ SKí…”ë ˆì½¤-ìë™ë‚©ë¶€ì—ì„œ 13,080ì› ì‚¬ìš©");
 
 	 	sb = new StringBuffer();
-	 	sb.append("[KBÃ¼Å©]");
-	 	sb.append("\n").append("°­´ë±Ç´Ô");
-	 	sb.append("\n").append("04¿ù05ÀÏ12:47");
-	 	sb.append("\n").append("±¤¾çºÒ°í±â");
-	 	sb.append("\n").append("52,000¿ø »ç¿ë");
+	 	sb.append("[KBì²´í¬]");
+	 	sb.append("\n").append("ê°•ëŒ€ê¶Œë‹˜");
+	 	sb.append("\n").append("04ì›”05ì¼12:47");
+	 	sb.append("\n").append("ê´‘ì–‘ë¶ˆê³ ê¸°");
+	 	sb.append("\n").append("52,000ì› ì‚¬ìš©");
 	 	
 	 	receiptSmsList.add(sb.toString());
 	 	
-	 	receiptSmsList.add("¾¾Æ¼Ä«µå °­´ë±Ç´Ô ½ÂÀÎ³»¿ª 03¿ù13ÀÏ 19:47 ÀÌ¸¶Æ®±¸·ÎÁ¡ 40,410¿ø ÀÏ½ÃºÒ");
+	 	receiptSmsList.add("ì”¨í‹°ì¹´ë“œ ê°•ëŒ€ê¶Œë‹˜ ìŠ¹ì¸ë‚´ì—­ 03ì›”13ì¼ 19:47 ì´ë§ˆíŠ¸êµ¬ë¡œì  40,410ì› ì¼ì‹œë¶ˆ");
 	}
 
 	@After
@@ -68,16 +68,16 @@ public class CreditCardReceiptSmsParsingTests {
 	}
 
 	@Test
-	// TODO ¾¾Æ¼Ä«µå´Â ÇÒºÎ°³¿ù ¹× ½ÂÀÎÃë¼Ò ³»¿ª ½ÇÁ¦ Å×½ºÆ® ÇØ¾ß
+	// TODO ì”¨í‹°ì¹´ë“œëŠ” í• ë¶€ê°œì›” ë° ìŠ¹ì¸ì·¨ì†Œ ë‚´ì—­ ì‹¤ì œ í…ŒìŠ¤íŠ¸ í•´ì•¼
 	public void testCityCard() throws Exception {
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 			
-			Pattern p = Pattern.compile("(¾¾Æ¼Ä«µå) (.*´Ô) (½ÂÀÎ|Ãë¼Ò)(³»¿ª) (.*¿ù.*ÀÏ) ([\\d]*:[\\d]*) (.*) ([0-9,]*)(¿ø) (ÀÏ½ÃºÒ|.*$)");
+			Pattern p = Pattern.compile("(ì”¨í‹°ì¹´ë“œ) (.*ë‹˜) (ìŠ¹ì¸|ì·¨ì†Œ)(ë‚´ì—­) (.*ì›”.*ì¼) ([\\d]*:[\\d]*) (.*) ([0-9,]*)(ì›) (ì¼ì‹œë¶ˆ|.*$)");
 			Matcher m = p.matcher(receiptSms);
 			
 			while(m.find()) {
-				assertTrue(receiptSms.contains("¾¾Æ¼Ä«µå"));
+				assertTrue(receiptSms.contains("ì”¨í‹°ì¹´ë“œ"));
 			}
 		}
 	}
@@ -87,7 +87,7 @@ public class CreditCardReceiptSmsParsingTests {
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 			
-			Pattern p = Pattern.compile("\\[(ÀÏ½ÃºÒ.½ÂÀÎ|[\\d]*°³¿ù.½ÂÀÎ|½ÂÀÎÃë¼Ò)\\]\\n([0-9,]*)(¿ø)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*´Ô)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
+			Pattern p = Pattern.compile("\\[(ì¼ì‹œë¶ˆ.ìŠ¹ì¸|[\\d]*ê°œì›”.ìŠ¹ì¸|ìŠ¹ì¸ì·¨ì†Œ)\\]\\n([0-9,]*)(ì›)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*ë‹˜)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
 			Matcher m = p.matcher(receiptSms);
 			
 			while(m.find()) {
