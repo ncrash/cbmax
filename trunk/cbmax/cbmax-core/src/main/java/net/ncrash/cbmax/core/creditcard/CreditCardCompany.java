@@ -24,7 +24,7 @@ public class CreditCardCompany {
 	public static List<String> getAutomaticWithdrawalSmsRegexList() {
 		List<String> result = new ArrayList<String>();
 		
-		result.add("\\[(KB카드)\\](.*님 카드가) (\\d{2}월\\d{2}일) (.*\\b) ([0-9,\\\\.]*)(원) (사용)");
+		result.add("\\[(KB카드)\\](.*님 카드가) (\\d{2}월\\d{2}일) (.*\\b) ([0-9,\\.]*)(원) (사용)");
 		
 		return result;
 	}

@@ -3,10 +3,16 @@ package net.ncrash.cbmax.core.creditcard;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import jxl.Sheet;
+import jxl.Workbook;
+
+import net.ncrash.cbmax.core.receiptMessageResolver;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,7 +21,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CreditCardReceiptSmsParsingTests {
-
+	static File testFixtureExcelFile;
+	Workbook workbook;
+	Sheet sheet;
+	
 	List<String> receiptSmsList = new ArrayList<String>();
 	StringBuffer sb;
 	int matchCount;
@@ -225,5 +234,94 @@ public class CreditCardReceiptSmsParsingTests {
 		}
 		
 		assertEquals(2, matchCount);
+	}
+	
+	@Test
+	public void testCardCompanyReceiptsSmsParser() throws Exception {
+		List<String> receiptSmsParsers = CreditCardCompany.getReceiptSmsRegexList();
+		
+		for (int i = 0; i < receiptSmsList.size(); i++) {
+			Boolean isFind = false;
+			String receiptSms = receiptSmsList.get(i);
+			
+			for (int j = 0; j < receiptSmsParsers.size(); j++) {
+				String receiptSmsParser = receiptSmsParsers.get(j);
+				
+				Pattern p = Pattern.compile(receiptSmsParser);
+				Matcher m = p.matcher(receiptSms);
+				
+				while(m.find()) {
+					matchCount++;
+					isFind = true;
+				}
+			}
+			
+			if (isFind == false) {
+				List<String> automaticWithdrawalSmsParsers = CreditCardCompany.getAutomaticWithdrawalSmsRegexList();
+				for (int j = 0; j < automaticWithdrawalSmsParsers.size(); j++) {
+					String automaticWithdrawalSmsParser = automaticWithdrawalSmsParsers.get(j);
+					
+					Pattern p = Pattern.compile(automaticWithdrawalSmsParser);
+					Matcher m = p.matcher(receiptSms);
+					
+					while(m.find()) {
+						matchCount++;
+						isFind = true;
+					}
+				}
+			}
+		}
+		
+		assertEquals(receiptSmsList.size(), matchCount);
+	}
+	
+	@Test
+	public void testExcelFixtureMmsContentParsing() throws Exception {
+		String mmsContent;
+		String smsMessageCount;
+		int smsMessageCountTotal = 0;
+
+		List<String> receiptSmsParsers = CreditCardCompany.getReceiptSmsRegexList();
+		List<String> automaticWithdrawalSmsParsers = CreditCardCompany.getAutomaticWithdrawalSmsRegexList();
+		
+		testFixtureExcelFile = new File(getClass().getClassLoader().getResource("cbmax-testcase-fixture.xls").getFile());
+
+		workbook = Workbook.getWorkbook(testFixtureExcelFile);
+		sheet = workbook.getSheet(0);
+		
+		for (int i = 1; i < sheet.getRows(); i++) {
+			mmsContent = sheet.getCell(1, i).getContents();
+			smsMessageCount = sheet.getCell(3, i).getContents();
+			smsMessageCountTotal += Integer.parseInt(smsMessageCount); 
+			
+			for (int j = 0; j < receiptSmsParsers.size(); j++) {
+				String receiptSmsParser = receiptSmsParsers.get(j);
+				
+				Pattern p = Pattern.compile(receiptSmsParser);
+				Matcher m = p.matcher(mmsContent);
+				
+				while(m.find()) {
+					matchCount++;
+				}
+			}
+			
+			for (int j = 0; j < automaticWithdrawalSmsParsers.size(); j++) {
+				String automaticWithdrawalSmsParser = automaticWithdrawalSmsParsers.get(j);
+					
+				Pattern p = Pattern.compile(automaticWithdrawalSmsParser);
+				Matcher m = p.matcher(mmsContent);
+					
+				while(m.find()) {
+					matchCount++;
+				}
+			}
+			
+//			if (smsMessageCountTotal != matchCount) {
+//				System.out.println(mmsContent);
+//				System.out.println("smsMessageCountTotal : " + smsMessageCountTotal + ", matchCount : " + matchCount);
+//			}
+		}
+		
+		assertEquals("excel파일에 기재한 건수와 parsing건수가 같아야 함", smsMessageCountTotal, matchCount);
 	}
 }
