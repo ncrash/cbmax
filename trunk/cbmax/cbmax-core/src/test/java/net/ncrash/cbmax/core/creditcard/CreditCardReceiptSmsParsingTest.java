@@ -20,7 +20,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class CreditCardReceiptSmsParsingTests {
+public class CreditCardReceiptSmsParsingTest {
 	static File testFixtureExcelFile;
 	Workbook workbook;
 	Sheet sheet;

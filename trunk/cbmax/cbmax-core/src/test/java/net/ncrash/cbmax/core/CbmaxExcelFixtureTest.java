@@ -25,7 +25,7 @@ import org.junit.Test;
  * @since 2010. 4. 7.
  * @see
  */
-public class CbmaxExcelFixtureTests {
+public class CbmaxExcelFixtureTest {
 	static File testFixtureExcelFile;
 	Workbook workbook;
 	Sheet sheet;
