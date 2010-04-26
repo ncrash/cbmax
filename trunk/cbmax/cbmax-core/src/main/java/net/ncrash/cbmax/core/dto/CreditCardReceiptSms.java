@@ -1,7 +1,5 @@
 package net.ncrash.cbmax.core.dto;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.regex.Matcher;
 
 public class CreditCardReceiptSms {
