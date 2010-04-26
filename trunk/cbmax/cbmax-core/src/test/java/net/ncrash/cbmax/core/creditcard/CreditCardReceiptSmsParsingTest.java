@@ -1,6 +1,6 @@
 package net.ncrash.cbmax.core.creditcard;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,8 +10,6 @@ import java.util.regex.Pattern;
 
 import jxl.Sheet;
 import jxl.Workbook;
-
-import net.ncrash.cbmax.core.receiptMessageResolver;
 import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
 
 import org.junit.After;
@@ -20,6 +18,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/*
+ * 정규표현식 개발은 QuickREx eclipse plugin 사용해서 개발
+ * Test-Text는 각 카드 타입에 주석으로 달아둔것 사용
+ * Regular Expression은 정규표현식을 복사
+ * 
+ * 작업 시 유의사항
+ * 1. Regular Expression은 정규표현식을 복사해서 \\ -> \ 치환
+ * 2. 윈도우 환경작업 시 \n -> \r\n 치환 
+ */
 public class CreditCardReceiptSmsParsingTest {
 	static File testFixtureExcelFile;
 	Workbook workbook;
@@ -28,6 +35,7 @@ public class CreditCardReceiptSmsParsingTest {
 	List<String> receiptSmsList = new ArrayList<String>();
 	StringBuffer sb;
 	int matchCount;
+	CreditCardReceiptSms creditCardReceiptSms;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -122,12 +130,32 @@ public class CreditCardReceiptSmsParsingTest {
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 
+			/*
+				씨티카드 강대권님 승인내역 03월13일 19:47 이마트구로점 40,410원 일시불
+			 */
 			Pattern p = Pattern
 					.compile("(씨티카드) (.*님) (승인|취소)(내역) (.*월.*일) ([\\d]*:[\\d]*) (.*) ([0-9,]*)(원) (일시불|.*$)");
 			Matcher m = p.matcher(receiptSms);
 
 			while (m.find()) {
 				matchCount++;
+
+				// TODO 구분이 모호한 항목 정리
+				/*
+				 * getPayedCardType
+				 */
+				creditCardReceiptSms = new CreditCardReceiptSms("city", m);
+				
+				assertEquals(m.group(2), creditCardReceiptSms.getSenderName());
+				assertEquals(m.group(1), creditCardReceiptSms.getCardCompanyName());
+				assertEquals(null, creditCardReceiptSms.getCardLastFourNumber());
+				assertEquals(m.group(5), creditCardReceiptSms.getPayedWhenDate());
+				assertEquals(m.group(6), creditCardReceiptSms.getPayedWhenTime());
+				assertEquals(m.group(7), creditCardReceiptSms.getPayedWhere());
+				assertEquals(m.group(8), creditCardReceiptSms.getPayedMoney());
+				assertEquals(null, creditCardReceiptSms.getPayedCardType());
+				assertEquals(m.group(3), creditCardReceiptSms.getPayedApproveType());
+				assertEquals(m.group(10), creditCardReceiptSms.getPayedLumpSumOrInstallmentPlan());
 			}
 		}
 		assertEquals(1, matchCount);
@@ -139,12 +167,44 @@ public class CreditCardReceiptSmsParsingTest {
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 
+			/*
+				[일시불.승인]
+				186,000원
+				우리BC(3*8*)강대권님
+				04/07 23:17
+				양은냄비
+				
+				[일시불.승인]
+				348,600원
+				농협BC(1*0*)강대권님
+				01/24 16:16
+				(주)테크노에어포트몰
+			 */
 			Pattern p = Pattern
 					.compile("\\[(일시불.승인|[\\d]*개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
 			Matcher m = p.matcher(receiptSms);
 
 			while (m.find()) {
 				matchCount++;
+
+				creditCardReceiptSms = new CreditCardReceiptSms("bc", m);
+
+				// TODO 구분이 모호한 항목 정리
+				/*
+				 * getPayedCardType
+				 * getPayedApproveType
+				 * getPayedLumpSumOrInstallmentPlan
+				 */
+				assertEquals(m.group(6), creditCardReceiptSms.getSenderName());
+				assertEquals(m.group(4), creditCardReceiptSms.getCardCompanyName());
+				assertEquals(m.group(5), creditCardReceiptSms.getCardLastFourNumber());
+				assertEquals(m.group(7), creditCardReceiptSms.getPayedWhenDate());
+				assertEquals(m.group(8), creditCardReceiptSms.getPayedWhenTime());
+				assertEquals(m.group(9), creditCardReceiptSms.getPayedWhere());
+				assertEquals(m.group(2), creditCardReceiptSms.getPayedMoney());
+				assertEquals(null, creditCardReceiptSms.getPayedCardType());
+				assertEquals(null, creditCardReceiptSms.getPayedApproveType());
+				assertEquals(null, creditCardReceiptSms.getPayedLumpSumOrInstallmentPlan());
 			}
 		}
 		assertEquals(4, matchCount);
@@ -156,12 +216,45 @@ public class CreditCardReceiptSmsParsingTest {
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 
+			/*
+				[KB카드]강대권님 카드가 04월12일 SK텔레콤-자동납부에서 13,080원 사용
+				
+				[KB체크]
+				강대권님
+				04월05일12:47
+				광양불고기
+				52,000원 사용
+				
+				[KB카드]
+				강대권님
+				03월27일17:13
+				이마트구로점
+				40,480원 사용
+			 */
 			Pattern p = Pattern
 					.compile("\\[(KB)(카드|체크)\\]\\n(.*님)\\n(\\d{2}월\\d{2}일)(\\d{2}:\\d{2})\\n(.*\\b)\\n([0-9,]*)(원) (사용)");
 			Matcher m = p.matcher(receiptSms);
 
 			while (m.find()) {
 				matchCount++;
+				
+				creditCardReceiptSms = new CreditCardReceiptSms("kb", m);
+
+				// TODO 구분이 모호한 항목 정리
+				/*
+				 * getPayedApproveType
+				 * getPayedLumpSumOrInstallmentPlan
+				 */
+				assertEquals(m.group(3), creditCardReceiptSms.getSenderName());
+				assertEquals(m.group(1), creditCardReceiptSms.getCardCompanyName());
+				assertEquals(null, creditCardReceiptSms.getCardLastFourNumber());
+				assertEquals(m.group(4), creditCardReceiptSms.getPayedWhenDate());
+				assertEquals(m.group(5), creditCardReceiptSms.getPayedWhenTime());
+				assertEquals(m.group(6), creditCardReceiptSms.getPayedWhere());
+				assertEquals(m.group(7), creditCardReceiptSms.getPayedMoney());
+				assertEquals(m.group(2), creditCardReceiptSms.getPayedCardType());
+				assertEquals(null, creditCardReceiptSms.getPayedApproveType());
+				assertEquals(null, creditCardReceiptSms.getPayedLumpSumOrInstallmentPlan());
 			}
 		}
 		assertEquals(2, matchCount);
@@ -173,12 +266,33 @@ public class CreditCardReceiptSmsParsingTest {
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 
+			/*
+				신한카드정상승인강대권님        04/13 13:51     200,570원(일시불) （주）인터파크
+				신한카드승인취소강대권님        04/13 13:57     200,570원(일시불) （주）인터파크
+			 */
 			Pattern p = Pattern
 					.compile("(신한카드)(정상승인|승인취소)(.*님)\\s*(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\s*([0-9,]*)(원)\\((일시불)\\)(.*\\b)");
 			Matcher m = p.matcher(receiptSms);
 
 			while (m.find()) {
 				matchCount++;
+
+				creditCardReceiptSms = new CreditCardReceiptSms("shinhan", m);
+
+				// TODO 구분이 모호한 항목 정리
+				/*
+				 * getPayedCardType
+				 */
+				assertEquals(m.group(3), creditCardReceiptSms.getSenderName());
+				assertEquals(m.group(1), creditCardReceiptSms.getCardCompanyName());
+				assertEquals(null, creditCardReceiptSms.getCardLastFourNumber());
+				assertEquals(m.group(4), creditCardReceiptSms.getPayedWhenDate());
+				assertEquals(m.group(5), creditCardReceiptSms.getPayedWhenTime());
+				assertEquals(m.group(9), creditCardReceiptSms.getPayedWhere());
+				assertEquals(m.group(6), creditCardReceiptSms.getPayedMoney());
+				assertEquals(null, creditCardReceiptSms.getPayedCardType());
+				assertEquals(m.group(2), creditCardReceiptSms.getPayedApproveType());
+				assertEquals(m.group(8), creditCardReceiptSms.getPayedLumpSumOrInstallmentPlan());
 			}
 		}
 
@@ -191,12 +305,33 @@ public class CreditCardReceiptSmsParsingTest {
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 
+			/*
+				[외환카드]강대권님     15,720원 승인 택시(서울)한국스 04/08 01:22
+			 */
 			Pattern p = Pattern
 					.compile("\\[(외환카드)\\](.*님)\\s*([0-9,]*)(원) (승인) (.*\\b) (\\d{2}/\\d{2}) (\\d{2}:\\d{2})");
 			Matcher m = p.matcher(receiptSms);
 
 			while (m.find()) {
 				matchCount++;
+				
+				creditCardReceiptSms = new CreditCardReceiptSms("keb", m);
+
+				// TODO 구분이 모호한 항목 정리
+				/*
+				 * getPayedCardType
+				 * getPayedLumpSumOrInstallmentPlan
+				 */
+				assertEquals(m.group(2), creditCardReceiptSms.getSenderName());
+				assertEquals(m.group(1), creditCardReceiptSms.getCardCompanyName());
+				assertEquals(null, creditCardReceiptSms.getCardLastFourNumber());
+				assertEquals(m.group(7), creditCardReceiptSms.getPayedWhenDate());
+				assertEquals(m.group(8), creditCardReceiptSms.getPayedWhenTime());
+				assertEquals(m.group(6), creditCardReceiptSms.getPayedWhere());
+				assertEquals(m.group(3), creditCardReceiptSms.getPayedMoney());
+				assertEquals(null, creditCardReceiptSms.getPayedCardType());
+				assertEquals(m.group(5), creditCardReceiptSms.getPayedApproveType());
+				assertEquals(null, creditCardReceiptSms.getPayedLumpSumOrInstallmentPlan());
 			}
 		}
 
@@ -209,12 +344,38 @@ public class CreditCardReceiptSmsParsingTest {
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 
+			/*
+				[현대카드C]
+				강대권님
+				12:10
+				2,400원(일시불)
+				정상승인
+				온누리조은약국
+			 */
 			Pattern p = Pattern
 					.compile("\\[(현대카드)(\\w)\\]\\n(.*님)\\n(\\d{2}:\\d{2})\\n([0-9,\\.]*)(원)\\((일시불)\\)\\n(정상승인)\\n(.*\\b)");
 			Matcher m = p.matcher(receiptSms);
 
 			while (m.find()) {
 				matchCount++;
+				
+				creditCardReceiptSms = new CreditCardReceiptSms("hyundai", m);
+
+				// TODO 구분이 모호한 항목 정리
+				/*
+				 * getPayedCardType
+				 * getPayedLumpSumOrInstallmentPlan
+				 */
+				assertEquals(m.group(3), creditCardReceiptSms.getSenderName());
+				assertEquals(m.group(1), creditCardReceiptSms.getCardCompanyName());
+				assertEquals(null, creditCardReceiptSms.getCardLastFourNumber());
+				assertEquals(null, creditCardReceiptSms.getPayedWhenDate());
+				assertEquals(m.group(4), creditCardReceiptSms.getPayedWhenTime());
+				assertEquals(m.group(9), creditCardReceiptSms.getPayedWhere());
+				assertEquals(m.group(5), creditCardReceiptSms.getPayedMoney());
+				assertEquals(m.group(2), creditCardReceiptSms.getPayedCardType());
+				assertEquals(m.group(8), creditCardReceiptSms.getPayedApproveType());
+				assertEquals(m.group(7), creditCardReceiptSms.getPayedLumpSumOrInstallmentPlan());
 			}
 		}
 
@@ -224,34 +385,36 @@ public class CreditCardReceiptSmsParsingTest {
 	@Test
 	// TODO 롯데카드는 할부승인, 신용 승인취소, 체크카드 승인, 승인취소 처리 필요
 	public void testLotteCard() throws Exception {
-		List<String> matchSmsContentList = new ArrayList<String>();
-		List<CreditCardReceiptSms> creditCardReceiptSmsList = new ArrayList<CreditCardReceiptSms>();
-		CreditCardReceiptSms creditCardReceiptSms;
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 
+			/*
+				롯데카드 강대권님 939,900원 일시불 04/17 10:16 이베이옥션                       
+				롯데카드 강대권님 33,800원 일시불 04/21 23:55 (주)이니시스                      
+			 */
 			Pattern p = Pattern.compile("(롯데카드) (.*님) ([0-9,\\.]*)(원) (일시불) (\\d{2}/\\d{2}) (\\d{2}:\\d{2}) (.*\\b)");
 			Matcher m = p.matcher(receiptSms);
 
 			while (m.find()) {
-				matchSmsContentList.add(m.group());
 				matchCount++;
 				
-				// TODO test assertion 구현 작업 필요
-				creditCardReceiptSms = new CreditCardReceiptSms();
+				// TODO 구분이 모호한 항목 정리
+				/*
+				 * getPayedCardType
+				 * getPayedApproveType
+				 */
+				creditCardReceiptSms = new CreditCardReceiptSms("lotte", m);
 				
-				creditCardReceiptSms.setSenderPhoneNumber("01027976877");
-				creditCardReceiptSms.setSenderName(m.group(2));
-				creditCardReceiptSms.setCardCompanyName(m.group(1));
-				creditCardReceiptSms.setPayedWhenDate(m.group(6));
-				creditCardReceiptSms.setPayedWhenTime(m.group(7));
-				creditCardReceiptSms.setPayedWhere(m.group(8));
-				creditCardReceiptSms.setPayedMoney(m.group(3));
-				creditCardReceiptSms.setPayedCardType(m.group(1));
-				creditCardReceiptSms.setPayedApproveType(m.group(1));
-				creditCardReceiptSms.setPayedLumpSumOrInstallmentPlan(m.group(5));
-				
-				System.out.println(creditCardReceiptSms);
+				assertEquals(m.group(2), creditCardReceiptSms.getSenderName());
+				assertEquals(m.group(1), creditCardReceiptSms.getCardCompanyName());
+				assertEquals(null, creditCardReceiptSms.getCardLastFourNumber());
+				assertEquals(m.group(6), creditCardReceiptSms.getPayedWhenDate());
+				assertEquals(m.group(7), creditCardReceiptSms.getPayedWhenTime());
+				assertEquals(m.group(8), creditCardReceiptSms.getPayedWhere());
+				assertEquals(m.group(3), creditCardReceiptSms.getPayedMoney());
+				assertEquals(m.group(1), creditCardReceiptSms.getPayedCardType());
+				assertEquals(m.group(1), creditCardReceiptSms.getPayedApproveType());
+				assertEquals(m.group(5), creditCardReceiptSms.getPayedLumpSumOrInstallmentPlan());
 			}
 		}
 
