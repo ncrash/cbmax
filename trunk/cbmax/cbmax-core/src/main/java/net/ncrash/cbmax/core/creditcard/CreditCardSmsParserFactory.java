@@ -12,6 +12,16 @@ public class CreditCardSmsParserFactory {
 			return new BcCardParser();
 		} else if(("CITY").equals(parserId)) {
 			return new CityCardParser();
+		} else if(("KB").equals(parserId)) {
+			return new KbCardParser();
+		} else if(("SHINHAN").equals(parserId)) {
+			return new ShinhanCardParser();
+		} else if(("KEB").equals(parserId)) {
+			return new KebCardParser();
+		} else if(("HYUNDAI").equals(parserId)) {
+			return new HyundaiCardParser();
+		} else if(("LOTTE").equals(parserId)) {
+			return new LotteCardParser();
 		}
 
 		return null;
