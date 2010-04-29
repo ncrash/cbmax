@@ -15,6 +15,10 @@ public class CreditCardReceiptSms {
 	private String payedApproveType;
 	private String payedLumpSumOrInstallmentPlan;
 
+	public CreditCardReceiptSms() {
+		super();
+	}
+	
 	public CreditCardReceiptSms(String cardType, Matcher m) {
 		super();
 
