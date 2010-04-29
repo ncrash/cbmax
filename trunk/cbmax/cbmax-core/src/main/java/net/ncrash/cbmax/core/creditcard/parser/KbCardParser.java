@@ -1,10 +1,11 @@
-package net.ncrash.cbmax.core.creditcard;
+package net.ncrash.cbmax.core.creditcard.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.ncrash.cbmax.core.creditcard.CreditCardSmsParser;
 import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
 
 /**
@@ -13,22 +14,27 @@ import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
  * @since 2010. 4. 29.
  * @see 
  */
-public class HyundaiCardParser implements CreditCardSmsParser {
+public class KbCardParser implements CreditCardSmsParser {
 
 	public List<CreditCardReceiptSms> receiptSmsParse(String mmsContent) {
 		List<CreditCardReceiptSms> result = new ArrayList<CreditCardReceiptSms>();
 		CreditCardReceiptSms creditCardReceiptSms;
 
 		/*
-			[현대카드C]
+			[KB체크]
 			강대권님
-			12:10
-			2,400원(일시불)
-			정상승인
-			온누리조은약국
+			04월05일12:47
+			광양불고기
+			52,000원 사용
+			
+			[KB카드]
+			강대권님
+			03월27일17:13
+			이마트구로점
+			40,480원 사용
 		 */
 		Pattern p = Pattern
-		.compile("\\[(현대카드)(\\w)\\]\\n(.*님)\\n(\\d{2}:\\d{2})\\n([0-9,\\.]*)(원)\\((일시불)\\)\\n(정상승인)\\n(.*\\b)");
+		.compile("\\[(KB)(카드|체크)\\]\\n(.*님)\\n(\\d{2}월\\d{2}일)(\\d{2}:\\d{2})\\n(.*\\b)\\n([0-9,]*)(원) (사용)");
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
@@ -37,13 +43,13 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 			creditCardReceiptSms.setSenderName(m.group(3));
 			creditCardReceiptSms.setCardCompanyName(m.group(1));
 			creditCardReceiptSms.setCardLastFourNumber(null);
-			creditCardReceiptSms.setPayedWhenDate(null);
-			creditCardReceiptSms.setPayedWhenTime(m.group(4));
-			creditCardReceiptSms.setPayedWhere(m.group(9));
-			creditCardReceiptSms.setPayedMoney(m.group(5));
+			creditCardReceiptSms.setPayedWhenDate(m.group(4));
+			creditCardReceiptSms.setPayedWhenTime(m.group(5));
+			creditCardReceiptSms.setPayedWhere(m.group(6));
+			creditCardReceiptSms.setPayedMoney(m.group(7));
 			creditCardReceiptSms.setPayedCardType(m.group(2));
-			creditCardReceiptSms.setPayedApproveType(m.group(8));
-			creditCardReceiptSms.setPayedLumpSumOrInstallmentPlan(m.group(7));
+			creditCardReceiptSms.setPayedApproveType(null);
+			creditCardReceiptSms.setPayedLumpSumOrInstallmentPlan(null);
 
 			result.add(creditCardReceiptSms);
 		}

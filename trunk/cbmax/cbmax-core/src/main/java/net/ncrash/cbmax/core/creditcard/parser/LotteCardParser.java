@@ -1,10 +1,11 @@
-package net.ncrash.cbmax.core.creditcard;
+package net.ncrash.cbmax.core.creditcard.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.ncrash.cbmax.core.creditcard.CreditCardSmsParser;
 import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
 
 /**
