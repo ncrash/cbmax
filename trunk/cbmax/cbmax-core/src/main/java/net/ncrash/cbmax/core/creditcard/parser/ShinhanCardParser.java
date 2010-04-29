@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.ncrash.cbmax.core.creditcard.CreditCardSmsParser;
+import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
 import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
 
 /**
@@ -46,5 +47,10 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 		}
 
 		return result;
+	}
+
+	public List<CreditCardAutoPaymentSms> autoPaymentSmsParse(String mmsContent) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

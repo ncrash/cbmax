@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.ncrash.cbmax.core.creditcard.CreditCardSmsParser;
+import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
 import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
 
 /**
@@ -52,6 +53,33 @@ public class KbCardParser implements CreditCardSmsParser {
 			creditCardReceiptSms.setPayedLumpSumOrInstallmentPlan(null);
 
 			result.add(creditCardReceiptSms);
+		}
+
+		return result;
+	}
+
+	public List<CreditCardAutoPaymentSms> autoPaymentSmsParse(String mmsContent) {
+		List<CreditCardAutoPaymentSms> result = new ArrayList<CreditCardAutoPaymentSms>();
+		CreditCardAutoPaymentSms creditCardAutoPaymentSms;
+
+		/*
+			[KB카드]강대권님 카드가 03월11일 SK텔레콤-자동납부에서 10,350원 사용
+		 */
+		Pattern p = Pattern
+		.compile("\\[(KB카드)\\](.*님) (카드가) (\\d{2}월\\d{2}일) (.*\\b) ([0-9,\\.]*)(원) (사용)");
+		Matcher m = p.matcher(mmsContent);
+
+		while (m.find()) {
+			creditCardAutoPaymentSms = new CreditCardAutoPaymentSms();
+
+			creditCardAutoPaymentSms.setSenderName(m.group(2));
+			creditCardAutoPaymentSms.setCardCompanyName(m.group(1));
+			creditCardAutoPaymentSms.setCardLastFourNumber(null);
+			creditCardAutoPaymentSms.setPayedWhenDate(m.group(4));
+			creditCardAutoPaymentSms.setPayedWhere(m.group(5));
+			creditCardAutoPaymentSms.setPayedMoney(m.group(6));
+
+			result.add(creditCardAutoPaymentSms);
 		}
 
 		return result;

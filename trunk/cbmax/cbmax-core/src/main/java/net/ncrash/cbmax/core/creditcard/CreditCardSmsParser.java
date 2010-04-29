@@ -2,6 +2,7 @@ package net.ncrash.cbmax.core.creditcard;
 
 import java.util.List;
 
+import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
 import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
 
 /*
@@ -17,4 +18,5 @@ public interface CreditCardSmsParser {
 
 	List<CreditCardReceiptSms> receiptSmsParse(String mmsContent);
 	
+	List<CreditCardAutoPaymentSms> autoPaymentSmsParse(String mmsContent);
 }
