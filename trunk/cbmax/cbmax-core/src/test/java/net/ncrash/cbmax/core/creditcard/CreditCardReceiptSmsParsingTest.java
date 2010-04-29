@@ -134,11 +134,7 @@ public class CreditCardReceiptSmsParsingTest {
 
 		creditCardCompany.setParser(CreditCardSmsParserFactory.getParser("CITY"));
 
-		for (int i = 0; i < receiptSmsList.size(); i++) {
-			String receiptSms = receiptSmsList.get(i);
-
-			matchCount += creditCardCompany.getParser().receiptSmsParse(receiptSms).size();
-		}
+		matchCount += getSize(creditCardCompany.getParser());
 		
 		assertEquals(1, matchCount);
 	}
@@ -148,15 +144,11 @@ public class CreditCardReceiptSmsParsingTest {
 	public void testBcCard() throws Exception {
 		creditCardCompany.setParser(CreditCardSmsParserFactory.getParser("BC"));
 		
-		for (int i = 0; i < receiptSmsList.size(); i++) {
-			String receiptSms = receiptSmsList.get(i);
-			
-			matchCount += creditCardCompany.getParser().receiptSmsParse(receiptSms).size();
-		}
+		matchCount += getSize(creditCardCompany.getParser());
 		
 		assertEquals(4, matchCount);
 	}
-
+	
 //	@Test
 //	// TODO KB카드는 할부승인과 신용체크의 취소 필요
 //	public void testKbCard() throws Exception {
@@ -439,5 +431,15 @@ public class CreditCardReceiptSmsParsingTest {
 		}
 
 		assertEquals("excel파일에 기재한 건수와 parsing건수가 같아야 함", smsMessageCountTotal, matchCount);
+	}
+	
+	public int getSize(CreditCardSmsParser creditCardSmsParser) {
+		for (int i = 0; i < receiptSmsList.size(); i++) {
+			String receiptSms = receiptSmsList.get(i);
+			
+			matchCount += creditCardSmsParser.receiptSmsParse(receiptSms).size();
+		}
+		
+		return matchCount;
 	}
 }
