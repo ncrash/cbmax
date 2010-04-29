@@ -213,7 +213,7 @@ public class CreditCardReceiptSmsParsingTest {
 			for (int j = 0; j < cardCompanyIds.length; j++) {
 				creditCardCompany.setParser(CreditCardSmsParserFactory.getParser(cardCompanyIds[j]));
 				
-				List<CreditCardPaymentSms> parsedSmsList = creditCardCompany.getParser().receiptSmsParse(mmsContent);
+				List<CreditCardPaymentSms> parsedSmsList = creditCardCompany.getParser().paymentSmsParse(mmsContent);
 				if (parsedSmsList != null && parsedSmsList.size() > 0) {
 					matchCount += parsedSmsList.size();
 					smsMessageCountTotal += Integer.parseInt(excelReceiptSmsCount);
@@ -235,7 +235,7 @@ public class CreditCardReceiptSmsParsingTest {
 		for (int i = 0; i < receiptSmsList.size(); i++) {
 			String receiptSms = receiptSmsList.get(i);
 			
-			matchCount += creditCardSmsParser.receiptSmsParse(receiptSms).size();
+			matchCount += creditCardSmsParser.paymentSmsParse(receiptSms).size();
 		}
 		
 		return matchCount;

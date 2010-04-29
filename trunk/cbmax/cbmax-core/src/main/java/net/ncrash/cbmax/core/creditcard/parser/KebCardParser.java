@@ -17,7 +17,7 @@ import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
  */
 public class KebCardParser implements CreditCardSmsParser {
 
-	public List<CreditCardPaymentSms> receiptSmsParse(String mmsContent) {
+	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardReceiptSms;
 

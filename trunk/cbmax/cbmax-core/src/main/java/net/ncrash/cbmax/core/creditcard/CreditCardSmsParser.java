@@ -16,7 +16,7 @@ import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
  */
 public interface CreditCardSmsParser {
 
-	List<CreditCardPaymentSms> receiptSmsParse(String mmsContent);
+	List<CreditCardPaymentSms> paymentSmsParse(String mmsContent);
 	
 	List<CreditCardAutoPaymentSms> autoPaymentSmsParse(String mmsContent);
 }
