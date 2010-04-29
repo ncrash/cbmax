@@ -1,6 +1,6 @@
 package net.ncrash.cbmax.core.dto;
 
-public class CreditCardReceiptSms {
+public class CreditCardPaymentSms {
 	private String senderPhoneNumber;
 	private String senderName;
 	private String cardCompanyName;
@@ -13,7 +13,7 @@ public class CreditCardReceiptSms {
 	private String payedApproveType;
 	private String payedLumpSumOrInstallmentPlan;
 
-	public CreditCardReceiptSms() {
+	public CreditCardPaymentSms() {
 		super();
 	}
 	

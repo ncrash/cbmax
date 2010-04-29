@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import net.ncrash.cbmax.core.creditcard.CreditCardSmsParser;
 import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
-import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
+import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
 
 /**
  * 
@@ -17,9 +17,9 @@ import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
  */
 public class KbCardParser implements CreditCardSmsParser {
 
-	public List<CreditCardReceiptSms> receiptSmsParse(String mmsContent) {
-		List<CreditCardReceiptSms> result = new ArrayList<CreditCardReceiptSms>();
-		CreditCardReceiptSms creditCardReceiptSms;
+	public List<CreditCardPaymentSms> receiptSmsParse(String mmsContent) {
+		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
+		CreditCardPaymentSms creditCardReceiptSms;
 
 		/*
 			[KB체크]
@@ -39,7 +39,7 @@ public class KbCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardReceiptSms = new CreditCardReceiptSms();
+			creditCardReceiptSms = new CreditCardPaymentSms();
 
 			creditCardReceiptSms.setSenderName(m.group(3));
 			creditCardReceiptSms.setCardCompanyName(m.group(1));

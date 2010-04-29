@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 import net.ncrash.cbmax.core.creditcard.CreditCardSmsParser;
 import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
-import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
+import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
 
 /**
  * 
@@ -17,9 +17,9 @@ import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
  */
 public class BcCardParser implements CreditCardSmsParser {
 
-	public List<CreditCardReceiptSms> receiptSmsParse(String mmsContent) {
-		List<CreditCardReceiptSms> result = new ArrayList<CreditCardReceiptSms>();
-		CreditCardReceiptSms creditCardReceiptSms;
+	public List<CreditCardPaymentSms> receiptSmsParse(String mmsContent) {
+		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
+		CreditCardPaymentSms creditCardReceiptSms;
 
 		/*
 			[일시불.승인]
@@ -39,7 +39,7 @@ public class BcCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardReceiptSms = new CreditCardReceiptSms();
+			creditCardReceiptSms = new CreditCardPaymentSms();
 
 			creditCardReceiptSms.setSenderPhoneNumber("01027976877");
 			creditCardReceiptSms.setSenderName(m.group(6));

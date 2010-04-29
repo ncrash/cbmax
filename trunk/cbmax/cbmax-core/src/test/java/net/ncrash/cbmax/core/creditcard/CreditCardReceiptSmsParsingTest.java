@@ -9,7 +9,7 @@ import java.util.List;
 import jxl.Sheet;
 import jxl.Workbook;
 import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
-import net.ncrash.cbmax.core.dto.CreditCardReceiptSms;
+import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -27,7 +27,7 @@ public class CreditCardReceiptSmsParsingTest {
 	int matchCount;
 	
 	CreditCardCompany creditCardCompany;
-	CreditCardReceiptSms creditCardReceiptSms;
+	CreditCardPaymentSms creditCardReceiptSms;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -213,7 +213,7 @@ public class CreditCardReceiptSmsParsingTest {
 			for (int j = 0; j < cardCompanyIds.length; j++) {
 				creditCardCompany.setParser(CreditCardSmsParserFactory.getParser(cardCompanyIds[j]));
 				
-				List<CreditCardReceiptSms> parsedSmsList = creditCardCompany.getParser().receiptSmsParse(mmsContent);
+				List<CreditCardPaymentSms> parsedSmsList = creditCardCompany.getParser().receiptSmsParse(mmsContent);
 				if (parsedSmsList != null && parsedSmsList.size() > 0) {
 					matchCount += parsedSmsList.size();
 					smsMessageCountTotal += Integer.parseInt(excelReceiptSmsCount);
