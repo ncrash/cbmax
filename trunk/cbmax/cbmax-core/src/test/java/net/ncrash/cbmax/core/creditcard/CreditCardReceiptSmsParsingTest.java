@@ -203,7 +203,7 @@ public class CreditCardReceiptSmsParsingTest {
 
 		for (int i = 1; i < sheet.getRows(); i++) {
 			mmsContent = sheet.getCell(1, i).getContents();
-			smsMessageCount = sheet.getCell(3, i).getContents();
+			smsMessageCount = sheet.getCell(4, i).getContents();
 
 			for (int j = 0; j < cardCompanyIds.length; j++) {
 				creditCardCompany.setParser(CreditCardSmsParserFactory.getParser(cardCompanyIds[j]));
