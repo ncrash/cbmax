@@ -36,6 +36,8 @@ public class CreditCardReceiptSmsParsingTest {
 	List<String> receiptSmsList = new ArrayList<String>();
 	StringBuffer sb;
 	int matchCount;
+	
+	CreditCardCompany creditCardCompany;
 	CreditCardReceiptSms creditCardReceiptSms;
 
 	@BeforeClass
@@ -48,6 +50,8 @@ public class CreditCardReceiptSmsParsingTest {
 
 	@Before
 	public void setUp() throws Exception {
+		creditCardCompany = new CreditCardCompany();
+		
 		matchCount = 0;
 
 		receiptSmsList.add("씨티카드 강대권님 승인내역 03월13일 19:47 이마트구로점 40,410원 일시불");
@@ -124,48 +128,24 @@ public class CreditCardReceiptSmsParsingTest {
 	public void tearDown() throws Exception {
 	}
 
-//	@Test
-//	// TODO 씨티카드는 할부개월 및 승인취소 내역 실제 테스트 해야하고 체크카드 작업이 필요
-//	public void testCityCard() throws Exception {
-//
-//		for (int i = 0; i < receiptSmsList.size(); i++) {
-//			String receiptSms = receiptSmsList.get(i);
-//
-//			/*
-//				씨티카드 강대권님 승인내역 03월13일 19:47 이마트구로점 40,410원 일시불
-//			 */
-//			Pattern p = Pattern
-//					.compile("(씨티카드) (.*님) (승인|취소)(내역) (.*월.*일) ([\\d]*:[\\d]*) (.*) ([0-9,]*)(원) (일시불|.*$)");
-//			Matcher m = p.matcher(receiptSms);
-//
-//			while (m.find()) {
-//				matchCount++;
-//
-//				// TODO 구분이 모호한 항목 정리
-//				/*
-//				 * getPayedCardType
-//				 */
-//				creditCardReceiptSms = new CreditCardReceiptSms("city", m);
-//				
-//				assertEquals(m.group(2), creditCardReceiptSms.getSenderName());
-//				assertEquals(m.group(1), creditCardReceiptSms.getCardCompanyName());
-//				assertEquals(null, creditCardReceiptSms.getCardLastFourNumber());
-//				assertEquals(m.group(5), creditCardReceiptSms.getPayedWhenDate());
-//				assertEquals(m.group(6), creditCardReceiptSms.getPayedWhenTime());
-//				assertEquals(m.group(7), creditCardReceiptSms.getPayedWhere());
-//				assertEquals(m.group(8), creditCardReceiptSms.getPayedMoney());
-//				assertEquals(null, creditCardReceiptSms.getPayedCardType());
-//				assertEquals(m.group(3), creditCardReceiptSms.getPayedApproveType());
-//				assertEquals(m.group(10), creditCardReceiptSms.getPayedLumpSumOrInstallmentPlan());
-//			}
-//		}
-//		assertEquals(1, matchCount);
-//	}
-//
+	@Test
+	// TODO 씨티카드는 할부개월 및 승인취소 내역 실제 테스트 해야하고 체크카드 작업이 필요
+	public void testCityCard() throws Exception {
+
+		creditCardCompany.setParser(CreditCardSmsParserFactory.getParser("CITY"));
+
+		for (int i = 0; i < receiptSmsList.size(); i++) {
+			String receiptSms = receiptSmsList.get(i);
+
+			matchCount += creditCardCompany.getParser().receiptSmsParse(receiptSms).size();
+		}
+		
+		assertEquals(1, matchCount);
+	}
 	
 	@Test
+	// TODO 비씨카드 체크카드 발급 필요
 	public void testBcCard() throws Exception {
-		CreditCardCompany creditCardCompany = new CreditCardCompany();
 		creditCardCompany.setParser(CreditCardSmsParserFactory.getParser("BC"));
 		
 		for (int i = 0; i < receiptSmsList.size(); i++) {
@@ -176,55 +156,7 @@ public class CreditCardReceiptSmsParsingTest {
 		
 		assertEquals(4, matchCount);
 	}
-//	@Test
-//	// TODO 비씨카드 체크카드 발급 필요
-//	public void testBcCard() throws Exception {
-//		for (int i = 0; i < receiptSmsList.size(); i++) {
-//			String receiptSms = receiptSmsList.get(i);
-//
-			/*
-				[일시불.승인]
-				186,000원
-				우리BC(3*8*)강대권님
-				04/07 23:17
-				양은냄비
-				
-				[일시불.승인]
-				348,600원
-				농협BC(1*0*)강대권님
-				01/24 16:16
-				(주)테크노에어포트몰
-			 */
-//			Pattern p = Pattern
-//					.compile("\\[(일시불.승인|[\\d]*개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
-//			Matcher m = p.matcher(receiptSms);
-//
-//			while (m.find()) {
-//				matchCount++;
-//
-//				creditCardReceiptSms = new CreditCardReceiptSms("bc", m);
-//
-//				// TODO 구분이 모호한 항목 정리
-//				/*
-//				 * getPayedCardType
-//				 * getPayedApproveType
-//				 * getPayedLumpSumOrInstallmentPlan
-//				 */
-//				assertEquals(m.group(6), creditCardReceiptSms.getSenderName());
-//				assertEquals(m.group(4), creditCardReceiptSms.getCardCompanyName());
-//				assertEquals(m.group(5), creditCardReceiptSms.getCardLastFourNumber());
-//				assertEquals(m.group(7), creditCardReceiptSms.getPayedWhenDate());
-//				assertEquals(m.group(8), creditCardReceiptSms.getPayedWhenTime());
-//				assertEquals(m.group(9), creditCardReceiptSms.getPayedWhere());
-//				assertEquals(m.group(2), creditCardReceiptSms.getPayedMoney());
-//				assertEquals(null, creditCardReceiptSms.getPayedCardType());
-//				assertEquals(null, creditCardReceiptSms.getPayedApproveType());
-//				assertEquals(null, creditCardReceiptSms.getPayedLumpSumOrInstallmentPlan());
-//			}
-//		}
-//		assertEquals(4, matchCount);
-//	}
-//
+
 //	@Test
 //	// TODO KB카드는 할부승인과 신용체크의 취소 필요
 //	public void testKbCard() throws Exception {
@@ -483,8 +415,7 @@ public class CreditCardReceiptSmsParsingTest {
 		String smsMessageCount;
 		int smsMessageCountTotal = 0;
 
-		CreditCardCompany creditCardCompany = new CreditCardCompany();
-		creditCardCompany.setParser(CreditCardSmsParserFactory.getParser("BC"));
+		String[] cardCompanyIds = {"BC", "CITY"};
 
 		testFixtureExcelFile = new File(getClass().getClassLoader().getResource("cbmax-testcase-fixture.xls").getFile());
 
@@ -495,11 +426,15 @@ public class CreditCardReceiptSmsParsingTest {
 			mmsContent = sheet.getCell(1, i).getContents();
 			smsMessageCount = sheet.getCell(3, i).getContents();
 
-			List<CreditCardReceiptSms> parsedSmsList = creditCardCompany.getParser().receiptSmsParse(mmsContent);
-			matchCount += parsedSmsList.size();
-			
-			if (parsedSmsList.size() > 0) {
-				smsMessageCountTotal += Integer.parseInt(smsMessageCount);
+			for (int j = 0; j < cardCompanyIds.length; j++) {
+				creditCardCompany.setParser(CreditCardSmsParserFactory.getParser(cardCompanyIds[j]));
+				
+				List<CreditCardReceiptSms> parsedSmsList = creditCardCompany.getParser().receiptSmsParse(mmsContent);
+				
+				if (parsedSmsList.size() > 0) {
+					matchCount += parsedSmsList.size();
+					smsMessageCountTotal += Integer.parseInt(smsMessageCount);
+				}
 			}
 		}
 

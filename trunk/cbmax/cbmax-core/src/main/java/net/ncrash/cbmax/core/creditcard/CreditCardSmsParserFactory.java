@@ -10,6 +10,8 @@ public class CreditCardSmsParserFactory {
 	public static CreditCardSmsParser getParser(String parserId) {
 		if(("BC").equals(parserId)) {
 			return new BcCardParser();
+		} else if(("CITY").equals(parserId)) {
+			return new CityCardParser();
 		}
 
 		return null;
