@@ -107,7 +107,7 @@ public class CreditCardPaymentSms {
 
 	@Override
 	public String toString() {
-		return "CreditCardReceiptSms [cardCompanyName=" + cardCompanyName
+		return "CreditCardPaymentSms [cardCompanyName=" + cardCompanyName
 				+ ", cardLastFourNumber=" + cardLastFourNumber
 				+ ", payedApproveType=" + payedApproveType + ", payedCardType="
 				+ payedCardType + ", payedLumpSumOrInstallmentPlan="

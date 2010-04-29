@@ -22,12 +22,12 @@ public class CreditCardReceiptSmsParsingTest {
 	Workbook workbook;
 	Sheet sheet;
 
-	List<String> receiptSmsList = new ArrayList<String>();
+	List<String> PaymentSmsList = new ArrayList<String>();
 	StringBuffer sb;
 	int matchCount;
 	
 	CreditCardCompany creditCardCompany;
-	CreditCardPaymentSms creditCardReceiptSms;
+	CreditCardPaymentSms creditCardPaymentSms;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -43,7 +43,7 @@ public class CreditCardReceiptSmsParsingTest {
 		
 		matchCount = 0;
 
-		receiptSmsList.add("씨티카드 강대권님 승인내역 03월13일 19:47 이마트구로점 40,410원 일시불");
+		PaymentSmsList.add("씨티카드 강대권님 승인내역 03월13일 19:47 이마트구로점 40,410원 일시불");
 
 		sb = new StringBuffer();
 		sb.append("[일시불.승인]");
@@ -51,7 +51,7 @@ public class CreditCardReceiptSmsParsingTest {
 		sb.append("\n").append("우리BC(3*8*)강대권님");
 		sb.append("\n").append("04/07 23:17");
 		sb.append("\n").append("양은냄비");
-		receiptSmsList.add(sb.toString());
+		PaymentSmsList.add(sb.toString());
 
 		sb = new StringBuffer();
 		sb.append("[일시불.승인]");
@@ -59,9 +59,9 @@ public class CreditCardReceiptSmsParsingTest {
 		sb.append("\n").append("농협BC(1*0*)강대권님");
 		sb.append("\n").append("01/24 16:16");
 		sb.append("\n").append("(주)테크노에어포트몰");
-		receiptSmsList.add(sb.toString());
+		PaymentSmsList.add(sb.toString());
 
-		receiptSmsList.add("[KB카드]강대권님 카드가 04월12일 SK텔레콤-자동납부에서 13,080원 사용");
+		PaymentSmsList.add("[KB카드]강대권님 카드가 04월12일 SK텔레콤-자동납부에서 13,080원 사용");
 
 		sb = new StringBuffer();
 		sb.append("[KB체크]");
@@ -69,7 +69,7 @@ public class CreditCardReceiptSmsParsingTest {
 		sb.append("\n").append("04월05일12:47");
 		sb.append("\n").append("광양불고기");
 		sb.append("\n").append("52,000원 사용");
-		receiptSmsList.add(sb.toString());
+		PaymentSmsList.add(sb.toString());
 
 		sb = new StringBuffer();
 		sb.append("[KB카드]");
@@ -77,12 +77,12 @@ public class CreditCardReceiptSmsParsingTest {
 		sb.append("\n").append("03월27일17:13");
 		sb.append("\n").append("이마트구로점");
 		sb.append("\n").append("40,480원 사용");
-		receiptSmsList.add(sb.toString());
+		PaymentSmsList.add(sb.toString());
 
-		receiptSmsList.add("신한카드정상승인강대권님        04/13 13:51     200,570원(일시불) （주）인터파크");
-		receiptSmsList.add("신한카드승인취소강대권님        04/13 13:57     200,570원(일시불) （주）인터파크");
+		PaymentSmsList.add("신한카드정상승인강대권님        04/13 13:51     200,570원(일시불) （주）인터파크");
+		PaymentSmsList.add("신한카드승인취소강대권님        04/13 13:57     200,570원(일시불) （주）인터파크");
 
-		receiptSmsList.add("[외환카드]강대권님     15,720원 승인 택시(서울)한국스 04/08 01:22");
+		PaymentSmsList.add("[외환카드]강대권님     15,720원 승인 택시(서울)한국스 04/08 01:22");
 
 		sb = new StringBuffer();
 		sb.append("[현대카드C]");
@@ -91,10 +91,10 @@ public class CreditCardReceiptSmsParsingTest {
 		sb.append("\n").append("2,400원(일시불)");
 		sb.append("\n").append("정상승인");
 		sb.append("\n").append("온누리조은약국");
-		receiptSmsList.add(sb.toString());
+		PaymentSmsList.add(sb.toString());
 
-		receiptSmsList.add("롯데카드 강대권님 939,900원 일시불 04/17 10:16 이베이옥션                       ");
-		receiptSmsList.add("롯데카드 강대권님 33,800원 일시불 04/21 23:55 (주)이니시스                      ");
+		PaymentSmsList.add("롯데카드 강대권님 939,900원 일시불 04/17 10:16 이베이옥션                       ");
+		PaymentSmsList.add("롯데카드 강대권님 33,800원 일시불 04/21 23:55 (주)이니시스                      ");
 
 		sb = new StringBuffer();
 		sb.append("[일시불.승인]");
@@ -102,7 +102,7 @@ public class CreditCardReceiptSmsParsingTest {
 		sb.append("\n").append("우리BC(0*5*)강대권님");
 		sb.append("\n").append("04/24 19:27");
 		sb.append("\n").append("(주)인터파크INT");
-		receiptSmsList.add(sb.toString());
+		PaymentSmsList.add(sb.toString());
 
 		sb = new StringBuffer();
 		sb.append("[승인취소]");
@@ -110,7 +110,7 @@ public class CreditCardReceiptSmsParsingTest {
 		sb.append("\n").append("우리BC(0*5*)강대권님");
 		sb.append("\n").append("04/24 19:28");
 		sb.append("\n").append("(주)인터파크INT");
-		receiptSmsList.add(sb.toString());
+		PaymentSmsList.add(sb.toString());
 	}
 
 	@After
@@ -193,7 +193,7 @@ public class CreditCardReceiptSmsParsingTest {
 	public void testExcelFixtureMmsContentParsing() throws Exception {
 		String mmsContent;
 		int excelTotalCount = 0;
-		String excelReceiptSmsCount;
+		String excelPaymentSmsCount;
 		String excelAutoPaymentSmsCount;
 		int smsMessageCountTotal = 0;
 
@@ -207,7 +207,7 @@ public class CreditCardReceiptSmsParsingTest {
 		for (int i = 1; i < sheet.getRows(); i++) {
 			mmsContent = sheet.getCell(1, i).getContents();
 			excelTotalCount += Integer.parseInt(sheet.getCell(3, i).getContents());
-			excelReceiptSmsCount = sheet.getCell(4, i).getContents();
+			excelPaymentSmsCount = sheet.getCell(4, i).getContents();
 			excelAutoPaymentSmsCount = sheet.getCell(5, i).getContents();
 
 			for (int j = 0; j < cardCompanyIds.length; j++) {
@@ -216,7 +216,7 @@ public class CreditCardReceiptSmsParsingTest {
 				List<CreditCardPaymentSms> parsedSmsList = creditCardCompany.getParser().paymentSmsParse(mmsContent);
 				if (parsedSmsList != null && parsedSmsList.size() > 0) {
 					matchCount += parsedSmsList.size();
-					smsMessageCountTotal += Integer.parseInt(excelReceiptSmsCount);
+					smsMessageCountTotal += Integer.parseInt(excelPaymentSmsCount);
 				}
 				
 				List<CreditCardAutoPaymentSms> parsedAutoPaymentSmsList = creditCardCompany.getParser().autoPaymentSmsParse(mmsContent);
@@ -232,29 +232,29 @@ public class CreditCardReceiptSmsParsingTest {
 	}
 	
 	public int getSize(CreditCardSmsParser creditCardSmsParser) {
-		for (int i = 0; i < receiptSmsList.size(); i++) {
-			String receiptSms = receiptSmsList.get(i);
+		for (int i = 0; i < PaymentSmsList.size(); i++) {
+			String PaymentSms = PaymentSmsList.get(i);
 			
-			matchCount += creditCardSmsParser.paymentSmsParse(receiptSms).size();
+			matchCount += creditCardSmsParser.paymentSmsParse(PaymentSms).size();
 		}
 		
 		return matchCount;
 	}
 	
-//	// receiptSmsList 내용을 정규표현식으로 모두 찾아내는지 확인하는 테스트
+//	// PaymentSmsList 내용을 정규표현식으로 모두 찾아내는지 확인하는 테스트
 //	@Test
 //	public void testCardCompanyReceiptsSmsParser() throws Exception {
-//		List<String> receiptSmsParsers = CreditCardCompany.getReceiptSmsRegexList();
+//		List<String> PaymentSmsParsers = CreditCardCompany.getPaymentSmsRegexList();
 //
-//		for (int i = 0; i < receiptSmsList.size(); i++) {
+//		for (int i = 0; i < PaymentSmsList.size(); i++) {
 //			Boolean isFind = false;
-//			String receiptSms = receiptSmsList.get(i);
+//			String PaymentSms = PaymentSmsList.get(i);
 //
-//			for (int j = 0; j < receiptSmsParsers.size(); j++) {
-//				String receiptSmsParser = receiptSmsParsers.get(j);
+//			for (int j = 0; j < PaymentSmsParsers.size(); j++) {
+//				String PaymentSmsParser = PaymentSmsParsers.get(j);
 //
-//				Pattern p = Pattern.compile(receiptSmsParser);
-//				Matcher m = p.matcher(receiptSms);
+//				Pattern p = Pattern.compile(PaymentSmsParser);
+//				Matcher m = p.matcher(PaymentSms);
 //
 //				while (m.find()) {
 //					matchCount++;
@@ -268,7 +268,7 @@ public class CreditCardReceiptSmsParsingTest {
 //					String automaticWithdrawalSmsParser = automaticWithdrawalSmsParsers.get(j);
 //
 //					Pattern p = Pattern.compile(automaticWithdrawalSmsParser);
-//					Matcher m = p.matcher(receiptSms);
+//					Matcher m = p.matcher(PaymentSms);
 //
 //					while (m.find()) {
 //						matchCount++;
@@ -278,7 +278,7 @@ public class CreditCardReceiptSmsParsingTest {
 //			}
 //		}
 //
-//		assertEquals(receiptSmsList.size(), matchCount);
+//		assertEquals(PaymentSmsList.size(), matchCount);
 //	}
 //
 }

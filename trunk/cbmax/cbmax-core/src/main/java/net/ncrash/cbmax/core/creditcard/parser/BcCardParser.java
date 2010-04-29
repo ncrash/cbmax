@@ -19,7 +19,7 @@ public class BcCardParser implements CreditCardSmsParser {
 
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
-		CreditCardPaymentSms creditCardReceiptSms;
+		CreditCardPaymentSms creditCardPaymentSms;
 
 		/*
 			[일시불.승인]
@@ -39,21 +39,21 @@ public class BcCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardReceiptSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms();
 
-			creditCardReceiptSms.setSenderPhoneNumber("01027976877");
-			creditCardReceiptSms.setSenderName(m.group(6));
-			creditCardReceiptSms.setCardCompanyName(m.group(4));
-			creditCardReceiptSms.setCardLastFourNumber(m.group(5));
-			creditCardReceiptSms.setPayedWhenDate(m.group(7));
-			creditCardReceiptSms.setPayedWhenTime(m.group(8));
-			creditCardReceiptSms.setPayedWhere(m.group(9));
-			creditCardReceiptSms.setPayedMoney(m.group(2));
-			creditCardReceiptSms.setPayedCardType(null);
-			creditCardReceiptSms.setPayedApproveType(null);
-			creditCardReceiptSms.setPayedLumpSumOrInstallmentPlan(null);
+			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
+			creditCardPaymentSms.setSenderName(m.group(6));
+			creditCardPaymentSms.setCardCompanyName(m.group(4));
+			creditCardPaymentSms.setCardLastFourNumber(m.group(5));
+			creditCardPaymentSms.setPayedWhenDate(m.group(7));
+			creditCardPaymentSms.setPayedWhenTime(m.group(8));
+			creditCardPaymentSms.setPayedWhere(m.group(9));
+			creditCardPaymentSms.setPayedMoney(m.group(2));
+			creditCardPaymentSms.setPayedCardType(null);
+			creditCardPaymentSms.setPayedApproveType(null);
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
 
-			result.add(creditCardReceiptSms);
+			result.add(creditCardPaymentSms);
 		}
 
 		return result;

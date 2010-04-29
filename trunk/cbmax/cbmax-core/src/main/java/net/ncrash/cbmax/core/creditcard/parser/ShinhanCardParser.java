@@ -19,7 +19,7 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
-		CreditCardPaymentSms creditCardReceiptSms;
+		CreditCardPaymentSms creditCardPaymentSms;
 
 		/*
 			신한카드정상승인강대권님        04/13 13:51     200,570원(일시불) （주）인터파크
@@ -30,20 +30,20 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardReceiptSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms();
 
-			creditCardReceiptSms.setSenderName(m.group(3));
-			creditCardReceiptSms.setCardCompanyName(m.group(1));
-			creditCardReceiptSms.setCardLastFourNumber(null);
-			creditCardReceiptSms.setPayedWhenDate(m.group(4));
-			creditCardReceiptSms.setPayedWhenTime(m.group(5));
-			creditCardReceiptSms.setPayedWhere(m.group(9));
-			creditCardReceiptSms.setPayedMoney(m.group(6));
-			creditCardReceiptSms.setPayedCardType(null);
-			creditCardReceiptSms.setPayedApproveType(m.group(2));
-			creditCardReceiptSms.setPayedLumpSumOrInstallmentPlan(m.group(8));
+			creditCardPaymentSms.setSenderName(m.group(3));
+			creditCardPaymentSms.setCardCompanyName(m.group(1));
+			creditCardPaymentSms.setCardLastFourNumber(null);
+			creditCardPaymentSms.setPayedWhenDate(m.group(4));
+			creditCardPaymentSms.setPayedWhenTime(m.group(5));
+			creditCardPaymentSms.setPayedWhere(m.group(9));
+			creditCardPaymentSms.setPayedMoney(m.group(6));
+			creditCardPaymentSms.setPayedCardType(null);
+			creditCardPaymentSms.setPayedApproveType(m.group(2));
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(8));
 
-			result.add(creditCardReceiptSms);
+			result.add(creditCardPaymentSms);
 		}
 
 		return result;

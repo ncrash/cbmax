@@ -19,7 +19,7 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
-		CreditCardPaymentSms creditCardReceiptSms;
+		CreditCardPaymentSms creditCardPaymentSms;
 
 		/*
 			[현대카드C]
@@ -34,20 +34,20 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardReceiptSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms();
 
-			creditCardReceiptSms.setSenderName(m.group(3));
-			creditCardReceiptSms.setCardCompanyName(m.group(1));
-			creditCardReceiptSms.setCardLastFourNumber(null);
-			creditCardReceiptSms.setPayedWhenDate(null);
-			creditCardReceiptSms.setPayedWhenTime(m.group(4));
-			creditCardReceiptSms.setPayedWhere(m.group(9));
-			creditCardReceiptSms.setPayedMoney(m.group(5));
-			creditCardReceiptSms.setPayedCardType(m.group(2));
-			creditCardReceiptSms.setPayedApproveType(m.group(8));
-			creditCardReceiptSms.setPayedLumpSumOrInstallmentPlan(m.group(7));
+			creditCardPaymentSms.setSenderName(m.group(3));
+			creditCardPaymentSms.setCardCompanyName(m.group(1));
+			creditCardPaymentSms.setCardLastFourNumber(null);
+			creditCardPaymentSms.setPayedWhenDate(null);
+			creditCardPaymentSms.setPayedWhenTime(m.group(4));
+			creditCardPaymentSms.setPayedWhere(m.group(9));
+			creditCardPaymentSms.setPayedMoney(m.group(5));
+			creditCardPaymentSms.setPayedCardType(m.group(2));
+			creditCardPaymentSms.setPayedApproveType(m.group(8));
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(7));
 
-			result.add(creditCardReceiptSms);
+			result.add(creditCardPaymentSms);
 		}
 
 		return result;

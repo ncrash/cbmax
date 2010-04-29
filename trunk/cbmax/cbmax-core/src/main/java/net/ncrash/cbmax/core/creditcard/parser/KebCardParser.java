@@ -19,7 +19,7 @@ public class KebCardParser implements CreditCardSmsParser {
 
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
-		CreditCardPaymentSms creditCardReceiptSms;
+		CreditCardPaymentSms creditCardPaymentSms;
 
 		/*
 			[외환카드]강대권님     15,720원 승인 택시(서울)한국스 04/08 01:22
@@ -29,20 +29,20 @@ public class KebCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardReceiptSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms();
 
-			creditCardReceiptSms.setSenderName(m.group(2));
-			creditCardReceiptSms.setCardCompanyName(m.group(1));
-			creditCardReceiptSms.setCardLastFourNumber(null);
-			creditCardReceiptSms.setPayedWhenDate(m.group(7));
-			creditCardReceiptSms.setPayedWhenTime(m.group(8));
-			creditCardReceiptSms.setPayedWhere(m.group(6));
-			creditCardReceiptSms.setPayedMoney(m.group(3));
-			creditCardReceiptSms.setPayedCardType(null);
-			creditCardReceiptSms.setPayedApproveType(m.group(5));
-			creditCardReceiptSms.setPayedLumpSumOrInstallmentPlan(null);
+			creditCardPaymentSms.setSenderName(m.group(2));
+			creditCardPaymentSms.setCardCompanyName(m.group(1));
+			creditCardPaymentSms.setCardLastFourNumber(null);
+			creditCardPaymentSms.setPayedWhenDate(m.group(7));
+			creditCardPaymentSms.setPayedWhenTime(m.group(8));
+			creditCardPaymentSms.setPayedWhere(m.group(6));
+			creditCardPaymentSms.setPayedMoney(m.group(3));
+			creditCardPaymentSms.setPayedCardType(null);
+			creditCardPaymentSms.setPayedApproveType(m.group(5));
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
 
-			result.add(creditCardReceiptSms);
+			result.add(creditCardPaymentSms);
 		}
 
 		return result;

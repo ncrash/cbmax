@@ -19,7 +19,7 @@ public class LotteCardParser implements CreditCardSmsParser {
 
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
-		CreditCardPaymentSms creditCardReceiptSms;
+		CreditCardPaymentSms creditCardPaymentSms;
 
 		/*
 			롯데카드 강대권님 939,900원 일시불 04/17 10:16 이베이옥션                       
@@ -30,20 +30,20 @@ public class LotteCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardReceiptSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms();
 
-			creditCardReceiptSms.setSenderName(m.group(2));
-			creditCardReceiptSms.setCardCompanyName(m.group(1));
-			creditCardReceiptSms.setCardLastFourNumber(null);
-			creditCardReceiptSms.setPayedWhenDate(m.group(6));
-			creditCardReceiptSms.setPayedWhenTime(m.group(7));
-			creditCardReceiptSms.setPayedWhere(m.group(8));
-			creditCardReceiptSms.setPayedMoney(m.group(3));
-			creditCardReceiptSms.setPayedCardType(m.group(1));
-			creditCardReceiptSms.setPayedApproveType(m.group(1));
-			creditCardReceiptSms.setPayedLumpSumOrInstallmentPlan(m.group(5));
+			creditCardPaymentSms.setSenderName(m.group(2));
+			creditCardPaymentSms.setCardCompanyName(m.group(1));
+			creditCardPaymentSms.setCardLastFourNumber(null);
+			creditCardPaymentSms.setPayedWhenDate(m.group(6));
+			creditCardPaymentSms.setPayedWhenTime(m.group(7));
+			creditCardPaymentSms.setPayedWhere(m.group(8));
+			creditCardPaymentSms.setPayedMoney(m.group(3));
+			creditCardPaymentSms.setPayedCardType(m.group(1));
+			creditCardPaymentSms.setPayedApproveType(m.group(1));
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(5));
 
-			result.add(creditCardReceiptSms);
+			result.add(creditCardPaymentSms);
 		}
 
 		return result;
