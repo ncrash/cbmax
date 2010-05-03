@@ -71,7 +71,6 @@ public class SamsungCardParser implements CreditCardSmsParser {
 				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
 			}
 
-			System.out.println(creditCardPaymentSms);
 			result.add(creditCardPaymentSms);
 		}
 
