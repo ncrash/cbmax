@@ -27,7 +27,7 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 			신한카드승인취소강대권님        04/13 13:57     200,570원(일시불) （주）인터파크
 		 */
 		Pattern p = Pattern
-		.compile("(신한카드)(정상승인|승인취소)(.*님)\\s*(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\s*([0-9,]*)(원)\\((일시불)\\)(.*\\b)");
+				.compile("(신한카드)(정상승인|승인취소)(.*님)\\s*(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\s*([0-9,]*)(원)\\((일시불)\\)(.*\\b)");
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
@@ -55,9 +55,33 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 		return null;
 	}
 
-	public List<CreditCardMonthlyPaymentsSms> monthlyPaymentsSmsParse(
-			String mmsContent) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CreditCardMonthlyPaymentsSms> monthlyPaymentsSmsParse(String mmsContent) {
+		List<CreditCardMonthlyPaymentsSms> result = new ArrayList<CreditCardMonthlyPaymentsSms>();
+		CreditCardMonthlyPaymentsSms creditCardMonthlyPaymentsSms;
+
+		/*
+			［신한카드］ 강대권님 04/01결제금액(03/28기준) 26,555원(결제:우리은행)
+		 */
+		Pattern p = Pattern.compile("［(신한카드)］\\s*(.*님)\\s(\\d{2}/\\d{2})결제금액\\((\\d{2}/\\d{2})기준\\)\\s*([0-9,]*)(원)\\(결제:(.*)\\)");
+		Matcher m = p.matcher(mmsContent);
+
+		while (m.find()) {
+			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms();
+
+			creditCardMonthlyPaymentsSms.setSenderPhoneNumber("01027976877");
+			creditCardMonthlyPaymentsSms.setSenderName(m.group(2));
+			creditCardMonthlyPaymentsSms.setCardCompanyName(m.group(1));
+			creditCardMonthlyPaymentsSms.setCardLastFourNumber(null);
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsDate(m.group(3));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsMoney(m.group(5));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsCheckDate(m.group(4));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsBankName(m.group(7));
+			creditCardMonthlyPaymentsSms.setRemainedCardPoint(null);
+			creditCardMonthlyPaymentsSms.setRemainedCardPointCheckDate(null);
+
+			result.add(creditCardMonthlyPaymentsSms);
+		}
+
+		return result;
 	}
 }
