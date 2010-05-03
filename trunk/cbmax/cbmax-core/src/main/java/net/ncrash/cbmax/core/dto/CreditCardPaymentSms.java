@@ -1,5 +1,12 @@
 package net.ncrash.cbmax.core.dto;
 
+/**
+ * 신용카드 사용내역 dto
+ * 
+ * @author daekwon.kang
+ * @since 2010. 4. 29.
+ * @see
+ */
 public class CreditCardPaymentSms {
 	private String senderPhoneNumber;
 	private String senderName;

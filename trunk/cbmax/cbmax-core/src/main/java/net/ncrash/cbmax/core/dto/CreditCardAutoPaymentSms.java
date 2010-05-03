@@ -1,6 +1,7 @@
 package net.ncrash.cbmax.core.dto;
 
 /**
+ * 신용카드 자동납부내역 dto
  * 
  * @author daekwon.kang
  * @since 2010. 4. 29.
