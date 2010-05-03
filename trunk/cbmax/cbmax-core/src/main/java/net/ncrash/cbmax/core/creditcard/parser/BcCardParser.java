@@ -56,6 +56,37 @@ public class BcCardParser implements CreditCardSmsParser {
 
 			result.add(creditCardPaymentSms);
 		}
+		
+		//TODO 최근에 변경된 bc카드 사용내역 문자 및 현금서비스 알림 문자
+		/*
+			[현금서비스.승인]
+			10,000원
+			농협BC(1*0*)강대권님
+			12/24 18:56
+			현금서비스
+			우리BC강대권님 05/01 22:23 13,900원.일시불.11TOP적립예정.G마켓
+		 */
+//		p = Pattern
+//		.compile("\\[(일시불.승인|[\\d]*개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
+//		m = p.matcher(mmsContent);
+//		
+//		while (m.find()) {
+//			creditCardPaymentSms = new CreditCardPaymentSms();
+//			
+//			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
+//			creditCardPaymentSms.setSenderName(m.group(6));
+//			creditCardPaymentSms.setCardCompanyName(m.group(4));
+//			creditCardPaymentSms.setCardLastFourNumber(m.group(5));
+//			creditCardPaymentSms.setPayedWhenDate(m.group(7));
+//			creditCardPaymentSms.setPayedWhenTime(m.group(8));
+//			creditCardPaymentSms.setPayedWhere(m.group(9));
+//			creditCardPaymentSms.setPayedMoney(m.group(2));
+//			creditCardPaymentSms.setPayedCardType(null);
+//			creditCardPaymentSms.setPayedApproveType(null);
+//			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
+//			
+//			result.add(creditCardPaymentSms);
+//		}
 
 		return result;
 	}
@@ -106,6 +137,7 @@ public class BcCardParser implements CreditCardSmsParser {
 			creditCardMonthlyPaymentsSms.setMonthlyPaymentsDate(m.group(3));
 			creditCardMonthlyPaymentsSms.setMonthlyPaymentsMoney(m.group(4));
 			creditCardMonthlyPaymentsSms.setMonthlyPaymentsCheckDate(m.group(6));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsBankName(null);
 			creditCardMonthlyPaymentsSms.setRemainedCardPoint(null);
 			creditCardMonthlyPaymentsSms.setRemainedCardPointCheckDate(null);
 
@@ -129,6 +161,7 @@ public class BcCardParser implements CreditCardSmsParser {
 			creditCardMonthlyPaymentsSms.setMonthlyPaymentsDate(m.group(3));
 			creditCardMonthlyPaymentsSms.setMonthlyPaymentsMoney(m.group(4));
 			creditCardMonthlyPaymentsSms.setMonthlyPaymentsCheckDate(m.group(6));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsBankName(null);
 			creditCardMonthlyPaymentsSms.setRemainedCardPoint(m.group(8));
 			creditCardMonthlyPaymentsSms.setRemainedCardPointCheckDate(m.group(9));
 			

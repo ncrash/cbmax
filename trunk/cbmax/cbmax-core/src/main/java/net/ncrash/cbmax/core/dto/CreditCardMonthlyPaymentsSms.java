@@ -15,11 +15,20 @@ public class CreditCardMonthlyPaymentsSms {
 	private String monthlyPaymentsDate;
 	private String monthlyPaymentsMoney;
 	private String monthlyPaymentsCheckDate;
+	private String monthlyPaymentsBankName;
 	private String remainedCardPoint;
 	private String remainedCardPointCheckDate;
 
 	public CreditCardMonthlyPaymentsSms() {
 		super();
+	}
+
+	public String getMonthlyPaymentsBankName() {
+		return monthlyPaymentsBankName;
+	}
+
+	public void setMonthlyPaymentsBankName(String monthlyPaymentsBankName) {
+		this.monthlyPaymentsBankName = monthlyPaymentsBankName;
 	}
 
 	public String getSenderPhoneNumber() {
@@ -96,14 +105,11 @@ public class CreditCardMonthlyPaymentsSms {
 
 	@Override
 	public String toString() {
-		return "CreditCardMonthlyPaymentsSms [cardCompanyName="
-				+ cardCompanyName + ", cardLastFourNumber="
-				+ cardLastFourNumber + ", monthlyPaymentsCheckDate="
-				+ monthlyPaymentsCheckDate + ", monthlyPaymentsDate="
-				+ monthlyPaymentsDate + ", monthlyPaymentsMoney="
-				+ monthlyPaymentsMoney + ", remainedCardPoint="
-				+ remainedCardPoint + ", remainedCardPointCheckDate="
-				+ remainedCardPointCheckDate + ", senderName=" + senderName
-				+ ", senderPhoneNumber=" + senderPhoneNumber + "]";
+		return "CreditCardMonthlyPaymentsSms [cardCompanyName=" + cardCompanyName + ", cardLastFourNumber="
+				+ cardLastFourNumber + ", monthlyPaymentsBankName=" + monthlyPaymentsBankName
+				+ ", monthlyPaymentsCheckDate=" + monthlyPaymentsCheckDate + ", monthlyPaymentsDate="
+				+ monthlyPaymentsDate + ", monthlyPaymentsMoney=" + monthlyPaymentsMoney + ", remainedCardPoint="
+				+ remainedCardPoint + ", remainedCardPointCheckDate=" + remainedCardPointCheckDate + ", senderName="
+				+ senderName + ", senderPhoneNumber=" + senderPhoneNumber + "]";
 	}
 }
