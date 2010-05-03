@@ -1,10 +1,13 @@
 package net.ncrash.cbmax.core.creditcard;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -197,7 +200,7 @@ public class CreditCardSmsParserTest {
 		String excelAutoPaymentSmsCount;
 		int smsMessageCountTotal = 0;
 
-		String[] cardCompanyIds = {"BC", "CITY", "KB", "SHINHAN", "KEB", "HYUNDAI", "LOTTE"};
+		String[] cardCompanyIds = {"BC", "CITY", "KB", "SHINHAN", "KEB", "HYUNDAI", "LOTTE", "SAMSUNG"};
 
 		testFixtureExcelFile = new File(getClass().getClassLoader().getResource("cbmax-testcase-fixture.xls").getFile());
 
@@ -228,7 +231,7 @@ public class CreditCardSmsParserTest {
 		}
 
 		assertEquals("excel파일에 기재한 건수와 parsing건수가 같아야 함", smsMessageCountTotal, matchCount);
-		assertEquals("excel파일에 기재 total_sms_count와 parsing된 count가 동일 해야함", excelTotalCount, matchCount);
+		assertEquals((excelTotalCount - matchCount) + "건 차이로 total_sms_count와 parsing된 count가 동일 해야함", excelTotalCount, matchCount);
 	}
 	
 	public int getSize(CreditCardSmsParser creditCardSmsParser) {

@@ -6,6 +6,7 @@ import net.ncrash.cbmax.core.creditcard.parser.HyundaiCardParser;
 import net.ncrash.cbmax.core.creditcard.parser.KbCardParser;
 import net.ncrash.cbmax.core.creditcard.parser.KebCardParser;
 import net.ncrash.cbmax.core.creditcard.parser.LotteCardParser;
+import net.ncrash.cbmax.core.creditcard.parser.SamsungCardParser;
 import net.ncrash.cbmax.core.creditcard.parser.ShinhanCardParser;
 
 /**
@@ -30,6 +31,8 @@ public class CreditCardSmsParserFactory {
 			return new HyundaiCardParser();
 		} else if(("LOTTE").equals(parserId)) {
 			return new LotteCardParser();
+		} else if(("SAMSUNG").equals(parserId)) {
+			return new SamsungCardParser();
 		}
 
 		return null;
