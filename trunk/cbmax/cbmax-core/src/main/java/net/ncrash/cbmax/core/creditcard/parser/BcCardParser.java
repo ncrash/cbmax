@@ -66,6 +66,7 @@ public class BcCardParser implements CreditCardSmsParser {
 			현금서비스
 			우리BC강대권님 05/01 22:23 13,900원.일시불.11TOP적립예정.G마켓
 		 */
+		//TODO G마켓처럼 TOP포인트 적립해주는 가맹점일때 할부처리에 필요한 문자도 필요함
 //		p = Pattern
 //		.compile("\\[(일시불.승인|[\\d]*개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
 //		m = p.matcher(mmsContent);
