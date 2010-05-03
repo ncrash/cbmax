@@ -85,4 +85,10 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public List<CreditCardAutoPaymentSms> monthlyPaymentsSmsParse(
+			String mmsContent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -84,4 +84,10 @@ public class KbCardParser implements CreditCardSmsParser {
 
 		return result;
 	}
+
+	public List<CreditCardAutoPaymentSms> monthlyPaymentsSmsParse(
+			String mmsContent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

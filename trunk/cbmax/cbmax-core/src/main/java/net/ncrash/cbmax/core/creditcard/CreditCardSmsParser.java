@@ -19,4 +19,6 @@ public interface CreditCardSmsParser {
 	List<CreditCardPaymentSms> paymentSmsParse(String mmsContent);
 	
 	List<CreditCardAutoPaymentSms> autoPaymentSmsParse(String mmsContent);
+	
+	List<CreditCardAutoPaymentSms> monthlyPaymentsSmsParse(String mmsContent);
 }
