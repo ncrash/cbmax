@@ -233,6 +233,13 @@ public class CreditCardSmsParserTest {
 					matchCount += parsedMonthlyPaymentsSmsList.size();
 					smsMessageCountTotal += Integer.parseInt(excelMonthlyPaymentsSmsCount);
 				}
+				
+				//TODO 현금서비스를 위한 test 수치조사 구문 완성하기 
+//				List<CreditCardMonthlyPaymentsSms> parsedMonthlyPaymentsSmsList = creditCardCompany.getParser().monthlyPaymentsSmsParse(mmsContent);
+//				if (parsedMonthlyPaymentsSmsList != null && parsedMonthlyPaymentsSmsList.size() > 0) {
+//					matchCount += parsedMonthlyPaymentsSmsList.size();
+//					smsMessageCountTotal += Integer.parseInt(excelMonthlyPaymentsSmsCount);
+//				}
 			}
 		}
 

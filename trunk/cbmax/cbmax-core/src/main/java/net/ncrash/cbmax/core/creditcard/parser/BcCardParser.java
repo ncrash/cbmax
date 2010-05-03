@@ -176,8 +176,35 @@ public class BcCardParser implements CreditCardSmsParser {
 	}
 
 	public List<CreditCardCashServicesSms> cashServiceSmsParse(String mmsContent) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CreditCardCashServicesSms> result = new ArrayList<CreditCardCashServicesSms>();
+		CreditCardCashServicesSms creditCardCashServicesSms;
+
+		/*
+			[현금서비스.승인]
+			10,000원
+			농협BC(1*0*)강대권님
+			12/24 18:56
+			현금서비스
+		 */
+		Pattern p = Pattern
+				.compile("\\[(현금서비스.승인||승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
+		Matcher m = p.matcher(mmsContent);
+
+		while (m.find()) {
+			creditCardCashServicesSms = new CreditCardCashServicesSms();
+
+			creditCardCashServicesSms.setSenderPhoneNumber("01027976877");
+			creditCardCashServicesSms.setSenderName(m.group(6));
+			creditCardCashServicesSms.setCardCompanyName(m.group(4));
+			creditCardCashServicesSms.setCardLastFourNumber(m.group(5));
+			creditCardCashServicesSms.setServiceWhenDate(m.group(7));
+			creditCardCashServicesSms.setServiceWhenTime(m.group(8));
+			creditCardCashServicesSms.setServiceMoney(m.group(2));
+
+			result.add(creditCardCashServicesSms);
+		}
+		
+		return result;
 	}
 
 	public List<CreditCardNotificationSms> notificationSmsParse(String mmsContent) {
