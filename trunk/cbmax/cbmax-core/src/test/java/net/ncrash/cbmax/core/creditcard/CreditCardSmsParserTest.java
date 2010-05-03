@@ -1,13 +1,10 @@
 package net.ncrash.cbmax.core.creditcard;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import jxl.Sheet;
 import jxl.Workbook;
