@@ -9,6 +9,7 @@ import java.util.List;
 import jxl.Sheet;
 import jxl.Workbook;
 import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
+import net.ncrash.cbmax.core.dto.CreditCardMonthlyPaymentsSms;
 import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
 
 import org.junit.After;
@@ -195,6 +196,7 @@ public class CreditCardSmsParserTest {
 		int excelTotalCount = 0;
 		String excelPaymentSmsCount;
 		String excelAutoPaymentSmsCount;
+		String excelMonthlyPaymentsSmsCount;
 		int smsMessageCountTotal = 0;
 
 		String[] cardCompanyIds = {"BC", "CITY", "KB", "SHINHAN", "KEB", "HYUNDAI", "LOTTE", "SAMSUNG"};
@@ -209,6 +211,7 @@ public class CreditCardSmsParserTest {
 			excelTotalCount += Integer.parseInt(sheet.getCell(3, i).getContents());
 			excelPaymentSmsCount = sheet.getCell(4, i).getContents();
 			excelAutoPaymentSmsCount = sheet.getCell(5, i).getContents();
+			excelMonthlyPaymentsSmsCount = sheet.getCell(6, i).getContents();
 
 			for (int j = 0; j < cardCompanyIds.length; j++) {
 				creditCardCompany.setParser(CreditCardSmsParserFactory.getParser(cardCompanyIds[j]));
@@ -223,6 +226,12 @@ public class CreditCardSmsParserTest {
 				if (parsedAutoPaymentSmsList != null && parsedAutoPaymentSmsList.size() > 0) {
 					matchCount += parsedAutoPaymentSmsList.size();
 					smsMessageCountTotal += Integer.parseInt(excelAutoPaymentSmsCount);
+				}
+				
+				List<CreditCardMonthlyPaymentsSms> parsedMonthlyPaymentsSmsList = creditCardCompany.getParser().monthlyPaymentsSmsParse(mmsContent);
+				if (parsedMonthlyPaymentsSmsList != null && parsedMonthlyPaymentsSmsList.size() > 0) {
+					matchCount += parsedMonthlyPaymentsSmsList.size();
+					smsMessageCountTotal += Integer.parseInt(excelMonthlyPaymentsSmsCount);
 				}
 			}
 		}

@@ -1,10 +1,10 @@
 package net.ncrash.cbmax.core.dto;
 
 /**
- * 신용카드 자동납부내역 dto
+ * 신용카드 월결제액 dto
  * 
  * @author daekwon.kang
- * @since 2010. 4. 29.
+ * @since 2010. 5. 3.
  * @see
  */
 public class CreditCardMonthlyPaymentsSms {
@@ -12,9 +12,11 @@ public class CreditCardMonthlyPaymentsSms {
 	private String senderName;
 	private String cardCompanyName;
 	private String cardLastFourNumber;
-	private String payedWhenDate;
-	private String payedWhere;
-	private String payedMoney;
+	private String monthlyPaymentsDate;
+	private String monthlyPaymentsMoney;
+	private String monthlyPaymentsCheckDate;
+	private String remainedCardPoint;
+	private String remainedCardPointCheckDate;
 
 	public CreditCardMonthlyPaymentsSms() {
 		super();
@@ -52,37 +54,56 @@ public class CreditCardMonthlyPaymentsSms {
 		this.cardLastFourNumber = cardLastFourNumber;
 	}
 
-	public String getPayedWhenDate() {
-		return payedWhenDate;
+	public String getMonthlyPaymentsDate() {
+		return monthlyPaymentsDate;
 	}
 
-	public void setPayedWhenDate(String payedWhenDate) {
-		this.payedWhenDate = payedWhenDate;
+	public void setMonthlyPaymentsDate(String monthlyPaymentsDate) {
+		this.monthlyPaymentsDate = monthlyPaymentsDate;
 	}
 
-	public String getPayedWhere() {
-		return payedWhere;
+	public String getMonthlyPaymentsMoney() {
+		return monthlyPaymentsMoney;
 	}
 
-	public void setPayedWhere(String payedWhere) {
-		this.payedWhere = payedWhere;
+	public void setMonthlyPaymentsMoney(String monthlyPaymentsMoney) {
+		this.monthlyPaymentsMoney = monthlyPaymentsMoney;
 	}
 
-	public String getPayedMoney() {
-		return payedMoney;
+	public String getMonthlyPaymentsCheckDate() {
+		return monthlyPaymentsCheckDate;
 	}
 
-	public void setPayedMoney(String payedMoney) {
-		this.payedMoney = payedMoney;
+	public void setMonthlyPaymentsCheckDate(String monthlyPaymentsCheckDate) {
+		this.monthlyPaymentsCheckDate = monthlyPaymentsCheckDate;
+	}
+
+	public String getRemainedCardPoint() {
+		return remainedCardPoint;
+	}
+
+	public void setRemainedCardPoint(String remainedCardPoint) {
+		this.remainedCardPoint = remainedCardPoint;
+	}
+
+	public String getRemainedCardPointCheckDate() {
+		return remainedCardPointCheckDate;
+	}
+
+	public void setRemainedCardPointCheckDate(String remainedCardPointCheckDate) {
+		this.remainedCardPointCheckDate = remainedCardPointCheckDate;
 	}
 
 	@Override
 	public String toString() {
-		return "CreditCardAutoPaymentSms [cardCompanyName=" + cardCompanyName
-				+ ", cardLastFourNumber=" + cardLastFourNumber
-				+ ", payedMoney=" + payedMoney + ", payedWhenDate="
-				+ payedWhenDate + ", payedWhere=" + payedWhere
-				+ ", senderName=" + senderName + ", senderPhoneNumber="
-				+ senderPhoneNumber + "]";
+		return "CreditCardMonthlyPaymentsSms [cardCompanyName="
+				+ cardCompanyName + ", cardLastFourNumber="
+				+ cardLastFourNumber + ", monthlyPaymentsCheckDate="
+				+ monthlyPaymentsCheckDate + ", monthlyPaymentsDate="
+				+ monthlyPaymentsDate + ", monthlyPaymentsMoney="
+				+ monthlyPaymentsMoney + ", remainedCardPoint="
+				+ remainedCardPoint + ", remainedCardPointCheckDate="
+				+ remainedCardPointCheckDate + ", senderName=" + senderName
+				+ ", senderPhoneNumber=" + senderPhoneNumber + "]";
 	}
 }

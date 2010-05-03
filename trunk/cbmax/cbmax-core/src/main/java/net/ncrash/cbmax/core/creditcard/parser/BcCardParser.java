@@ -67,7 +67,74 @@ public class BcCardParser implements CreditCardSmsParser {
 
 	public List<CreditCardMonthlyPaymentsSms> monthlyPaymentsSmsParse(
 			String mmsContent) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CreditCardMonthlyPaymentsSms> result = new ArrayList<CreditCardMonthlyPaymentsSms>();
+		CreditCardMonthlyPaymentsSms creditCardMonthlyPaymentsSms;
+
+		/*
+			우리BC 강대권님
+			1/1일 결제금액
+			175,343원
+			(12/16일 기준)
+			농협BC 강대권님
+			2/1일 결제금액
+			38,774원
+			(01/19일 기준)
+			우리BC 강대권님
+			2/1일 결제금액
+			226,761원
+			(01/16일 기준)
+			우리BC 강대권님
+			3/1일 결제금액
+			153,253원
+			(02/16일 기준)
+			농협BC 강대권님
+			3/1일 결제금액
+			379,300원
+			(02/19일 기준)
+		 */
+		Pattern p = Pattern
+				.compile("(.*BC) (.*님)\\n(\\d*\\/\\d*일) 결제금액\\n([0-9,]*)(원)\\n\\((\\d{2}/\\d{2}일) 기준\\)");
+		Matcher m = p.matcher(mmsContent);
+
+		while (m.find()) {
+			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms();
+
+			creditCardMonthlyPaymentsSms.setSenderPhoneNumber("01027976877");
+			creditCardMonthlyPaymentsSms.setSenderName(m.group(2));
+			creditCardMonthlyPaymentsSms.setCardCompanyName(m.group(1));
+			creditCardMonthlyPaymentsSms.setCardLastFourNumber(null);
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsDate(m.group(3));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsMoney(m.group(4));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsCheckDate(m.group(6));
+			creditCardMonthlyPaymentsSms.setRemainedCardPoint(null);
+			creditCardMonthlyPaymentsSms.setRemainedCardPointCheckDate(null);
+
+			result.add(creditCardMonthlyPaymentsSms);
+		}
+		
+		/*
+			우리BC강대권님4/1일결제금액300,401원(03/16기준)잔여TOP431(03/24기준)
+		 */
+		p = Pattern
+		.compile("(.*BC)(.*님)(\\d*\\/\\d*일)결제금액([0-9,]*)(원)\\((\\d{2}/\\d{2})기준\\)(잔여TOP)([0-9,.]*)\\((\\d{2}/\\d{2})기준\\)");
+		m = p.matcher(mmsContent);
+		
+		while (m.find()) {
+			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms();
+			
+			creditCardMonthlyPaymentsSms.setSenderPhoneNumber("01027976877");
+			creditCardMonthlyPaymentsSms.setSenderName(m.group(2));
+			creditCardMonthlyPaymentsSms.setCardCompanyName(m.group(1));
+			creditCardMonthlyPaymentsSms.setCardLastFourNumber(null);
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsDate(m.group(3));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsMoney(m.group(4));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsCheckDate(m.group(6));
+			creditCardMonthlyPaymentsSms.setRemainedCardPoint(m.group(8));
+			creditCardMonthlyPaymentsSms.setRemainedCardPointCheckDate(m.group(9));
+			
+			result.add(creditCardMonthlyPaymentsSms);
+		}
+
+		return result;
 	}
 }
