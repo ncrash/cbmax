@@ -7,8 +7,11 @@ import java.util.regex.Pattern;
 
 import net.ncrash.cbmax.core.creditcard.CreditCardSmsParser;
 import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
+import net.ncrash.cbmax.core.dto.CreditCardCashServicesSms;
 import net.ncrash.cbmax.core.dto.CreditCardMonthlyPaymentsSms;
+import net.ncrash.cbmax.core.dto.CreditCardNotificationSms;
 import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
+import net.ncrash.cbmax.core.dto.CreditCardUnmanagedSms;
 
 /**
  * 
@@ -57,6 +60,21 @@ public class CityCardParser implements CreditCardSmsParser {
 
 	public List<CreditCardMonthlyPaymentsSms> monthlyPaymentsSmsParse(
 			String mmsContent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<CreditCardCashServicesSms> cashServiceSmsParse(String mmsContent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<CreditCardNotificationSms> notificationSmsParse(String mmsContent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<CreditCardUnmanagedSms> unmanagedSmsParse(String mmsContent) {
 		// TODO Auto-generated method stub
 		return null;
 	}

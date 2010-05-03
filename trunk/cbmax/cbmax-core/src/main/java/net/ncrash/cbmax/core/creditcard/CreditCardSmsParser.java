@@ -3,8 +3,11 @@ package net.ncrash.cbmax.core.creditcard;
 import java.util.List;
 
 import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
+import net.ncrash.cbmax.core.dto.CreditCardCashServicesSms;
 import net.ncrash.cbmax.core.dto.CreditCardMonthlyPaymentsSms;
+import net.ncrash.cbmax.core.dto.CreditCardNotificationSms;
 import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
+import net.ncrash.cbmax.core.dto.CreditCardUnmanagedSms;
 
 /*
  * 정규표현식 개발은 QuickREx eclipse plugin 사용해서 개발
@@ -22,4 +25,10 @@ public interface CreditCardSmsParser {
 	List<CreditCardAutoPaymentSms> autoPaymentSmsParse(String mmsContent);
 	
 	List<CreditCardMonthlyPaymentsSms> monthlyPaymentsSmsParse(String mmsContent);
+	
+	List<CreditCardCashServicesSms> cashServiceSmsParse(String mmsContent);
+	
+	List<CreditCardNotificationSms> notificationSmsParse(String mmsContent);
+	
+	List<CreditCardUnmanagedSms> unmanagedSmsParse(String mmsContent);
 }
