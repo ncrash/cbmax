@@ -49,6 +49,34 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 
 			result.add(creditCardPaymentSms);
 		}
+		
+		/*
+			[현대카드C]-승인
+			강대권님
+			11:51
+			2,000원(일시불)
+			훼미리마트Ｗ－ＭＡＬＬ점
+		 */
+		p = Pattern
+		.compile("\\[(현대카드)(\\w)\\](-승인)\\n(.*님)\\n(\\d{2}:\\d{2})\\n([0-9,\\.]*)(원)\\((일시불)\\)\\n(.*\\b)");
+		m = p.matcher(mmsContent);
+		
+		while (m.find()) {
+			creditCardPaymentSms = new CreditCardPaymentSms();
+			
+			creditCardPaymentSms.setSenderName(m.group(4));
+			creditCardPaymentSms.setCardCompanyName(m.group(1));
+			creditCardPaymentSms.setCardLastFourNumber(null);
+			creditCardPaymentSms.setPayedWhenDate(null);
+			creditCardPaymentSms.setPayedWhenTime(m.group(5));
+			creditCardPaymentSms.setPayedWhere(m.group(9));
+			creditCardPaymentSms.setPayedMoney(m.group(6));
+			creditCardPaymentSms.setPayedCardType(m.group(2));
+			creditCardPaymentSms.setPayedApproveType(m.group(3));
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(8));
+			
+			result.add(creditCardPaymentSms);
+		}
 
 		return result;
 	}
