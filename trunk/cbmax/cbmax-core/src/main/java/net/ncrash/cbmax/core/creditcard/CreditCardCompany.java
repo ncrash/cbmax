@@ -1,7 +1,7 @@
 package net.ncrash.cbmax.core.creditcard;
 
 /**
- * 신용카드 회사
+ * 신용카드 회사 클래스
  * 
  * @author Daekwon.Kang
  * @since 2010.04.24 

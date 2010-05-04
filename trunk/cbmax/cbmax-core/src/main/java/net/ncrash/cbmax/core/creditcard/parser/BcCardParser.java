@@ -60,7 +60,6 @@ public class BcCardParser implements CreditCardSmsParser {
 			result.add(creditCardPaymentSms);
 		}
 		
-		//TODO G마켓처럼 TOP포인트 적립해주는 가맹점일때 할부처리에 필요한 문자도 필요함
 		/*
 			우리BC강대권님 05/01 22:23 13,900원.일시불.11TOP적립예정.G마켓
 		 */
