@@ -9,6 +9,7 @@ import java.util.List;
 import jxl.Sheet;
 import jxl.Workbook;
 import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
+import net.ncrash.cbmax.core.dto.CreditCardCashServicesSms;
 import net.ncrash.cbmax.core.dto.CreditCardMonthlyPaymentsSms;
 import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
 
@@ -197,6 +198,7 @@ public class CreditCardSmsParserTest {
 		String excelPaymentSmsCount;
 		String excelAutoPaymentSmsCount;
 		String excelMonthlyPaymentsSmsCount;
+		String excelCashServicesSmsCount;
 		int smsMessageCountTotal = 0;
 
 		String[] cardCompanyIds = {"BC", "CITY", "KB", "SHINHAN", "KEB", "HYUNDAI", "LOTTE", "SAMSUNG"};
@@ -212,34 +214,38 @@ public class CreditCardSmsParserTest {
 			excelPaymentSmsCount = sheet.getCell(4, i).getContents();
 			excelAutoPaymentSmsCount = sheet.getCell(5, i).getContents();
 			excelMonthlyPaymentsSmsCount = sheet.getCell(6, i).getContents();
+			excelCashServicesSmsCount = sheet.getCell(7, i).getContents();
 
 			for (int j = 0; j < cardCompanyIds.length; j++) {
 				creditCardCompany.setParser(CreditCardSmsParserFactory.getParser(cardCompanyIds[j]));
 				
 				List<CreditCardPaymentSms> parsedSmsList = creditCardCompany.getParser().paymentSmsParse(mmsContent);
 				if (parsedSmsList != null && parsedSmsList.size() > 0) {
+					assertEquals("excel의 count수치와 parse 결과건수가 동일해야함 내용 : \n" + mmsContent, parsedSmsList.size(), Integer.parseInt(excelPaymentSmsCount));
 					matchCount += parsedSmsList.size();
 					smsMessageCountTotal += Integer.parseInt(excelPaymentSmsCount);
 				}
 				
 				List<CreditCardAutoPaymentSms> parsedAutoPaymentSmsList = creditCardCompany.getParser().autoPaymentSmsParse(mmsContent);
 				if (parsedAutoPaymentSmsList != null && parsedAutoPaymentSmsList.size() > 0) {
+					assertEquals("excel의 count수치와 parse 결과건수가 동일해야함 내용 : \n" + mmsContent, parsedAutoPaymentSmsList.size(), Integer.parseInt(excelAutoPaymentSmsCount));
 					matchCount += parsedAutoPaymentSmsList.size();
 					smsMessageCountTotal += Integer.parseInt(excelAutoPaymentSmsCount);
 				}
 				
 				List<CreditCardMonthlyPaymentsSms> parsedMonthlyPaymentsSmsList = creditCardCompany.getParser().monthlyPaymentsSmsParse(mmsContent);
 				if (parsedMonthlyPaymentsSmsList != null && parsedMonthlyPaymentsSmsList.size() > 0) {
+					assertEquals("excel의 count수치와 parse 결과건수가 동일해야함 내용 : \n" + mmsContent, parsedMonthlyPaymentsSmsList.size(), Integer.parseInt(excelMonthlyPaymentsSmsCount));
 					matchCount += parsedMonthlyPaymentsSmsList.size();
 					smsMessageCountTotal += Integer.parseInt(excelMonthlyPaymentsSmsCount);
 				}
 				
-				//TODO 현금서비스를 위한 test 수치조사 구문 완성하기 
-//				List<CreditCardMonthlyPaymentsSms> parsedMonthlyPaymentsSmsList = creditCardCompany.getParser().monthlyPaymentsSmsParse(mmsContent);
-//				if (parsedMonthlyPaymentsSmsList != null && parsedMonthlyPaymentsSmsList.size() > 0) {
-//					matchCount += parsedMonthlyPaymentsSmsList.size();
-//					smsMessageCountTotal += Integer.parseInt(excelMonthlyPaymentsSmsCount);
-//				}
+				List<CreditCardCashServicesSms> parsedCardCashServicesSmsList = creditCardCompany.getParser().cashServiceSmsParse(mmsContent);
+				if (parsedCardCashServicesSmsList != null && parsedCardCashServicesSmsList.size() > 0) {
+					assertEquals("excel의 count수치와 parse 결과건수가 동일해야함 내용 : \n" + mmsContent, parsedCardCashServicesSmsList.size(), Integer.parseInt(excelCashServicesSmsCount));
+					matchCount += parsedCardCashServicesSmsList.size();
+					smsMessageCountTotal += Integer.parseInt(excelCashServicesSmsCount);
+				}
 			}
 		}
 

@@ -60,37 +60,31 @@ public class BcCardParser implements CreditCardSmsParser {
 			result.add(creditCardPaymentSms);
 		}
 		
-		//TODO 최근에 변경된 bc카드 사용내역 문자 및 현금서비스 알림 문자
+		//TODO G마켓처럼 TOP포인트 적립해주는 가맹점일때 할부처리에 필요한 문자도 필요함
 		/*
-			[현금서비스.승인]
-			10,000원
-			농협BC(1*0*)강대권님
-			12/24 18:56
-			현금서비스
 			우리BC강대권님 05/01 22:23 13,900원.일시불.11TOP적립예정.G마켓
 		 */
-		//TODO G마켓처럼 TOP포인트 적립해주는 가맹점일때 할부처리에 필요한 문자도 필요함
-//		p = Pattern
-//		.compile("\\[(일시불.승인|[\\d]*개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
-//		m = p.matcher(mmsContent);
-//		
-//		while (m.find()) {
-//			creditCardPaymentSms = new CreditCardPaymentSms();
-//			
-//			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
-//			creditCardPaymentSms.setSenderName(m.group(6));
-//			creditCardPaymentSms.setCardCompanyName(m.group(4));
-//			creditCardPaymentSms.setCardLastFourNumber(m.group(5));
-//			creditCardPaymentSms.setPayedWhenDate(m.group(7));
-//			creditCardPaymentSms.setPayedWhenTime(m.group(8));
-//			creditCardPaymentSms.setPayedWhere(m.group(9));
-//			creditCardPaymentSms.setPayedMoney(m.group(2));
-//			creditCardPaymentSms.setPayedCardType(null);
-//			creditCardPaymentSms.setPayedApproveType(null);
-//			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
-//			
-//			result.add(creditCardPaymentSms);
-//		}
+		p = Pattern
+		.compile("(.*BC)(.*님) (\\d{2}/\\d{2}) (\\d{2}:\\d{2}) ([0-9,.]*)(원)\\.(일시불|[\\d]*개월.승인|승인취소)\\.(\\d*)TOP적립예정\\.(.*\\b)");
+		m = p.matcher(mmsContent);
+		
+		while (m.find()) {
+			creditCardPaymentSms = new CreditCardPaymentSms();
+			
+			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
+			creditCardPaymentSms.setSenderName(m.group(2));
+			creditCardPaymentSms.setCardCompanyName(m.group(1));
+			creditCardPaymentSms.setCardLastFourNumber(null);
+			creditCardPaymentSms.setPayedWhenDate(m.group(3));
+			creditCardPaymentSms.setPayedWhenTime(m.group(4));
+			creditCardPaymentSms.setPayedWhere(m.group(9));
+			creditCardPaymentSms.setPayedMoney(m.group(5));
+			creditCardPaymentSms.setPayedCardType(null);
+			creditCardPaymentSms.setPayedApproveType(m.group(7));
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(7));
+			
+			result.add(creditCardPaymentSms);
+		}
 
 		return result;
 	}
@@ -187,7 +181,7 @@ public class BcCardParser implements CreditCardSmsParser {
 			현금서비스
 		 */
 		Pattern p = Pattern
-				.compile("\\[(현금서비스.승인||승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
+				.compile("\\[(현금서비스.승인)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
