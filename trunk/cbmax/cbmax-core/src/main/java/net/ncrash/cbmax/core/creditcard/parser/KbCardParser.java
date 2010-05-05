@@ -125,8 +125,34 @@ public class KbCardParser implements CreditCardSmsParser {
 	}
 
 	public List<CreditCardNotificationSms> notificationSmsParse(String mmsContent) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CreditCardNotificationSms> result = new ArrayList<CreditCardNotificationSms>();
+		CreditCardNotificationSms creditCardNotificationSms;
+
+		String[] notificationPatterns = { 
+				"\\[KB카드\\].*님 KB카드의 안전결제\\(ISP\\)가 \\d{2}월\\d{2}일\\d{2}:\\d{2} 등록완료\\.감사합니다"
+		};
+		/*
+			[KB카드]강대권님 KB카드의 안전결제(ISP)가 03월05일16:51 등록완료.감사합니다
+		 */
+		Pattern p;
+		Matcher m;
+
+		for (int i = 0; i < notificationPatterns.length; i++) {
+			p = Pattern
+			.compile(notificationPatterns[i]);
+			m = p.matcher(mmsContent);
+			
+			while (m.find()) {
+				creditCardNotificationSms = new CreditCardNotificationSms();
+				
+				creditCardNotificationSms.setSenderPhoneNumber("01027976877");
+				creditCardNotificationSms.setNotificationSms(m.group());
+				
+				result.add(creditCardNotificationSms);
+			}
+		}
+		
+		return result;
 	}
 
 	public List<CreditCardUnmanagedSms> unmanagedSmsParse(String mmsContent) {

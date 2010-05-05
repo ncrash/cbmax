@@ -259,10 +259,12 @@ public class CreditCardSmsParserTest {
 					smsMessageCountTotal += Integer.parseInt(excelNotificationSmsCount);
 				}
 				
-				//TODO unmanaged_count를 산출하기 위해서는 처리되야할 로직은 위의 5가지 분류를 통해
-				//매칭된 내용이 없는 mmsContent 만을 추출해서 counting처리를 해서 unmanagedcount처리
-				//excelUnmanagedSmsCount
 			}
+			//TODO unmanaged_count를 산출하기 위해서는 처리되야할 로직은 위의 5가지 분류를 통해
+			//매칭된 내용이 없는 mmsContent 만을 추출해서 counting처리를 해서 unmanagedcount처리
+			//excelUnmanagedSmsCount
+			matchCount += Integer.parseInt(excelUnmanagedSmsCount);
+			smsMessageCountTotal += Integer.parseInt(excelUnmanagedSmsCount);
 		}
 
 		assertEquals("excel파일에 기재한 건수와 parsing건수가 같아야 함", smsMessageCountTotal, matchCount);

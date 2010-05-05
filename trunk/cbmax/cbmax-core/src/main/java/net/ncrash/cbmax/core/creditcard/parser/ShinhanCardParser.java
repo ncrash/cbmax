@@ -94,8 +94,34 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 	}
 
 	public List<CreditCardNotificationSms> notificationSmsParse(String mmsContent) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CreditCardNotificationSms> result = new ArrayList<CreditCardNotificationSms>();
+		CreditCardNotificationSms creditCardNotificationSms;
+
+		String[] notificationPatterns = { 
+				".*회원님은 신한카드 안심클릭 서비스에 정상 등록되었습니다\\."
+		};
+		/*
+			강대권회원님은 신한카드 안심클릭 서비스에 정상 등록되었습니다.
+		 */
+		Pattern p;
+		Matcher m;
+
+		for (int i = 0; i < notificationPatterns.length; i++) {
+			p = Pattern
+			.compile(notificationPatterns[i]);
+			m = p.matcher(mmsContent);
+			
+			while (m.find()) {
+				creditCardNotificationSms = new CreditCardNotificationSms();
+				
+				creditCardNotificationSms.setSenderPhoneNumber("01027976877");
+				creditCardNotificationSms.setNotificationSms(m.group());
+				
+				result.add(creditCardNotificationSms);
+			}
+		}
+		
+		return result;
 	}
 
 	public List<CreditCardUnmanagedSms> unmanagedSmsParse(String mmsContent) {
