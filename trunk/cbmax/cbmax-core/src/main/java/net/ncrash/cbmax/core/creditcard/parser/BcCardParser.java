@@ -201,8 +201,38 @@ public class BcCardParser implements CreditCardSmsParser {
 	}
 
 	public List<CreditCardNotificationSms> notificationSmsParse(String mmsContent) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CreditCardNotificationSms> result = new ArrayList<CreditCardNotificationSms>();
+		CreditCardNotificationSms creditCardNotificationSms;
+
+		String[] notificationPatterns = { 
+				".* 고객님 비씨카드 안전결제\\(ISP\\)가 정상적으로 발급되었습니다.",
+				".*님 \\d*/\\d*일은 .*BC 결제일입니다\\.\\n.*\\b"
+		};
+		/*
+			강대권 고객님 비씨카드 안전결제(ISP)가 정상적으로 발급되었습니다.
+			
+			강대권님 1/4일은 우리BC 결제일입니다.
+			연말 바쁜 일정에도 건강 잊지 마세요
+		 */
+		Pattern p;
+		Matcher m;
+
+		for (int i = 0; i < notificationPatterns.length; i++) {
+			p = Pattern
+			.compile(notificationPatterns[i]);
+			m = p.matcher(mmsContent);
+			
+			while (m.find()) {
+				creditCardNotificationSms = new CreditCardNotificationSms();
+				
+				creditCardNotificationSms.setSenderPhoneNumber("01027976877");
+				creditCardNotificationSms.setNotificationSms(m.group());
+				
+				result.add(creditCardNotificationSms);
+			}
+		}
+		
+		return result;
 	}
 
 	public List<CreditCardUnmanagedSms> unmanagedSmsParse(String mmsContent) {

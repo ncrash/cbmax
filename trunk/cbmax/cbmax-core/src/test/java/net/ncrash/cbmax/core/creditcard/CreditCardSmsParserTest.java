@@ -11,6 +11,7 @@ import jxl.Workbook;
 import net.ncrash.cbmax.core.dto.CreditCardAutoPaymentSms;
 import net.ncrash.cbmax.core.dto.CreditCardCashServicesSms;
 import net.ncrash.cbmax.core.dto.CreditCardMonthlyPaymentsSms;
+import net.ncrash.cbmax.core.dto.CreditCardNotificationSms;
 import net.ncrash.cbmax.core.dto.CreditCardPaymentSms;
 
 import org.junit.After;
@@ -199,6 +200,8 @@ public class CreditCardSmsParserTest {
 		String excelAutoPaymentSmsCount;
 		String excelMonthlyPaymentsSmsCount;
 		String excelCashServicesSmsCount;
+		String excelNotificationSmsCount;
+		String excelUnmanagedSmsCount;
 		int smsMessageCountTotal = 0;
 
 		String[] cardCompanyIds = {"BC", "CITY", "KB", "SHINHAN", "KEB", "HYUNDAI", "LOTTE", "SAMSUNG"};
@@ -215,6 +218,8 @@ public class CreditCardSmsParserTest {
 			excelAutoPaymentSmsCount = sheet.getCell(5, i).getContents();
 			excelMonthlyPaymentsSmsCount = sheet.getCell(6, i).getContents();
 			excelCashServicesSmsCount = sheet.getCell(7, i).getContents();
+			excelNotificationSmsCount = sheet.getCell(8, i).getContents();
+			excelUnmanagedSmsCount = sheet.getCell(9, i).getContents();
 
 			for (int j = 0; j < cardCompanyIds.length; j++) {
 				creditCardCompany.setParser(CreditCardSmsParserFactory.getParser(cardCompanyIds[j]));
@@ -246,6 +251,17 @@ public class CreditCardSmsParserTest {
 					matchCount += parsedCardCashServicesSmsList.size();
 					smsMessageCountTotal += Integer.parseInt(excelCashServicesSmsCount);
 				}
+				
+				List<CreditCardNotificationSms> parsedNotificationSmsList = creditCardCompany.getParser().notificationSmsParse(mmsContent);
+				if (parsedNotificationSmsList != null && parsedNotificationSmsList.size() > 0) {
+					assertEquals("excel의 count수치와 parse 결과건수가 동일해야함 내용 : \n" + mmsContent, parsedNotificationSmsList.size(), Integer.parseInt(excelNotificationSmsCount));
+					matchCount += parsedNotificationSmsList.size();
+					smsMessageCountTotal += Integer.parseInt(excelNotificationSmsCount);
+				}
+				
+				//TODO unmanaged_count를 산출하기 위해서는 처리되야할 로직은 위의 5가지 분류를 통해
+				//매칭된 내용이 없는 mmsContent 만을 추출해서 counting처리를 해서 unmanagedcount처리
+				//excelUnmanagedSmsCount
 			}
 		}
 
