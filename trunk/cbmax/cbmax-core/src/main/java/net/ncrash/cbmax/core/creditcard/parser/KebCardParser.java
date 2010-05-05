@@ -93,8 +93,34 @@ public class KebCardParser implements CreditCardSmsParser {
 	}
 
 	public List<CreditCardNotificationSms> notificationSmsParse(String mmsContent) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CreditCardNotificationSms> result = new ArrayList<CreditCardNotificationSms>();
+		CreditCardNotificationSms creditCardNotificationSms;
+
+		String[] notificationPatterns = { 
+				"\\[외환카드\\].*님 \\d{2}/\\d{2} 카드대금 [0-9,]*원 결제\\(완납\\)\\. 감사합니다."
+		};
+		/*
+			[외환카드]강대권님 05/01 카드대금 384,620원 결제(완납). 감사합니다.
+		 */
+		Pattern p;
+		Matcher m;
+
+		for (int i = 0; i < notificationPatterns.length; i++) {
+			p = Pattern
+			.compile(notificationPatterns[i]);
+			m = p.matcher(mmsContent);
+			
+			while (m.find()) {
+				creditCardNotificationSms = new CreditCardNotificationSms();
+				
+				creditCardNotificationSms.setSenderPhoneNumber("01027976877");
+				creditCardNotificationSms.setNotificationSms(m.group());
+				
+				result.add(creditCardNotificationSms);
+			}
+		}
+		
+		return result;
 	}
 
 	public List<CreditCardUnmanagedSms> unmanagedSmsParse(String mmsContent) {
