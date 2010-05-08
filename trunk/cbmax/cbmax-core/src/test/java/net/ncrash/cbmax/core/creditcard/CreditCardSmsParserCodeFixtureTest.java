@@ -125,6 +125,18 @@ public class CreditCardSmsParserCodeFixtureTest {
 		matchCount += getSize(creditCardCompany.getParser());
 		
 		assertEquals(1, matchCount);
+		
+		List<CreditCardPaymentSms> parsedCreditCardPaymentSmsList = creditCardCompany.getParser().paymentSmsParse(this.convertPaymentSmsListToString());
+		CreditCardPaymentSms creditCardPaymentSms = parsedCreditCardPaymentSmsList.get(0);
+		
+		assertEquals("씨티카드", creditCardPaymentSms.getCardCompanyName());
+		assertEquals("강대권님", creditCardPaymentSms.getSenderName());
+		assertEquals("03월13일", creditCardPaymentSms.getPayedWhenDate());
+		assertEquals("19:47", creditCardPaymentSms.getPayedWhenTime());
+		assertEquals("이마트구로점", creditCardPaymentSms.getPayedWhere());
+		assertEquals("40,410", creditCardPaymentSms.getPayedMoney());
+		assertEquals("승인", creditCardPaymentSms.getPayedApproveType());
+		assertEquals("일시불", creditCardPaymentSms.getPayedLumpSumOrInstallmentPlan());
 	}
 	
 	@Test
@@ -135,6 +147,27 @@ public class CreditCardSmsParserCodeFixtureTest {
 		matchCount += getSize(creditCardCompany.getParser());
 		
 		assertEquals(4, matchCount);
+		
+		List<CreditCardPaymentSms> parsedCreditCardPaymentSmsList = creditCardCompany.getParser().paymentSmsParse(this.convertPaymentSmsListToString());
+		CreditCardPaymentSms creditCardPaymentSms = parsedCreditCardPaymentSmsList.get(0);
+		
+//		sb = new StringBuffer();
+//		sb.append("[일시불.승인]");
+//		sb.append("\n").append("186,000원");
+//		sb.append("\n").append("우리BC(3*8*)강대권님");
+//		sb.append("\n").append("04/07 23:17");
+//		sb.append("\n").append("양은냄비");
+//		PaymentSmsList.add(sb.toString());
+//		
+		assertEquals("우리BC", creditCardPaymentSms.getCardCompanyName());
+		assertEquals("강대권님", creditCardPaymentSms.getSenderName());
+		assertEquals("04/07", creditCardPaymentSms.getPayedWhenDate());
+		assertEquals("23:17", creditCardPaymentSms.getPayedWhenTime());
+		assertEquals("양은냄비", creditCardPaymentSms.getPayedWhere());
+		assertEquals("186,000", creditCardPaymentSms.getPayedMoney());
+//		assertEquals("승인", creditCardPaymentSms.getPayedApproveType());
+//		assertEquals("일시불", creditCardPaymentSms.getPayedLumpSumOrInstallmentPlan());
+		assertEquals("(3*8*)", creditCardPaymentSms.getCardLastFourNumber());
 	}
 	
 	@Test
@@ -195,5 +228,16 @@ public class CreditCardSmsParserCodeFixtureTest {
 		}
 		
 		return matchCount;
+	}
+	
+	public String convertPaymentSmsListToString() {
+		StringBuffer mmsContent = new StringBuffer();
+		
+		for (int i = 0; i < PaymentSmsList.size(); i++) {
+			String paymentSms = PaymentSmsList.get(i);
+			
+			mmsContent.append(paymentSms).append("\n");
+		}
+		return mmsContent.toString();
 	}
 }
