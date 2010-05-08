@@ -20,7 +20,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * 신용카드 사용내역 parser excel fixture를 통한 test
+ * 신용카드사에서 발송하는 SMS(사용내역, 월결제액, ...) parser excel fixture를 통한 test
  * 
  * @author Daekwon.Kang
  * @since 2010.04.26 
