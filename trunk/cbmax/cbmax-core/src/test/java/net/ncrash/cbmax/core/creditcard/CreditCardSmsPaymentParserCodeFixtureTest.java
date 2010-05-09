@@ -108,6 +108,14 @@ public class CreditCardSmsPaymentParserCodeFixtureTest {
 		sb.append("\n").append("온누리조은약국");
 		PaymentSmsList.add(sb.toString());
 
+		sb = new StringBuffer();
+		sb.append("[현대카드C]-승인");
+		sb.append("\n").append("강대권님");
+		sb.append("\n").append("18:22");
+		sb.append("\n").append("3,780원(일시불)");
+		sb.append("\n").append("（주）현대홈쇼핑ＫＭＰＩ（일");
+		PaymentSmsList.add(sb.toString());
+		
 		PaymentSmsList
 				.add("롯데카드 강대권님 939,900원 일시불 04/17 10:16 이베이옥션                       ");
 		PaymentSmsList
@@ -360,11 +368,18 @@ public class CreditCardSmsPaymentParserCodeFixtureTest {
 
 		matchCount += getSize(creditCardCompany.getParser());
 
-		assertEquals(1, matchCount);
+		assertEquals(2, matchCount);
 
 		List<CreditCardPaymentSms> parsedCreditCardPaymentSmsList = creditCardCompany
 				.getParser().paymentSmsParse(
 						this.convertPaymentSmsListToString());
+
+//		sb.append("[현대카드C]");
+//		sb.append("\n").append("강대권님");
+//		sb.append("\n").append("12:10");
+//		sb.append("\n").append("2,400원(일시불)");
+//		sb.append("\n").append("정상승인");
+//		sb.append("\n").append("온누리조은약국");
 
 		creditCardPaymentSms = parsedCreditCardPaymentSmsList.get(0);
 		assertEquals("현대카드", creditCardPaymentSms.getCardCompanyName());
@@ -375,6 +390,25 @@ public class CreditCardSmsPaymentParserCodeFixtureTest {
 		assertEquals("온누리조은약국", creditCardPaymentSms.getPayedWhere());
 		assertEquals("2,400", creditCardPaymentSms.getPayedMoney());
 		assertEquals("정상승인", creditCardPaymentSms.getPayedApproveType());
+		assertEquals("일시불", creditCardPaymentSms
+				.getPayedLumpSumOrInstallmentPlan());
+		assertEquals(null, creditCardPaymentSms.getCardLastFourNumber());
+
+//		sb.append("[현대카드C]-승인");
+//		sb.append("\n").append("강대권님");
+//		sb.append("\n").append("18:22");
+//		sb.append("\n").append("3,780원(일시불)");
+//		sb.append("\n").append("（주）현대홈쇼핑ＫＭＰＩ（일");
+		
+		creditCardPaymentSms = parsedCreditCardPaymentSmsList.get(1);
+		assertEquals("현대카드", creditCardPaymentSms.getCardCompanyName());
+		assertEquals("C", creditCardPaymentSms.getPayedCardType());
+		assertEquals("강대권님", creditCardPaymentSms.getSenderName());
+		assertEquals(null, creditCardPaymentSms.getPayedWhenDate());
+		assertEquals("18:22", creditCardPaymentSms.getPayedWhenTime());
+		assertEquals("（주）현대홈쇼핑ＫＭＰＩ（일", creditCardPaymentSms.getPayedWhere());
+		assertEquals("3,780", creditCardPaymentSms.getPayedMoney());
+		assertEquals("승인", creditCardPaymentSms.getPayedApproveType());
 		assertEquals("일시불", creditCardPaymentSms
 				.getPayedLumpSumOrInstallmentPlan());
 		assertEquals(null, creditCardPaymentSms.getCardLastFourNumber());

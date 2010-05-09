@@ -62,7 +62,7 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 			훼미리마트Ｗ－ＭＡＬＬ점
 		 */
 		p = Pattern
-		.compile("\\[(현대카드)(\\w)\\](-승인)\\n(.*님)\\n(\\d{2}:\\d{2})\\n([0-9,\\.]*)(원)\\((일시불)\\)\\n(.*\\b)");
+		.compile("\\[(현대카드)(\\w)\\]-(승인)\\n(.*님)\\n(\\d{2}:\\d{2})\\n([0-9,\\.]*)(원)\\((일시불)\\)\\n(.*\\b)");
 		m = p.matcher(mmsContent);
 		
 		while (m.find()) {
