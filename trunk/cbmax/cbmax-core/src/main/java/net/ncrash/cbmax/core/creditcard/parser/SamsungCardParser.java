@@ -52,8 +52,8 @@ public class SamsungCardParser implements CreditCardSmsParser {
 		 */
 		//TODO 정규표현식에 줄바꿈 처리가 제대로 되지 않아 \n 문자를 모두 없애고 꽁수로 처리함
 		Pattern p = Pattern
-				.compile("(삼성카드)(취소|)(\\d{2}/\\d{2}) (\\d{2}:\\d{2})([0-9.%]{4} 보너스클럽|)([^0-9]*)([0-9,]*)(원)((\\d*)개월할부|일시불감사합니다|할부감사합니다|)");
-		Matcher m = p.matcher(mmsContent.replaceAll("\n", ""));
+				.compile("(삼성카드)(취소|)\\n(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\n([0-9.%]{4} 보너스클럽\\n|)(.*)\\n([0-9,.-]*)(원)(\\n|)((\\d*)개월할부|(일시불)\\n감사합니다|(할부)\\n감사합니다|)");
+		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
 			creditCardPaymentSms = new CreditCardPaymentSms();
@@ -66,11 +66,15 @@ public class SamsungCardParser implements CreditCardSmsParser {
 			creditCardPaymentSms.setPayedWhenTime(m.group(4));
 			creditCardPaymentSms.setPayedWhere(m.group(6));
 			creditCardPaymentSms.setPayedMoney(m.group(7));
-			creditCardPaymentSms.setPayedCardType(m.group(9));
+			creditCardPaymentSms.setPayedCardType(null);
 			creditCardPaymentSms.setPayedApproveType(m.group(2));
-			
-			if(m.groupCount() == 10) {
-				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(10));
+
+			if( "일시불".equals(m.group(12))) {
+				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(12));
+			} else if( "할부".equals(m.group(13))) {
+					creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(13));
+			} else if ( (m.group(10).indexOf("할부") > 0)) {
+				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(11));
 			} else {
 				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
 			}

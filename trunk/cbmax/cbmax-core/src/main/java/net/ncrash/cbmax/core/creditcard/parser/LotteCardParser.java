@@ -36,6 +36,7 @@ public class LotteCardParser implements CreditCardSmsParser {
 		while (m.find()) {
 			creditCardPaymentSms = new CreditCardPaymentSms();
 
+			//TODO payedCardType, payedApproveType, payedLumpSumOrInstallmentPlan 구분이 모호한것 확실히 파악하기 
 			creditCardPaymentSms.setSenderName(m.group(2));
 			creditCardPaymentSms.setCardCompanyName(m.group(1));
 			creditCardPaymentSms.setCardLastFourNumber(null);
@@ -43,8 +44,8 @@ public class LotteCardParser implements CreditCardSmsParser {
 			creditCardPaymentSms.setPayedWhenTime(m.group(7));
 			creditCardPaymentSms.setPayedWhere(m.group(8));
 			creditCardPaymentSms.setPayedMoney(m.group(3));
-			creditCardPaymentSms.setPayedCardType(m.group(1));
-			creditCardPaymentSms.setPayedApproveType(m.group(1));
+			creditCardPaymentSms.setPayedCardType(null);
+			creditCardPaymentSms.setPayedApproveType(null);
 			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(5));
 
 			result.add(creditCardPaymentSms);

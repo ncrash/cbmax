@@ -30,7 +30,7 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 			신한카드승인취소강대권님        04/13 13:57     200,570원(일시불) （주）인터파크
 		 */
 		Pattern p = Pattern
-				.compile("(신한카드)(정상승인|승인취소)(.*님)\\s*(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\s*([0-9,]*)(원)\\((일시불)\\)(.*\\b)");
+				.compile("(신한카드)(정상승인|승인취소)(.*님)\\s*(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\s*([0-9,]*)(원)\\((일시불)\\) (.*\\b)");
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
