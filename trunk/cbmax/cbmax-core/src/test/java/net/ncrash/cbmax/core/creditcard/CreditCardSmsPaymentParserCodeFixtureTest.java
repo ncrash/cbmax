@@ -20,7 +20,7 @@ import org.junit.Test;
  * @since 2010.04.23
  * @see
  */
-public class CreditCardSmsParserCodeFixtureTest {
+public class CreditCardSmsPaymentParserCodeFixtureTest {
 	List<String> PaymentSmsList = new ArrayList<String>();
 	StringBuffer sb;
 	int matchCount;
