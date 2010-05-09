@@ -37,25 +37,46 @@ public class BcCardParser implements CreditCardSmsParser {
 			농협BC(1*0*)강대권님
 			01/24 16:16
 			(주)테크노에어포트몰
+
+			[승인취소]
+			150,100원
+			우리BC(3*8*)강대권님
+			04/23 23:34
+			(주)인터파크INT
+			
+			[10개월.승인]
+			150,100원
+			우리BC(3*8*)강대권님
+			04/23 23:33
+			(주)인터파크INT
 		 */
 		Pattern p = Pattern
-				.compile("\\[(일시불.승인|[\\d]*개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
+				.compile("\\[(일시불.승인|([\\d]*)개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
 			creditCardPaymentSms = new CreditCardPaymentSms();
 
 			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
-			creditCardPaymentSms.setSenderName(m.group(6));
-			creditCardPaymentSms.setCardCompanyName(m.group(4));
-			creditCardPaymentSms.setCardLastFourNumber(m.group(5));
-			creditCardPaymentSms.setPayedWhenDate(m.group(7));
-			creditCardPaymentSms.setPayedWhenTime(m.group(8));
-			creditCardPaymentSms.setPayedWhere(m.group(9));
-			creditCardPaymentSms.setPayedMoney(m.group(2));
+			creditCardPaymentSms.setSenderName(m.group(7));
+			creditCardPaymentSms.setCardCompanyName(m.group(5));
+			creditCardPaymentSms.setCardLastFourNumber(m.group(6));
+			creditCardPaymentSms.setPayedWhenDate(m.group(8));
+			creditCardPaymentSms.setPayedWhenTime(m.group(9));
+			creditCardPaymentSms.setPayedWhere(m.group(10));
+			creditCardPaymentSms.setPayedMoney(m.group(3));
 			creditCardPaymentSms.setPayedCardType(null);
-			creditCardPaymentSms.setPayedApproveType(null);
-			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
+			
+			if ("일시불.승인".equals(m.group(1))) {
+				creditCardPaymentSms.setPayedApproveType("승인");
+				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan("일시불");
+			} else if ("승인취소".equals(m.group(1))) {
+				creditCardPaymentSms.setPayedApproveType("승인");
+				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan("취소");
+			} else if (m.group(2) != null) {
+				creditCardPaymentSms.setPayedApproveType("승인");
+				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(2));
+			}
 
 			result.add(creditCardPaymentSms);
 		}
