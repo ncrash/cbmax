@@ -69,7 +69,7 @@ public class CreditCardSmsParserExcelFixtureTest {
 		String excelUnmanagedSmsCount;
 		int smsMessageCountTotal = 0;
 
-		String[] cardCompanyIds = {"BC", "CITY", "KB", "SHINHAN", "KEB", "HYUNDAI", "LOTTE", "SAMSUNG"};
+		String[] cardCompanyIds = {"BC", "CITY", "KB", "SHINHAN", "KEB", "HYUNDAI", "LOTTE", "SAMSUNG", "HANA_SK"};
 
 		testFixtureExcelFile = new File(getClass().getClassLoader().getResource("cbmax-testcase-fixture.xls").getFile());
 

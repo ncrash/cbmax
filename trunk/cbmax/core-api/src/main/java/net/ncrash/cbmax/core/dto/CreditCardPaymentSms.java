@@ -12,6 +12,11 @@ public class CreditCardPaymentSms {
 	private String senderName;
 	private String cardCompanyName;
 	private String cardLastFourNumber;
+	/**
+	 * 결제일자
+	 * 
+	 * 05/09, 04월05일
+	 */
 	private String payedWhenDate;
 	private String payedWhenTime;
 	private String payedWhere;
@@ -19,11 +24,12 @@ public class CreditCardPaymentSms {
 	private String payedCardType;
 	private String payedApproveType;
 	private String payedLumpSumOrInstallmentPlan;
+	private String payedInstallmentMonths;
 
 	public CreditCardPaymentSms() {
 		super();
 	}
-	
+
 	public String getSenderPhoneNumber() {
 		return senderPhoneNumber;
 	}
@@ -47,7 +53,7 @@ public class CreditCardPaymentSms {
 	public void setCardCompanyName(String cardCompanyName) {
 		this.cardCompanyName = cardCompanyName;
 	}
-	
+
 	public String getCardLastFourNumber() {
 		return cardLastFourNumber;
 	}
@@ -108,8 +114,17 @@ public class CreditCardPaymentSms {
 		return payedLumpSumOrInstallmentPlan;
 	}
 
-	public void setPayedLumpSumOrInstallmentPlan(String payedLumpSumOrInstallmentPlan) {
+	public void setPayedLumpSumOrInstallmentPlan(
+			String payedLumpSumOrInstallmentPlan) {
 		this.payedLumpSumOrInstallmentPlan = payedLumpSumOrInstallmentPlan;
+	}
+
+	public void setPayedInstallmentMonths(String payedInstallmentMonths) {
+		this.payedInstallmentMonths = payedInstallmentMonths;
+	}
+
+	public String getPayedInstallmentMonths() {
+		return payedInstallmentMonths;
 	}
 
 	@Override
@@ -117,7 +132,8 @@ public class CreditCardPaymentSms {
 		return "CreditCardPaymentSms [cardCompanyName=" + cardCompanyName
 				+ ", cardLastFourNumber=" + cardLastFourNumber
 				+ ", payedApproveType=" + payedApproveType + ", payedCardType="
-				+ payedCardType + ", payedLumpSumOrInstallmentPlan="
+				+ payedCardType + ", payedInstallmentMonths="
+				+ payedInstallmentMonths + ", payedLumpSumOrInstallmentPlan="
 				+ payedLumpSumOrInstallmentPlan + ", payedMoney=" + payedMoney
 				+ ", payedWhenDate=" + payedWhenDate + ", payedWhenTime="
 				+ payedWhenTime + ", payedWhere=" + payedWhere
