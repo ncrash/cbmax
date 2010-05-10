@@ -71,8 +71,34 @@ public class CityCardParser implements CreditCardSmsParser {
 	}
 
 	public List<CreditCardNotificationSms> notificationSmsParse(String mmsContent) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CreditCardNotificationSms> result = new ArrayList<CreditCardNotificationSms>();
+		CreditCardNotificationSms creditCardNotificationSms;
+
+		String[] notificationPatterns = { 
+				"(씨티카드)(.*님) 비자안심클릭을 가입하셨습니다\\.(\\d{2}월\\d{2}일) (\\d{2}:\\d{2})"
+		};
+		/*
+			씨티카드강대권님 비자안심클릭을 가입하셨습니다.05월09일 22:42
+		 */
+		Pattern p;
+		Matcher m;
+
+		for (int i = 0; i < notificationPatterns.length; i++) {
+			p = Pattern
+			.compile(notificationPatterns[i]);
+			m = p.matcher(mmsContent);
+			
+			while (m.find()) {
+				creditCardNotificationSms = new CreditCardNotificationSms();
+				
+				creditCardNotificationSms.setSenderPhoneNumber("01027976877");
+				creditCardNotificationSms.setNotificationSms(m.group());
+				
+				result.add(creditCardNotificationSms);
+			}
+		}
+		
+		return result;
 	}
 
 	public List<CreditCardUnmanagedSms> unmanagedSmsParse(String mmsContent) {
