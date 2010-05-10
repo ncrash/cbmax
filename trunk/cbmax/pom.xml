@@ -9,7 +9,7 @@
 	<name>cbmax</name>
 	<url>http://maven.apache.org</url>
 	<modules>
-		<module>cbmax-core</module>
+		<module>core-api</module>
 		<module>cbmax-web</module>
 		<module>cbmax-admin-web</module>
 	</modules>
@@ -39,7 +39,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>net.ncrash</groupId>
-				<artifactId>cbmax-core</artifactId>
+				<artifactId>core-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
