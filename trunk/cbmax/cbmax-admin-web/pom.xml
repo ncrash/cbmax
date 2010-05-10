@@ -13,7 +13,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.ncrash</groupId>
-			<artifactId>cbmax-core</artifactId>
+			<artifactId>core-api</artifactId>
 		</dependency>
 	</dependencies>
 </project>

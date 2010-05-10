@@ -3,7 +3,7 @@
     <wb-module deploy-name="cbmax-admin-web">
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/cbmax-core/cbmax-core">
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/core-api/core-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="context-root" value="cbmax-admin-web"/>
