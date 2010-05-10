@@ -37,9 +37,23 @@ public class KbCardParser implements CreditCardSmsParser {
 			03월27일17:13
 			이마트구로점
 			40,480원 사용
+
+			[KB카드]
+			강대권님
+			05월09일22:45
+			(주)인터파크INT
+			53,200원
+			할부:12개월
+			
+			[KB카드]
+			강대권님
+			05월09일22:46
+			(주)인터파크INT
+			53,200원
+			승인취소
 		 */
 		Pattern p = Pattern
-				.compile("\\[(KB)(카드|체크)\\]\\n(.*님)\\n(\\d{2}월\\d{2}일)(\\d{2}:\\d{2})\\n(.*\\b)\\n([0-9,]*)(원) (사용)");
+				.compile("\\[(KB)(카드|체크)\\]\\n(.*님)\\n(\\d{2}월\\d{2}일)(\\d{2}:\\d{2})\\n(.*\\b)\\n([0-9,]*)(원)( 사용|\\n할부:(\\d*)개월|\\n승인취소)");
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
@@ -54,7 +68,8 @@ public class KbCardParser implements CreditCardSmsParser {
 			creditCardPaymentSms.setPayedMoney(m.group(7));
 			creditCardPaymentSms.setPayedCardType(m.group(2));
 			creditCardPaymentSms.setPayedApproveType(null);
-			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(9));
+			creditCardPaymentSms.setPayedInstallmentMonths(m.group(10));
 
 			result.add(creditCardPaymentSms);
 		}
