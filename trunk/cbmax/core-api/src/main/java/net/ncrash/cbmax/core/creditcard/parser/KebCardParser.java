@@ -27,8 +27,10 @@ public class KebCardParser implements CreditCardSmsParser {
 
 		/*
 			[외환카드]강대권님     15,720원 승인 택시(서울)한국스 04/08 01:22
+			[외환카드]강대권님 65,550원 할부 11개월 승인 인터파크(쇼핑몰) 05/09 22:53
+			[외환카드]강대권님 65,550원 승인취소 인터파크(쇼핑몰) 05/09 22:54
 		 */
-		Pattern p = Pattern.compile("\\[(외환카드)\\](.*님)\\s*([0-9,]*)(원) (승인) (.*\\b) (\\d{2}/\\d{2}) (\\d{2}:\\d{2})");
+		Pattern p = Pattern.compile("\\[(외환카드)\\](.*님)\\s*([0-9,]*)(원) (승인|할부 (\\d*)개월 승인|승인취소) (.*) (\\d{2}/\\d{2}) (\\d{2}:\\d{2})");
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
@@ -37,13 +39,21 @@ public class KebCardParser implements CreditCardSmsParser {
 			creditCardPaymentSms.setSenderName(m.group(2));
 			creditCardPaymentSms.setCardCompanyName(m.group(1));
 			creditCardPaymentSms.setCardLastFourNumber(null);
-			creditCardPaymentSms.setPayedWhenDate(m.group(7));
-			creditCardPaymentSms.setPayedWhenTime(m.group(8));
-			creditCardPaymentSms.setPayedWhere(m.group(6));
+			creditCardPaymentSms.setPayedWhenDate(m.group(8));
+			creditCardPaymentSms.setPayedWhenTime(m.group(9));
+			creditCardPaymentSms.setPayedWhere(m.group(7));
 			creditCardPaymentSms.setPayedMoney(m.group(3));
 			creditCardPaymentSms.setPayedCardType(null);
-			creditCardPaymentSms.setPayedApproveType(m.group(5));
-			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
+			
+			if("승인".equals(m.group(5)) || "승인취소".equals(m.group(5))) {
+				creditCardPaymentSms.setPayedApproveType(m.group(5));
+				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
+				creditCardPaymentSms.setPayedInstallmentMonths(m.group(6));
+			} else if (m.group(5) != null && m.group(5).indexOf("할부") > -1 && m.group(5).indexOf("승인") > -1) {
+				creditCardPaymentSms.setPayedApproveType("승인");
+				creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan("할부 11개월");
+				creditCardPaymentSms.setPayedInstallmentMonths(m.group(6));
+			}
 
 			result.add(creditCardPaymentSms);
 		}
