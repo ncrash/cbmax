@@ -29,7 +29,7 @@ public class CityCardParser implements CreditCardSmsParser {
 			씨티카드 강대권님 승인내역 03월13일 19:47 이마트구로점 40,410원 일시불
 		 */
 		Pattern p = Pattern
-		.compile("(씨티카드) (.*님) (승인|취소)(내역) (.*월.*일) ([\\d]*:[\\d]*) (.*) ([0-9,]*)(원) (일시불|.*$)");
+		.compile("(씨티카드) (.*님) (승인내역|승인취소) (\\d{2}월\\d{2}일) (\\d{2}:\\d{2}) (.*) ([0-9,]*)(원)( 일시불| (\\d{2})개월 할부|)");
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
@@ -39,13 +39,14 @@ public class CityCardParser implements CreditCardSmsParser {
 			creditCardPaymentSms.setSenderName(m.group(2));
 			creditCardPaymentSms.setCardCompanyName(m.group(1));
 			creditCardPaymentSms.setCardLastFourNumber(null);
-			creditCardPaymentSms.setPayedWhenDate(m.group(5));
-			creditCardPaymentSms.setPayedWhenTime(m.group(6));
-			creditCardPaymentSms.setPayedWhere(m.group(7));
-			creditCardPaymentSms.setPayedMoney(m.group(8));
+			creditCardPaymentSms.setPayedWhenDate(m.group(4));
+			creditCardPaymentSms.setPayedWhenTime(m.group(5));
+			creditCardPaymentSms.setPayedWhere(m.group(6));
+			creditCardPaymentSms.setPayedMoney(m.group(7));
 			creditCardPaymentSms.setPayedCardType(null);
 			creditCardPaymentSms.setPayedApproveType(m.group(3));
-			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(10));
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(9));
+			creditCardPaymentSms.setPayedInstallmentMonths(m.group(10));
 
 			result.add(creditCardPaymentSms);
 		}

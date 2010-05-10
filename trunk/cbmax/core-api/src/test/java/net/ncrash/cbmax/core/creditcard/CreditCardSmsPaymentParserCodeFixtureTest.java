@@ -43,6 +43,8 @@ public class CreditCardSmsPaymentParserCodeFixtureTest {
 		matchCount = 0;
 
 		PaymentSmsList.add("씨티카드 강대권님 승인내역 03월13일 19:47 이마트구로점 40,410원 일시불");
+		PaymentSmsList.add("씨티카드 강대권님 승인내역 05월09일 22:41 (주)인터파크(일반 65,550원 11개월 할부");
+		PaymentSmsList.add("씨티카드 강대권님 승인취소 05월09일 22:42 (주)인터파크(일반 65,550원");
 
 		sb = new StringBuffer();
 		sb.append("[일시불.승인]");
@@ -177,22 +179,46 @@ public class CreditCardSmsPaymentParserCodeFixtureTest {
 
 		matchCount += getSize(creditCardCompany.getParser());
 
-		assertEquals(1, matchCount);
+		assertEquals(3, matchCount);
 
 		List<CreditCardPaymentSms> parsedCreditCardPaymentSmsList = creditCardCompany
 				.getParser().paymentSmsParse(
 						this.convertPaymentSmsListToString());
+		
 		creditCardPaymentSms = parsedCreditCardPaymentSmsList.get(0);
-
 		assertEquals("씨티카드", creditCardPaymentSms.getCardCompanyName());
 		assertEquals("강대권님", creditCardPaymentSms.getSenderName());
 		assertEquals("03월13일", creditCardPaymentSms.getPayedWhenDate());
 		assertEquals("19:47", creditCardPaymentSms.getPayedWhenTime());
 		assertEquals("이마트구로점", creditCardPaymentSms.getPayedWhere());
 		assertEquals("40,410", creditCardPaymentSms.getPayedMoney());
-		assertEquals("승인", creditCardPaymentSms.getPayedApproveType());
-		assertEquals("일시불", creditCardPaymentSms
+		assertEquals("승인내역", creditCardPaymentSms.getPayedApproveType());
+		assertEquals(" 일시불", creditCardPaymentSms
 				.getPayedLumpSumOrInstallmentPlan());
+		
+		creditCardPaymentSms = parsedCreditCardPaymentSmsList.get(1);
+		assertEquals("씨티카드", creditCardPaymentSms.getCardCompanyName());
+		assertEquals("강대권님", creditCardPaymentSms.getSenderName());
+		assertEquals("05월09일", creditCardPaymentSms.getPayedWhenDate());
+		assertEquals("22:41", creditCardPaymentSms.getPayedWhenTime());
+		assertEquals("(주)인터파크(일반", creditCardPaymentSms.getPayedWhere());
+		assertEquals("65,550", creditCardPaymentSms.getPayedMoney());
+		assertEquals("승인내역", creditCardPaymentSms.getPayedApproveType());
+		assertEquals(" 11개월 할부", creditCardPaymentSms
+				.getPayedLumpSumOrInstallmentPlan());
+		assertEquals("11", creditCardPaymentSms.getPayedInstallmentMonths());
+
+		creditCardPaymentSms = parsedCreditCardPaymentSmsList.get(2);
+		assertEquals("씨티카드", creditCardPaymentSms.getCardCompanyName());
+		assertEquals("강대권님", creditCardPaymentSms.getSenderName());
+		assertEquals("05월09일", creditCardPaymentSms.getPayedWhenDate());
+		assertEquals("22:42", creditCardPaymentSms.getPayedWhenTime());
+		assertEquals("(주)인터파크(일반", creditCardPaymentSms.getPayedWhere());
+		assertEquals("65,550", creditCardPaymentSms.getPayedMoney());
+		assertEquals("승인취소", creditCardPaymentSms.getPayedApproveType());
+		assertEquals("", creditCardPaymentSms
+				.getPayedLumpSumOrInstallmentPlan());
+		assertEquals(null, creditCardPaymentSms.getPayedInstallmentMonths());
 	}
 
 	@Test
