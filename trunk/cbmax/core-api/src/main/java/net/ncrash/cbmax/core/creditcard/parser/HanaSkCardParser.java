@@ -52,6 +52,34 @@ public class HanaSkCardParser implements CreditCardSmsParser {
 			result.add(creditCardPaymentSms);
 		}
 
+		/*
+			하나카드취소 강대권님 2010년05월11일 -42,700 철도승차권발매
+			하나카드취소 강대권님 2010년05월11일 -45,700 철도승차권발매
+			하나카드취소 강대권님 2010년05월11일 -42,700 철도승차권발매
+			하나카드취소 강대권님 2010년05월11일 -45,700 철도승차권발매
+		 */
+		p = Pattern
+		.compile("(하나카드)(취소) (.*님) (\\d{4}년\\d{2}월\\d{2}일) ([0-9,-]*) (.*\\b)");
+		m = p.matcher(mmsContent);
+		
+		while (m.find()) {
+			creditCardPaymentSms = new CreditCardPaymentSms();
+			
+			creditCardPaymentSms.setSenderName(m.group(3));
+			creditCardPaymentSms.setCardCompanyName(m.group(1));
+			creditCardPaymentSms.setCardLastFourNumber(null);
+			creditCardPaymentSms.setPayedWhenDate(m.group(4));
+			creditCardPaymentSms.setPayedWhenTime(null);
+			creditCardPaymentSms.setPayedWhere(m.group(6));
+			creditCardPaymentSms.setPayedMoney(m.group(5));
+			creditCardPaymentSms.setPayedCardType(null);
+			creditCardPaymentSms.setPayedApproveType(null);
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(null);
+			creditCardPaymentSms.setPayedInstallmentMonths(null);
+			
+			result.add(creditCardPaymentSms);
+		}
+		
 		return result;
 	}
 

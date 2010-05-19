@@ -190,6 +190,8 @@ public class CreditCardSmsPaymentParserCodeFixtureTest {
 				.add("하나SK카드(1*8*)강대권님 05/09 22:19 일시불/ 56,050원/승인취소/ (주)인터파크INT");
 		PaymentSmsList
 				.add("하나SK카드(1*8*)강대권님 05/09 22:21 할부/11개월 149,150원/승인/ (주)인터파크INT");
+		PaymentSmsList
+		.add("하나카드취소 강대권님 2010년05월11일 -45,700 철도승차권발매");
 	}
 
 	@After
@@ -704,7 +706,7 @@ public class CreditCardSmsPaymentParserCodeFixtureTest {
 
 		matchCount += getSize(creditCardCompany.getParser());
 
-		assertEquals(3, matchCount);
+		assertEquals(4, matchCount);
 
 		List<CreditCardPaymentSms> parsedCreditCardPaymentSmsList = creditCardCompany
 				.getParser().paymentSmsParse(
@@ -751,6 +753,20 @@ public class CreditCardSmsPaymentParserCodeFixtureTest {
 				.getPayedLumpSumOrInstallmentPlan());
 		assertEquals("11", creditCardPaymentSms.getPayedInstallmentMonths());
 		assertEquals("(1*8*)", creditCardPaymentSms.getCardLastFourNumber());
+		
+		creditCardPaymentSms = parsedCreditCardPaymentSmsList.get(3);
+		assertEquals("하나카드", creditCardPaymentSms.getCardCompanyName());
+		assertEquals(null, creditCardPaymentSms.getPayedCardType());
+		assertEquals("강대권님", creditCardPaymentSms.getSenderName());
+		assertEquals("2010년05월11일", creditCardPaymentSms.getPayedWhenDate());
+		assertEquals(null, creditCardPaymentSms.getPayedWhenTime());
+		assertEquals("철도승차권발매", creditCardPaymentSms.getPayedWhere());
+		assertEquals("-45,700", creditCardPaymentSms.getPayedMoney());
+		assertEquals(null, creditCardPaymentSms.getPayedApproveType());
+		assertEquals(null, creditCardPaymentSms
+				.getPayedLumpSumOrInstallmentPlan());
+		assertEquals(null, creditCardPaymentSms.getPayedInstallmentMonths());
+		assertEquals(null, creditCardPaymentSms.getCardLastFourNumber());
 	}
 
 	public int getSize(CreditCardSmsParser creditCardSmsParser) {
