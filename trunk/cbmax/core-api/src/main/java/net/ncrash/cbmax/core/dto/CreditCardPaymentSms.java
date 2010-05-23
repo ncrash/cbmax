@@ -25,6 +25,7 @@ public class CreditCardPaymentSms {
 	private String payedApproveType;
 	private String payedLumpSumOrInstallmentPlan;
 	private String payedInstallmentMonths;
+	private String unknownMessage;
 
 	public CreditCardPaymentSms() {
 		super();
@@ -127,17 +128,21 @@ public class CreditCardPaymentSms {
 		return payedInstallmentMonths;
 	}
 
+	public void setUnknownMessage(String unknownMessage) {
+		this.unknownMessage = unknownMessage;
+	}
+
+	public String getUnknownMessage() {
+		return unknownMessage;
+	}
+
 	@Override
 	public String toString() {
-		return "CreditCardPaymentSms [cardCompanyName=" + cardCompanyName
-				+ ", cardLastFourNumber=" + cardLastFourNumber
-				+ ", payedApproveType=" + payedApproveType + ", payedCardType="
-				+ payedCardType + ", payedInstallmentMonths="
-				+ payedInstallmentMonths + ", payedLumpSumOrInstallmentPlan="
-				+ payedLumpSumOrInstallmentPlan + ", payedMoney=" + payedMoney
-				+ ", payedWhenDate=" + payedWhenDate + ", payedWhenTime="
-				+ payedWhenTime + ", payedWhere=" + payedWhere
-				+ ", senderName=" + senderName + ", senderPhoneNumber="
-				+ senderPhoneNumber + "]";
+		return "CreditCardPaymentSms [cardCompanyName=" + cardCompanyName + ", cardLastFourNumber="
+				+ cardLastFourNumber + ", payedApproveType=" + payedApproveType + ", payedCardType=" + payedCardType
+				+ ", payedInstallmentMonths=" + payedInstallmentMonths + ", payedLumpSumOrInstallmentPlan="
+				+ payedLumpSumOrInstallmentPlan + ", payedMoney=" + payedMoney + ", payedWhenDate=" + payedWhenDate
+				+ ", payedWhenTime=" + payedWhenTime + ", payedWhere=" + payedWhere + ", senderName=" + senderName
+				+ ", senderPhoneNumber=" + senderPhoneNumber + ", unknownMessage=" + unknownMessage + "]";
 	}
 }

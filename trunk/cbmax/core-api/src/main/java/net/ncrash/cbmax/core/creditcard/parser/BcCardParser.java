@@ -49,9 +49,16 @@ public class BcCardParser implements CreditCardSmsParser {
 			우리BC(3*8*)강대권님
 			04/23 23:33
 			(주)인터파크INT
+			
+			[일시불.승인]
+			21,500원
+			우리BC(3*8*)강대권님
+			05/23 14:52
+			(POINT580점 사용)
+			피자헛
 		 */
 		Pattern p = Pattern
-				.compile("\\[(일시불.승인|([\\d]*)개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
+				.compile("\\[(일시불.승인|([\\d]*)개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)(\\n\\(.*\\)|)\\n(.*\\b)");
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
@@ -63,9 +70,10 @@ public class BcCardParser implements CreditCardSmsParser {
 			creditCardPaymentSms.setCardLastFourNumber(m.group(6));
 			creditCardPaymentSms.setPayedWhenDate(m.group(8));
 			creditCardPaymentSms.setPayedWhenTime(m.group(9));
-			creditCardPaymentSms.setPayedWhere(m.group(10));
+			creditCardPaymentSms.setPayedWhere(m.group(11));
 			creditCardPaymentSms.setPayedMoney(m.group(3));
 			creditCardPaymentSms.setPayedCardType(null);
+			creditCardPaymentSms.setUnknownMessage(m.group(10));
 			
 			if ("일시불.승인".equals(m.group(1))) {
 				creditCardPaymentSms.setPayedApproveType("승인");
