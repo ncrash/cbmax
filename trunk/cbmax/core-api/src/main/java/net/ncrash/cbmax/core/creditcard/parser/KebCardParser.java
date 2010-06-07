@@ -107,10 +107,12 @@ public class KebCardParser implements CreditCardSmsParser {
 		CreditCardNotificationSms creditCardNotificationSms;
 
 		String[] notificationPatterns = { 
-				"\\[외환카드\\].*님 \\d{2}/\\d{2} 카드대금 [0-9,]*원 결제\\(완납\\)\\. 감사합니다."
+				"\\[외환카드\\].*님 \\d{2}/\\d{2} 카드대금 [0-9,]*원 결제\\(완납\\)\\. 감사합니다.",
+				"\\[외환카드\\].*님변함없는사랑에감사드리며YES포인트[0-9,]*천점을드렸습니다"
 		};
 		/*
 			[외환카드]강대권님 05/01 카드대금 384,620원 결제(완납). 감사합니다.
+			[외환카드]강대권님변함없는사랑에감사드리며YES포인트1천점을드렸습니다
 		 */
 		Pattern p;
 		Matcher m;
