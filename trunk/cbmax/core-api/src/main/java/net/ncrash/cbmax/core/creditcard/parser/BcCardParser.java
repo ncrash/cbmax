@@ -114,6 +114,31 @@ public class BcCardParser implements CreditCardSmsParser {
 			result.add(creditCardPaymentSms);
 		}
 
+		/*
+			우리BC(3*8*)강대권님.05/30 15:43.28,200원.일시불.28TOP적립예정.전국고속버스운송
+		 */
+		p = Pattern
+		.compile("(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\.(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\.([0-9,.]*)(원)\\.(일시불|[\\d]*개월.승인|승인취소)\\.(\\d*)TOP적립예정\\.(.*\\b)");
+		m = p.matcher(mmsContent);
+		
+		while (m.find()) {
+			creditCardPaymentSms = new CreditCardPaymentSms();
+			
+			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
+			creditCardPaymentSms.setSenderName(m.group(3));
+			creditCardPaymentSms.setCardCompanyName(m.group(1));
+			creditCardPaymentSms.setCardLastFourNumber(m.group(2));
+			creditCardPaymentSms.setPayedWhenDate(m.group(4));
+			creditCardPaymentSms.setPayedWhenTime(m.group(5));
+			creditCardPaymentSms.setPayedWhere(m.group(10));
+			creditCardPaymentSms.setPayedMoney(m.group(6));
+			creditCardPaymentSms.setPayedCardType(null);
+			creditCardPaymentSms.setPayedApproveType(m.group(8));
+			creditCardPaymentSms.setPayedLumpSumOrInstallmentPlan(m.group(8));
+			
+			result.add(creditCardPaymentSms);
+		}
+		
 		return result;
 	}
 
