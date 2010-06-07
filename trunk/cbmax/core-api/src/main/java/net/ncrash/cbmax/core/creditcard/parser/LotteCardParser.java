@@ -64,8 +64,34 @@ public class LotteCardParser implements CreditCardSmsParser {
 
 	public List<CreditCardMonthlyPaymentsSms> monthlyPaymentsSmsParse(
 			String mmsContent) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CreditCardMonthlyPaymentsSms> result = new ArrayList<CreditCardMonthlyPaymentsSms>();
+		CreditCardMonthlyPaymentsSms creditCardMonthlyPaymentsSms;
+
+		/*
+		 * 롯데카드 강대권님 05/18기준 결제예정금액1,004,135원 결제일06/01
+		 */
+		Pattern p = Pattern
+				.compile("(롯데카드) (.*님) (\\d{2}/\\d{2})기준 결제예정금액([0-9,.]*)원 결제일(\\d{2}/\\d{2})");
+		Matcher m = p.matcher(mmsContent);
+
+		while (m.find()) {
+			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms();
+
+			creditCardMonthlyPaymentsSms.setSenderPhoneNumber("01027976877");
+			creditCardMonthlyPaymentsSms.setSenderName(m.group(2));
+			creditCardMonthlyPaymentsSms.setCardCompanyName(m.group(1));
+			creditCardMonthlyPaymentsSms.setCardLastFourNumber(null);
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsDate(m.group(5));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsMoney(m.group(4));
+			creditCardMonthlyPaymentsSms
+					.setMonthlyPaymentsCheckDate(m.group(3));
+			creditCardMonthlyPaymentsSms.setMonthlyPaymentsBankName(null);
+			creditCardMonthlyPaymentsSms.setRemainedCardPoint(null);
+			creditCardMonthlyPaymentsSms.setRemainedCardPointCheckDate(null);
+
+			result.add(creditCardMonthlyPaymentsSms);
+		}
+		return result;
 	}
 
 	public List<CreditCardCashServicesSms> cashServiceSmsParse(String mmsContent) {
