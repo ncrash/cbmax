@@ -90,5 +90,10 @@
 			<id>springsource maven repo</id>
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
+
+		<repository>
+			<id>jraf</id>
+			<url>http://www.jraf.org/static/maven/2/</url>
+		</repository>
 	</repositories>
 </project>
