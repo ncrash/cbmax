@@ -112,7 +112,8 @@ public class GmailSmsFixtureTest {
 					
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					mp2.getBodyPart(0).writeTo(baos);
-					mailMmsContentList.add(baos.toString("euc-kr"));
+//					mailMmsContentList.add(baos.toString("euc-kr"));
+					mailMmsContentList.add(m.toString());
 				}
 
 				m.setFlag(Flags.Flag.DELETED, true);
@@ -128,7 +129,8 @@ public class GmailSmsFixtureTest {
 		Sheet sheet = workbook.getSheet(0);
 		
 		for (int i = 1; i < sheet.getRows(); i++) {
-			excelMmsContentList.add(sheet.getCell(1, i).getContents());
+//			excelMmsContentList.add(sheet.getCell(1, i).getContents());
+			excelMmsContentList.add(sheet.getCell(0, i).getContents());
 		}
 		
 		assertEquals("excel파일과 mail파일의 처리건수가 동일해야한다.", excelMmsContentList.size(), mailMmsContentList.size());
