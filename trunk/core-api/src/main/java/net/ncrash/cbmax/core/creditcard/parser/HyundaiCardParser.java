@@ -25,14 +25,14 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;
 
-		/*
-			[현대카드C]
-			강대권님
-			12:10
-			2,400원(일시불)
-			정상승인
-			온누리조은약국
-		 */
+/*
+[현대카드C]
+강대권님
+12:10
+2,400원(일시불)
+정상승인
+온누리조은약국
+ */
 		Pattern p = Pattern
 		.compile("\\[(현대카드)(\\w)\\]\\n(.*님)\\n(\\d{2}:\\d{2})\\n([0-9,\\.]*)(원)\\((일시불)\\)\\n(정상승인)\\n(.*\\b)");
 		Matcher m = p.matcher(mmsContent);
@@ -54,13 +54,13 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 			result.add(creditCardPaymentSms);
 		}
 		
-		/*
-			[현대카드C]-승인
-			강대권님
-			11:51
-			2,000원(일시불)
-			훼미리마트Ｗ－ＭＡＬＬ점
-		 */
+/*
+[현대카드C]-승인
+강대권님
+11:51
+2,000원(일시불)
+훼미리마트Ｗ－ＭＡＬＬ점
+ */
 		p = Pattern
 		.compile("\\[(현대카드)(\\w)\\]-(승인)\\n(.*님)\\n(\\d{2}:\\d{2})\\n([0-9,\\.]*)(원)\\((일시불)\\)\\n(.*\\b)");
 		m = p.matcher(mmsContent);

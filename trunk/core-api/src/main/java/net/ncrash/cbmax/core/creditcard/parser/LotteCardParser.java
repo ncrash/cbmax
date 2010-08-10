@@ -25,13 +25,13 @@ public class LotteCardParser implements CreditCardSmsParser {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;
 
-		/*
-			롯데카드 강대권님 939,900원 일시불 04/17 10:16 이베이옥션                       
-			롯데카드 강대권님 33,800원 일시불 04/21 23:55 (주)이니시스                      
-			롯데카드 강대권님 33,500원 일시불 05/05 22:09 이베이옥션
-			롯데카드 강대권님 65,550원 할부(11) 05/09 23:02 (주)인터파크
-			롯데카드 강대권님 65,550원 할부(11)취소 05/09 23:02 (주)인터파크
-		 */
+/*
+롯데카드 강대권님 939,900원 일시불 04/17 10:16 이베이옥션                       
+롯데카드 강대권님 33,800원 일시불 04/21 23:55 (주)이니시스                      
+롯데카드 강대권님 33,500원 일시불 05/05 22:09 이베이옥션
+롯데카드 강대권님 65,550원 할부(11) 05/09 23:02 (주)인터파크
+롯데카드 강대권님 65,550원 할부(11)취소 05/09 23:02 (주)인터파크
+ */
 		Pattern p = Pattern
 		.compile("(롯데카드) (.*님) ([0-9,\\.]*)(원) (일시불|할부\\((\\d*)\\))(취소|) (\\d{2}/\\d{2}) (\\d{2}:\\d{2}) (.*\\b)");
 		Matcher m = p.matcher(mmsContent);
@@ -67,9 +67,9 @@ public class LotteCardParser implements CreditCardSmsParser {
 		List<CreditCardMonthlyPaymentsSms> result = new ArrayList<CreditCardMonthlyPaymentsSms>();
 		CreditCardMonthlyPaymentsSms creditCardMonthlyPaymentsSms;
 
-		/*
-		 * 롯데카드 강대권님 05/18기준 결제예정금액1,004,135원 결제일06/01
-		 */
+/*
+롯데카드 강대권님 05/18기준 결제예정금액1,004,135원 결제일06/01
+ */
 		Pattern p = Pattern
 				.compile("(롯데카드) (.*님) (\\d{2}/\\d{2})기준 결제예정금액([0-9,.]*)원 결제일(\\d{2}/\\d{2})");
 		Matcher m = p.matcher(mmsContent);

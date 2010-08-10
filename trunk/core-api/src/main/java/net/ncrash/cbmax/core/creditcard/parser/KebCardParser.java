@@ -25,11 +25,11 @@ public class KebCardParser implements CreditCardSmsParser {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;
 
-		/*
-			[외환카드]강대권님     15,720원 승인 택시(서울)한국스 04/08 01:22
-			[외환카드]강대권님 65,550원 할부 11개월 승인 인터파크(쇼핑몰) 05/09 22:53
-			[외환카드]강대권님 65,550원 승인취소 인터파크(쇼핑몰) 05/09 22:54
-		 */
+/*
+[외환카드]강대권님     15,720원 승인 택시(서울)한국스 04/08 01:22
+[외환카드]강대권님 65,550원 할부 11개월 승인 인터파크(쇼핑몰) 05/09 22:53
+[외환카드]강대권님 65,550원 승인취소 인터파크(쇼핑몰) 05/09 22:54
+ */
 		Pattern p = Pattern.compile("\\[(외환카드)\\](.*님)\\s*([0-9,]*)(원) (승인|할부 (\\d*)개월 승인|승인취소) (.*) (\\d{2}/\\d{2}) (\\d{2}:\\d{2})");
 		Matcher m = p.matcher(mmsContent);
 
@@ -70,9 +70,9 @@ public class KebCardParser implements CreditCardSmsParser {
 		List<CreditCardMonthlyPaymentsSms> result = new ArrayList<CreditCardMonthlyPaymentsSms>();
 		CreditCardMonthlyPaymentsSms creditCardMonthlyPaymentsSms;
 
-		/*
-			[외환카드]강대권님 카드대금 384,620원의 결제일은 05/03입니다
-		 */
+/*
+[외환카드]강대권님 카드대금 384,620원의 결제일은 05/03입니다
+ */
 		Pattern p = Pattern
 				.compile("\\[(외환카드)\\](.*님) 카드대금 ([0-9,\\.]*)(원)의 결제일은 (\\d{2}/\\d{2})입니다");
 		Matcher m = p.matcher(mmsContent);
@@ -110,10 +110,10 @@ public class KebCardParser implements CreditCardSmsParser {
 				"\\[외환카드\\].*님 \\d{2}/\\d{2} 카드대금 [0-9,]*원 결제\\(완납\\)\\. 감사합니다.",
 				"\\[외환카드\\].*님변함없는사랑에감사드리며YES포인트[0-9,]*천점을드렸습니다"
 		};
-		/*
-			[외환카드]강대권님 05/01 카드대금 384,620원 결제(완납). 감사합니다.
-			[외환카드]강대권님변함없는사랑에감사드리며YES포인트1천점을드렸습니다
-		 */
+/*
+[외환카드]강대권님 05/01 카드대금 384,620원 결제(완납). 감사합니다.
+[외환카드]강대권님변함없는사랑에감사드리며YES포인트1천점을드렸습니다
+ */
 		Pattern p;
 		Matcher m;
 

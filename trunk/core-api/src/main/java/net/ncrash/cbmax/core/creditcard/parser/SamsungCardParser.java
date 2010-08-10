@@ -25,31 +25,31 @@ public class SamsungCardParser implements CreditCardSmsParser {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;
 
-		/*
-			삼성카드
-			04/30 09:58
-			1.0% 보너스클럽
-			(주)인터파크INT
-			63,650원
-			삼성카드취소
-			04/30 09:59
-			(주)인터파크INT
-			-63,650원
-			일시불
-			감사합니다
-			삼성카드
-			04/30 10:00
-			1.0% 보너스클럽
-			(주)인터파크INT
-			110,200원
-			3개월할부
-			삼성카드취소
-			04/30 10:01
-			(주)인터파크INT
-			-110,200원
-			할부
-			감사합니다
-		 */
+/*
+삼성카드
+04/30 09:58
+1.0% 보너스클럽
+(주)인터파크INT
+63,650원
+삼성카드취소
+04/30 09:59
+(주)인터파크INT
+-63,650원
+일시불
+감사합니다
+삼성카드
+04/30 10:00
+1.0% 보너스클럽
+(주)인터파크INT
+110,200원
+3개월할부
+삼성카드취소
+04/30 10:01
+(주)인터파크INT
+-110,200원
+할부
+감사합니다
+ */
 		//TODO 정규표현식에 줄바꿈 처리가 제대로 되지 않아 \n 문자를 모두 없애고 꽁수로 처리함
 		Pattern p = Pattern
 				.compile("(삼성카드)(취소|)\\n(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\n([0-9.%]{4} 보너스클럽\\n|)(.*)\\n([0-9,.-]*)(원)(\\n|)((\\d*)개월할부|(일시불)\\n감사합니다|(할부)\\n감사합니다|)");
@@ -108,9 +108,9 @@ public class SamsungCardParser implements CreditCardSmsParser {
 		String[] notificationPatterns = { 
 				"\\(삼성카드\\).*님\\, \\d{2}월\\d{2}일 안심클릭 서비스등록이 정상처리되었습니다."
 		};
-		/*
-			(삼성카드)강대권님, 04월24일 안심클릭 서비스등록이 정상처리되었습니다.
-		 */
+/*
+(삼성카드)강대권님, 04월24일 안심클릭 서비스등록이 정상처리되었습니다.
+ */
 		Pattern p;
 		Matcher m;
 

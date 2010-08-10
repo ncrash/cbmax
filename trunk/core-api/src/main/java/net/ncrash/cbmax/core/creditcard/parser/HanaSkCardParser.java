@@ -25,11 +25,11 @@ public class HanaSkCardParser implements CreditCardSmsParser {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;
 
-		/*
-			하나SK카드(1*8*)강대권님 05/09 22:18 일시불/ 56,050원/승인/ (주)인터파크INT
-			하나SK카드(1*8*)강대권님 05/09 22:19 일시불/ 56,050원/승인취소/ (주)인터파크INT
-			하나SK카드(1*8*)강대권님 05/09 22:21 할부/11개월 149,150원/승인/ (주)인터파크INT
-		 */
+/*
+하나SK카드(1*8*)강대권님 05/09 22:18 일시불/ 56,050원/승인/ (주)인터파크INT
+하나SK카드(1*8*)강대권님 05/09 22:19 일시불/ 56,050원/승인취소/ (주)인터파크INT
+하나SK카드(1*8*)강대권님 05/09 22:21 할부/11개월 149,150원/승인/ (주)인터파크INT
+ */
 		Pattern p = Pattern
 				.compile("(하나SK카드)(\\(.{4}\\))(.*님) (\\d{2}/\\d{2}) (\\d{2}:\\d{2}) (일시불|할부)/((\\d*)개월|) ([0-9,]*)(원)/(승인|승인취소)/ (.*\\b)");
 		Matcher m = p.matcher(mmsContent);
@@ -52,12 +52,12 @@ public class HanaSkCardParser implements CreditCardSmsParser {
 			result.add(creditCardPaymentSms);
 		}
 
-		/*
-			하나카드취소 강대권님 2010년05월11일 -42,700 철도승차권발매
-			하나카드취소 강대권님 2010년05월11일 -45,700 철도승차권발매
-			하나카드취소 강대권님 2010년05월11일 -42,700 철도승차권발매
-			하나카드취소 강대권님 2010년05월11일 -45,700 철도승차권발매
-		 */
+/*
+하나카드취소 강대권님 2010년05월11일 -42,700 철도승차권발매
+하나카드취소 강대권님 2010년05월11일 -45,700 철도승차권발매
+하나카드취소 강대권님 2010년05월11일 -42,700 철도승차권발매
+하나카드취소 강대권님 2010년05월11일 -45,700 철도승차권발매
+ */
 		p = Pattern
 		.compile("(하나카드)(취소) (.*님) (\\d{4}년\\d{2}월\\d{2}일) ([0-9,-]*) (.*\\b)");
 		m = p.matcher(mmsContent);
@@ -92,9 +92,9 @@ public class HanaSkCardParser implements CreditCardSmsParser {
 		List<CreditCardMonthlyPaymentsSms> result = new ArrayList<CreditCardMonthlyPaymentsSms>();
 		CreditCardMonthlyPaymentsSms creditCardMonthlyPaymentsSms;
 
-		/*
-			[하나SK카드]강대권님결제일:01일/결제예정금액(2,800)원=05/26일작성기준
-		 */
+/*
+[하나SK카드]강대권님결제일:01일/결제예정금액(2,800)원=05/26일작성기준
+ */
 		Pattern p = Pattern
 				.compile("(\\[하나SK카드\\])(.*님)결제일:(\\d{2})일/결제예정금액\\(([0-9,.]*)\\)원=(\\d{2}/\\d{2})일작성기준");
 		Matcher m = p.matcher(mmsContent);
@@ -130,9 +130,9 @@ public class HanaSkCardParser implements CreditCardSmsParser {
 		String[] notificationPatterns = { 
 				"\\[하나SK카드\\] 안심클릭 서비스에 가입해 주셔서 감사합니다\\."
 		};
-		/*
-			[하나SK카드] 안심클릭 서비스에 가입해 주셔서 감사합니다.
-		 */
+/*
+[하나SK카드] 안심클릭 서비스에 가입해 주셔서 감사합니다.
+ */
 		Pattern p;
 		Matcher m;
 

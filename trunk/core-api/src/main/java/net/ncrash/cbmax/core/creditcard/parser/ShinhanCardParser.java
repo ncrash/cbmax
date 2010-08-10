@@ -25,12 +25,12 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;
 
-		/*
-			신한카드정상승인강대권님        04/13 13:51     200,570원(일시불) （주）인터파크
-			신한카드승인취소강대권님        04/13 13:57     200,570원(일시불) （주）인터파크
-			신한카드정상승인강대권님 05/09 22:50 65,550원(11개월) （주）인터파크
-			신한카드승인취소강대권님 05/09 22:50 65,550원(11개월) （주）인터파크
-		 */
+/*
+신한카드정상승인강대권님        04/13 13:51     200,570원(일시불) （주）인터파크
+신한카드승인취소강대권님        04/13 13:57     200,570원(일시불) （주）인터파크
+신한카드정상승인강대권님 05/09 22:50 65,550원(11개월) （주）인터파크
+신한카드승인취소강대권님 05/09 22:50 65,550원(11개월) （주）인터파크
+ */
 		Pattern p = Pattern
 				.compile("(신한카드)(정상승인|승인취소)(.*님)\\s*(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\s*([0-9,]*)(원)\\((일시불|(\\d*)개월)\\) (.*\\b)");
 		Matcher m = p.matcher(mmsContent);
@@ -65,9 +65,9 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 		List<CreditCardMonthlyPaymentsSms> result = new ArrayList<CreditCardMonthlyPaymentsSms>();
 		CreditCardMonthlyPaymentsSms creditCardMonthlyPaymentsSms;
 
-		/*
-			［신한카드］ 강대권님 04/01결제금액(03/28기준) 26,555원(결제:우리은행)
-		 */
+/*
+［신한카드］ 강대권님 04/01결제금액(03/28기준) 26,555원(결제:우리은행)
+ */
 		Pattern p = Pattern.compile("［(신한카드)］\\s*(.*님)\\s(\\d{2}/\\d{2})결제금액\\((\\d{2}/\\d{2})기준\\)\\s*([0-9,]*)(원)\\(결제:(.*)\\)");
 		Matcher m = p.matcher(mmsContent);
 
@@ -103,9 +103,9 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 		String[] notificationPatterns = { 
 				".*회원님은 신한카드 안심클릭 서비스에 정상 등록되었습니다\\."
 		};
-		/*
-			강대권회원님은 신한카드 안심클릭 서비스에 정상 등록되었습니다.
-		 */
+/*
+강대권회원님은 신한카드 안심클릭 서비스에 정상 등록되었습니다.
+ */
 		Pattern p;
 		Matcher m;
 

@@ -25,38 +25,38 @@ public class BcCardParser implements CreditCardSmsParser {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;
 
-		/*
-			[일시불.승인]
-			186,000원
-			우리BC(3*8*)강대권님
-			04/07 23:17
-			양은냄비
-			
-			[일시불.승인]
-			348,600원
-			농협BC(1*0*)강대권님
-			01/24 16:16
-			(주)테크노에어포트몰
+/*
+[일시불.승인]
+186,000원
+우리BC(3*8*)강대권님
+04/07 23:17
+양은냄비
 
-			[승인취소]
-			150,100원
-			우리BC(3*8*)강대권님
-			04/23 23:34
-			(주)인터파크INT
-			
-			[10개월.승인]
-			150,100원
-			우리BC(3*8*)강대권님
-			04/23 23:33
-			(주)인터파크INT
-			
-			[일시불.승인]
-			21,500원
-			우리BC(3*8*)강대권님
-			05/23 14:52
-			(POINT580점 사용)
-			피자헛
-		 */
+[일시불.승인]
+348,600원
+농협BC(1*0*)강대권님
+01/24 16:16
+(주)테크노에어포트몰
+
+[승인취소]
+150,100원
+우리BC(3*8*)강대권님
+04/23 23:34
+(주)인터파크INT
+
+[10개월.승인]
+150,100원
+우리BC(3*8*)강대권님
+04/23 23:33
+(주)인터파크INT
+
+[일시불.승인]
+21,500원
+우리BC(3*8*)강대권님
+05/23 14:52
+(POINT580점 사용)
+피자헛
+ */
 		Pattern p = Pattern
 				.compile("\\[(일시불.승인|([\\d]*)개월.승인|승인취소)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)(\\n\\(.*\\)|)\\n(.*\\b)");
 		Matcher m = p.matcher(mmsContent);
@@ -89,9 +89,9 @@ public class BcCardParser implements CreditCardSmsParser {
 			result.add(creditCardPaymentSms);
 		}
 		
-		/*
-			우리BC강대권님 05/01 22:23 13,900원.일시불.11TOP적립예정.G마켓
-		 */
+/*
+우리BC강대권님 05/01 22:23 13,900원.일시불.11TOP적립예정.G마켓
+ */
 		p = Pattern
 		.compile("(.*BC)(.*님) (\\d{2}/\\d{2}) (\\d{2}:\\d{2}) ([0-9,.]*)(원)\\.(일시불|[\\d]*개월.승인|승인취소)\\.(\\d*)TOP적립예정\\.(.*\\b)");
 		m = p.matcher(mmsContent);
@@ -114,9 +114,9 @@ public class BcCardParser implements CreditCardSmsParser {
 			result.add(creditCardPaymentSms);
 		}
 
-		/*
-			우리BC(3*8*)강대권님.05/30 15:43.28,200원.일시불.28TOP적립예정.전국고속버스운송
-		 */
+/*
+	우리BC(3*8*)강대권님.05/30 15:43.28,200원.일시불.28TOP적립예정.전국고속버스운송
+ */
 		p = Pattern
 		.compile("(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\.(\\d{2}/\\d{2}) (\\d{2}:\\d{2})\\.([0-9,.]*)(원)\\.(일시불|[\\d]*개월.승인|승인취소)\\.(\\d*)TOP적립예정\\.(.*\\b)");
 		m = p.matcher(mmsContent);
@@ -152,28 +152,28 @@ public class BcCardParser implements CreditCardSmsParser {
 		List<CreditCardMonthlyPaymentsSms> result = new ArrayList<CreditCardMonthlyPaymentsSms>();
 		CreditCardMonthlyPaymentsSms creditCardMonthlyPaymentsSms;
 
-		/*
-			우리BC 강대권님
-			1/1일 결제금액
-			175,343원
-			(12/16일 기준)
-			농협BC 강대권님
-			2/1일 결제금액
-			38,774원
-			(01/19일 기준)
-			우리BC 강대권님
-			2/1일 결제금액
-			226,761원
-			(01/16일 기준)
-			우리BC 강대권님
-			3/1일 결제금액
-			153,253원
-			(02/16일 기준)
-			농협BC 강대권님
-			3/1일 결제금액
-			379,300원
-			(02/19일 기준)
-		 */
+/*
+우리BC 강대권님
+1/1일 결제금액
+175,343원
+(12/16일 기준)
+농협BC 강대권님
+2/1일 결제금액
+38,774원
+(01/19일 기준)
+우리BC 강대권님
+2/1일 결제금액
+226,761원
+(01/16일 기준)
+우리BC 강대권님
+3/1일 결제금액
+153,253원
+(02/16일 기준)
+농협BC 강대권님
+3/1일 결제금액
+379,300원
+(02/19일 기준)
+ */
 		Pattern p = Pattern
 				.compile("(.*BC) (.*님)\\n(\\d*\\/\\d*일) 결제금액\\n([0-9,]*)(원)\\n\\((\\d{2}/\\d{2}일) 기준\\)");
 		Matcher m = p.matcher(mmsContent);
@@ -195,9 +195,9 @@ public class BcCardParser implements CreditCardSmsParser {
 			result.add(creditCardMonthlyPaymentsSms);
 		}
 		
-		/*
-			우리BC강대권님4/1일결제금액300,401원(03/16기준)잔여TOP431(03/24기준)
-		 */
+/*
+우리BC강대권님4/1일결제금액300,401원(03/16기준)잔여TOP431(03/24기준)
+ */
 		p = Pattern
 		.compile("(.*BC)(.*님)(\\d*\\/\\d*일)결제금액([0-9,]*)(원)\\((\\d{2}/\\d{2})기준\\)(잔여TOP)([0-9,.]*)\\((\\d{2}/\\d{2})기준\\)");
 		m = p.matcher(mmsContent);
@@ -226,13 +226,13 @@ public class BcCardParser implements CreditCardSmsParser {
 		List<CreditCardCashServicesSms> result = new ArrayList<CreditCardCashServicesSms>();
 		CreditCardCashServicesSms creditCardCashServicesSms;
 
-		/*
-			[현금서비스.승인]
-			10,000원
-			농협BC(1*0*)강대권님
-			12/24 18:56
-			현금서비스
-		 */
+/*
+[현금서비스.승인]
+10,000원
+농협BC(1*0*)강대권님
+12/24 18:56
+현금서비스
+ */
 		Pattern p = Pattern
 				.compile("\\[(현금서비스.승인)\\]\\n([0-9,]*)(원)\\n(.*BC)(\\(\\d\\*\\d\\*\\))(.*님)\\n(\\d*\\/\\d*) (\\d*:\\d*)\\n(.*\\b)");
 		Matcher m = p.matcher(mmsContent);
@@ -262,12 +262,12 @@ public class BcCardParser implements CreditCardSmsParser {
 				".* 고객님 비씨카드 안전결제\\(ISP\\)가 정상적으로 발급되었습니다.",
 				".*님 \\d*/\\d*일은 .*BC 결제일입니다\\.\\n.*\\b"
 		};
-		/*
-			강대권 고객님 비씨카드 안전결제(ISP)가 정상적으로 발급되었습니다.
-			
-			강대권님 1/4일은 우리BC 결제일입니다.
-			연말 바쁜 일정에도 건강 잊지 마세요
-		 */
+/*
+강대권 고객님 비씨카드 안전결제(ISP)가 정상적으로 발급되었습니다.
+
+강대권님 1/4일은 우리BC 결제일입니다.
+연말 바쁜 일정에도 건강 잊지 마세요
+ */
 		Pattern p;
 		Matcher m;
 

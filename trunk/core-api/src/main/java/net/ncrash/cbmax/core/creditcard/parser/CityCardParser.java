@@ -25,9 +25,9 @@ public class CityCardParser implements CreditCardSmsParser {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;
 
-		/*
-			씨티카드 강대권님 승인내역 03월13일 19:47 이마트구로점 40,410원 일시불
-		 */
+/*
+씨티카드 강대권님 승인내역 03월13일 19:47 이마트구로점 40,410원 일시불
+ */
 		Pattern p = Pattern
 		.compile("(씨티카드) (.*님) (승인내역|승인취소) (\\d{2}월\\d{2}일) (\\d{2}:\\d{2}) (.*) ([0-9,]*)(원)( 일시불| (\\d{2})개월 할부|)");
 		Matcher m = p.matcher(mmsContent);
@@ -77,9 +77,9 @@ public class CityCardParser implements CreditCardSmsParser {
 		String[] notificationPatterns = { 
 				"(씨티카드)(.*님) 비자안심클릭을 가입하셨습니다\\.(\\d{2}월\\d{2}일) (\\d{2}:\\d{2})"
 		};
-		/*
-			씨티카드강대권님 비자안심클릭을 가입하셨습니다.05월09일 22:42
-		 */
+/*
+씨티카드강대권님 비자안심클릭을 가입하셨습니다.05월09일 22:42
+ */
 		Pattern p;
 		Matcher m;
 

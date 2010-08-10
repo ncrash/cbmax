@@ -25,33 +25,33 @@ public class KbCardParser implements CreditCardSmsParser {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;
 
-		/*
-			[KB체크]
-			강대권님
-			04월05일12:47
-			광양불고기
-			52,000원 사용
-			
-			[KB카드]
-			강대권님
-			03월27일17:13
-			이마트구로점
-			40,480원 사용
+/*
+[KB체크]
+강대권님
+04월05일12:47
+광양불고기
+52,000원 사용
 
-			[KB카드]
-			강대권님
-			05월09일22:45
-			(주)인터파크INT
-			53,200원
-			할부:12개월
-			
-			[KB카드]
-			강대권님
-			05월09일22:46
-			(주)인터파크INT
-			53,200원
-			승인취소
-		 */
+[KB카드]
+강대권님
+03월27일17:13
+이마트구로점
+40,480원 사용
+
+[KB카드]
+강대권님
+05월09일22:45
+(주)인터파크INT
+53,200원
+할부:12개월
+
+[KB카드]
+강대권님
+05월09일22:46
+(주)인터파크INT
+53,200원
+승인취소
+ */
 		Pattern p = Pattern
 				.compile("\\[(KB)(카드|체크)\\]\\n(.*님)\\n(\\d{2}월\\d{2}일)(\\d{2}:\\d{2})\\n(.*\\b)\\n([0-9,]*)(원)( 사용|\\n할부:(\\d*)개월|\\n승인취소)");
 		Matcher m = p.matcher(mmsContent);
@@ -81,9 +81,9 @@ public class KbCardParser implements CreditCardSmsParser {
 		List<CreditCardAutoPaymentSms> result = new ArrayList<CreditCardAutoPaymentSms>();
 		CreditCardAutoPaymentSms creditCardAutoPaymentSms;
 
-		/*
-			[KB카드]강대권님 카드가 03월11일 SK텔레콤-자동납부에서 10,350원 사용
-		 */
+/*
+[KB카드]강대권님 카드가 03월11일 SK텔레콤-자동납부에서 10,350원 사용
+ */
 		Pattern p = Pattern.compile("\\[(KB카드)\\](.*님) (카드가) (\\d{2}월\\d{2}일) (.*\\b) ([0-9,\\.]*)(원) (사용)");
 		Matcher m = p.matcher(mmsContent);
 
@@ -107,10 +107,10 @@ public class KbCardParser implements CreditCardSmsParser {
 		List<CreditCardMonthlyPaymentsSms> result = new ArrayList<CreditCardMonthlyPaymentsSms>();
 		CreditCardMonthlyPaymentsSms creditCardMonthlyPaymentsSms;
 
-		/*
-			[KB카드]강대권님04월01일KB카드결제하실금액180,299원감사합니다(03/17기준)
-			[KB카드]강대권님05월03일KB카드결제하실금액345,960원감사합니다(04/16기준)
-		 */
+/*
+[KB카드]강대권님04월01일KB카드결제하실금액180,299원감사합니다(03/17기준)
+[KB카드]강대권님05월03일KB카드결제하실금액345,960원감사합니다(04/16기준)
+ */
 		Pattern p = Pattern.compile("\\[(KB카드)\\](.*님)(\\d{2}월\\d{2}일)(KB카드결제하실금액)([0-9,\\.]*)(원)감사합니다\\((\\d{2}/\\d{2})기준\\)");
 		Matcher m = p.matcher(mmsContent);
 
@@ -146,9 +146,9 @@ public class KbCardParser implements CreditCardSmsParser {
 		String[] notificationPatterns = { 
 				"\\[KB카드\\].*님 KB카드의 안전결제\\(ISP\\)가 \\d{2}월\\d{2}일\\d{2}:\\d{2} 등록완료\\.감사합니다"
 		};
-		/*
-			[KB카드]강대권님 KB카드의 안전결제(ISP)가 03월05일16:51 등록완료.감사합니다
-		 */
+/*
+[KB카드]강대권님 KB카드의 안전결제(ISP)가 03월05일16:51 등록완료.감사합니다
+ */
 		Pattern p;
 		Matcher m;
 
