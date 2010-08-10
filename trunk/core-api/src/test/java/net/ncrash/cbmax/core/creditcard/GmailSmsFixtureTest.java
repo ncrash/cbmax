@@ -128,11 +128,11 @@ public class GmailSmsFixtureTest {
 		Sheet sheet = workbook.getSheet(0);
 		
 		for (int i = 1; i < sheet.getRows(); i++) {
-			excelMmsContentList.add(sheet.getCell(1, i).getContents());
+			excelMmsContentList.add(sheet.getCell(0, i).getContents());
 		}
 		
 		assertEquals("excel파일과 mail파일의 처리건수가 동일해야한다.", excelMmsContentList.size(), mailMmsContentList.size());
-		assertEquals("첫번째 문자열 길이(length)을 대상으로 excel파일과 mail파일 비교", mailMmsContentList.get(0).toString().length(), excelMmsContentList.get(3).toString().length());
+		assertEquals("첫번째 문자열 길이(length)을 대상으로 excel파일과 mail파일 비교", mailMmsContentList.get(0).toString().length(), excelMmsContentList.get(0).toString().length());
 
 		assertReflectionEquals("excel 파일에 정의된 내용대로 mail 파일 파싱한 결과가 동일한지 확인", excelMmsContentList, mailMmsContentList, LENIENT_ORDER);
 	}
