@@ -36,7 +36,7 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardPaymentSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms(m.group());
 
 			creditCardPaymentSms.setSenderName(m.group(3));
 			creditCardPaymentSms.setCardCompanyName(m.group(1));
@@ -72,7 +72,7 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms();
+			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms(m.group());
 
 			creditCardMonthlyPaymentsSms.setSenderPhoneNumber("01027976877");
 			creditCardMonthlyPaymentsSms.setSenderName(m.group(2));
@@ -115,7 +115,7 @@ public class ShinhanCardParser implements CreditCardSmsParser {
 			m = p.matcher(mmsContent);
 			
 			while (m.find()) {
-				creditCardNotificationSms = new CreditCardNotificationSms();
+				creditCardNotificationSms = new CreditCardNotificationSms(m.group());
 				
 				creditCardNotificationSms.setSenderPhoneNumber("01027976877");
 				creditCardNotificationSms.setNotificationSms(m.group());

@@ -7,8 +7,7 @@ package net.ncrash.cbmax.core.dto;
  * @since 2010. 4. 29.
  * @see
  */
-public class CreditCardAutoPaymentSms {
-	private String senderPhoneNumber;
+public class CreditCardAutoPaymentSms extends CreditCardSms {
 	private String senderName;
 	private String cardCompanyName;
 	private String cardLastFourNumber;
@@ -16,16 +15,8 @@ public class CreditCardAutoPaymentSms {
 	private String payedWhere;
 	private String payedMoney;
 
-	public CreditCardAutoPaymentSms() {
-		super();
-	}
-
-	public String getSenderPhoneNumber() {
-		return senderPhoneNumber;
-	}
-
-	public void setSenderPhoneNumber(String senderPhoneNumber) {
-		this.senderPhoneNumber = senderPhoneNumber;
+	public CreditCardAutoPaymentSms(String message) {
+		super(message);
 	}
 
 	public String getSenderName() {
@@ -83,6 +74,6 @@ public class CreditCardAutoPaymentSms {
 				+ ", payedMoney=" + payedMoney + ", payedWhenDate="
 				+ payedWhenDate + ", payedWhere=" + payedWhere
 				+ ", senderName=" + senderName + ", senderPhoneNumber="
-				+ senderPhoneNumber + "]";
+				+ this.getSenderPhoneNumber() + "]";
 	}
 }

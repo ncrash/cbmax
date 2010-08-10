@@ -7,20 +7,11 @@ package net.ncrash.cbmax.core.dto;
  * @since 2010. 5. 3.
  * @see
  */
-public class CreditCardNotificationSms {
-	private String senderPhoneNumber;
+public class CreditCardNotificationSms extends CreditCardSms {
 	private String notificationSms;
 
-	public CreditCardNotificationSms() {
-		super();
-	}
-
-	public String getSenderPhoneNumber() {
-		return senderPhoneNumber;
-	}
-
-	public void setSenderPhoneNumber(String senderPhoneNumber) {
-		this.senderPhoneNumber = senderPhoneNumber;
+	public CreditCardNotificationSms(String message) {
+		super(message);
 	}
 
 	public String getNotificationSms() {
@@ -34,6 +25,6 @@ public class CreditCardNotificationSms {
 	@Override
 	public String toString() {
 		return "CreditCardNotificationSms [notificationSms=" + notificationSms + ", senderPhoneNumber="
-				+ senderPhoneNumber + "]";
+				+ this.getSenderPhoneNumber() + "]";
 	}
 }

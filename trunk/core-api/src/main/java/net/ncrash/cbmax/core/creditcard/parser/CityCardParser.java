@@ -33,7 +33,7 @@ public class CityCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardPaymentSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms(m.group());
 
 			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
 			creditCardPaymentSms.setSenderName(m.group(2));
@@ -89,7 +89,7 @@ public class CityCardParser implements CreditCardSmsParser {
 			m = p.matcher(mmsContent);
 			
 			while (m.find()) {
-				creditCardNotificationSms = new CreditCardNotificationSms();
+				creditCardNotificationSms = new CreditCardNotificationSms(m.group());
 				
 				creditCardNotificationSms.setSenderPhoneNumber("01027976877");
 				creditCardNotificationSms.setNotificationSms(m.group());

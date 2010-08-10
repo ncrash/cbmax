@@ -7,8 +7,7 @@ package net.ncrash.cbmax.core.dto;
  * @since 2010. 5. 3.
  * @see
  */
-public class CreditCardCashServicesSms {
-	private String senderPhoneNumber;
+public class CreditCardCashServicesSms extends CreditCardSms {
 	private String senderName;
 	private String cardCompanyName;
 	private String cardLastFourNumber;
@@ -16,16 +15,8 @@ public class CreditCardCashServicesSms {
 	private String serviceWhenTime;
 	private String serviceMoney;
 
-	public CreditCardCashServicesSms() {
-		super();
-	}
-
-	public String getSenderPhoneNumber() {
-		return senderPhoneNumber;
-	}
-
-	public void setSenderPhoneNumber(String senderPhoneNumber) {
-		this.senderPhoneNumber = senderPhoneNumber;
+	public CreditCardCashServicesSms(String message) {
+		super(message);
 	}
 
 	public String getSenderName() {
@@ -79,7 +70,7 @@ public class CreditCardCashServicesSms {
 	@Override
 	public String toString() {
 		return "CreditCardCashServicesSms [cardCompanyName=" + cardCompanyName + ", cardLastFourNumber="
-				+ cardLastFourNumber + ", senderName=" + senderName + ", senderPhoneNumber=" + senderPhoneNumber
+				+ cardLastFourNumber + ", senderName=" + senderName + ", senderPhoneNumber=" + this.getSenderPhoneNumber()
 				+ ", serviceMoney=" + serviceMoney + ", serviceWhenDate=" + serviceWhenDate + ", serviceWhenTime="
 				+ serviceWhenTime + "]";
 	}

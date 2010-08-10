@@ -38,7 +38,7 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardPaymentSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms(m.group());
 
 			creditCardPaymentSms.setSenderName(m.group(3));
 			creditCardPaymentSms.setCardCompanyName(m.group(1));
@@ -66,7 +66,7 @@ public class HyundaiCardParser implements CreditCardSmsParser {
 		m = p.matcher(mmsContent);
 		
 		while (m.find()) {
-			creditCardPaymentSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms(m.group());
 			
 			creditCardPaymentSms.setSenderName(m.group(4));
 			creditCardPaymentSms.setCardCompanyName(m.group(1));

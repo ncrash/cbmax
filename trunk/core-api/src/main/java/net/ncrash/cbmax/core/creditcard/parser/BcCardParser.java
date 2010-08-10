@@ -62,7 +62,7 @@ public class BcCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardPaymentSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms(m.group());
 
 			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
 			creditCardPaymentSms.setSenderName(m.group(7));
@@ -97,7 +97,7 @@ public class BcCardParser implements CreditCardSmsParser {
 		m = p.matcher(mmsContent);
 		
 		while (m.find()) {
-			creditCardPaymentSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms(m.group());
 			
 			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
 			creditCardPaymentSms.setSenderName(m.group(2));
@@ -122,7 +122,7 @@ public class BcCardParser implements CreditCardSmsParser {
 		m = p.matcher(mmsContent);
 		
 		while (m.find()) {
-			creditCardPaymentSms = new CreditCardPaymentSms();
+			creditCardPaymentSms = new CreditCardPaymentSms(m.group());
 			
 			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
 			creditCardPaymentSms.setSenderName(m.group(3));
@@ -179,7 +179,7 @@ public class BcCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms();
+			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms(m.group());
 
 			creditCardMonthlyPaymentsSms.setSenderPhoneNumber("01027976877");
 			creditCardMonthlyPaymentsSms.setSenderName(m.group(2));
@@ -203,7 +203,7 @@ public class BcCardParser implements CreditCardSmsParser {
 		m = p.matcher(mmsContent);
 		
 		while (m.find()) {
-			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms();
+			creditCardMonthlyPaymentsSms = new CreditCardMonthlyPaymentsSms(m.group());
 			
 			creditCardMonthlyPaymentsSms.setSenderPhoneNumber("01027976877");
 			creditCardMonthlyPaymentsSms.setSenderName(m.group(2));
@@ -238,7 +238,7 @@ public class BcCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardCashServicesSms = new CreditCardCashServicesSms();
+			creditCardCashServicesSms = new CreditCardCashServicesSms(m.group());
 
 			creditCardCashServicesSms.setSenderPhoneNumber("01027976877");
 			creditCardCashServicesSms.setSenderName(m.group(6));
@@ -277,7 +277,7 @@ public class BcCardParser implements CreditCardSmsParser {
 			m = p.matcher(mmsContent);
 			
 			while (m.find()) {
-				creditCardNotificationSms = new CreditCardNotificationSms();
+				creditCardNotificationSms = new CreditCardNotificationSms(m.group());
 				
 				creditCardNotificationSms.setSenderPhoneNumber("01027976877");
 				creditCardNotificationSms.setNotificationSms(m.group());

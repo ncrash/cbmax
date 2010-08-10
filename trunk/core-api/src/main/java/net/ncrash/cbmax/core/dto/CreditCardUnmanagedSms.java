@@ -7,21 +7,11 @@ package net.ncrash.cbmax.core.dto;
  * @since 2010. 5. 3.
  * @see
  */
-public class CreditCardUnmanagedSms {
-	private String senderPhoneNumber;
+public class CreditCardUnmanagedSms extends CreditCardSms {
 	private String unmanagedSms;
 
-	public CreditCardUnmanagedSms() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public String getSenderPhoneNumber() {
-		return senderPhoneNumber;
-	}
-
-	public void setSenderPhoneNumber(String senderPhoneNumber) {
-		this.senderPhoneNumber = senderPhoneNumber;
+	public CreditCardUnmanagedSms(String message) {
+		super(message);
 	}
 
 	public String getUnmanagedSms() {
@@ -34,7 +24,7 @@ public class CreditCardUnmanagedSms {
 
 	@Override
 	public String toString() {
-		return "CreditCardUnmanagedSms [senderPhoneNumber=" + senderPhoneNumber + ", unmanagedSms=" + unmanagedSms
+		return "CreditCardUnmanagedSms [senderPhoneNumber=" + this.getSenderPhoneNumber() + ", unmanagedSms=" + unmanagedSms
 				+ "]";
 	}
 }
