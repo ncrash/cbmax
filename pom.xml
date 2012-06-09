@@ -82,11 +82,6 @@
 
 	<repositories>
 		<repository>
-			<id>my-internal-site</id>
-			<url>http://192.168.192.237:8081/nexus/content/groups/public</url>
-		</repository>
-
-		<repository>
 			<id>springsource maven repo</id>
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
