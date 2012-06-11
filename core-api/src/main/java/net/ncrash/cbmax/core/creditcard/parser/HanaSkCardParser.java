@@ -21,6 +21,17 @@ import net.ncrash.cbmax.core.dto.CreditCardUnmanagedSms;
  */
 public class HanaSkCardParser implements CreditCardSmsParser {
 
+	private static HanaSkCardParser hanaSkCardParserSingletonObject;
+	
+	private HanaSkCardParser() { }
+	
+	public static HanaSkCardParser getHanaSkCardParser() {
+		if (hanaSkCardParserSingletonObject == null) {
+			hanaSkCardParserSingletonObject = new HanaSkCardParser();
+		}
+		return hanaSkCardParserSingletonObject;
+	}
+
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;

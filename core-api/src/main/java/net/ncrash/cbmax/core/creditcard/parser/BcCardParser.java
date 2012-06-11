@@ -21,6 +21,17 @@ import net.ncrash.cbmax.core.dto.CreditCardUnmanagedSms;
  */
 public class BcCardParser implements CreditCardSmsParser {
 
+	private static BcCardParser bcCardParserSingletonObject;
+	
+	private BcCardParser() { }
+	
+	public static BcCardParser getBcCardParser() {
+		if (bcCardParserSingletonObject == null) {
+			bcCardParserSingletonObject = new BcCardParser();
+		}
+		return bcCardParserSingletonObject;
+	}
+	
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;

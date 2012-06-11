@@ -21,6 +21,17 @@ import net.ncrash.cbmax.core.dto.CreditCardUnmanagedSms;
  */
 public class ShinhanCardParser implements CreditCardSmsParser {
 
+	private static ShinhanCardParser shinhanCardParserSingletonObject;
+	
+	private ShinhanCardParser() { }
+	
+	public static ShinhanCardParser getShinhanCardParser() {
+		if (shinhanCardParserSingletonObject == null) {
+			shinhanCardParserSingletonObject = new ShinhanCardParser();
+		}
+		return shinhanCardParserSingletonObject;
+	}
+
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;

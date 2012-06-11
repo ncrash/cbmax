@@ -21,6 +21,17 @@ import net.ncrash.cbmax.core.dto.CreditCardUnmanagedSms;
  */
 public class SamsungCardParser implements CreditCardSmsParser {
 
+	private static SamsungCardParser samsungCardParserSingletonObject;
+	
+	private SamsungCardParser() { }
+	
+	public static SamsungCardParser getSamsungCardParser() {
+		if (samsungCardParserSingletonObject == null) {
+			samsungCardParserSingletonObject = new SamsungCardParser();
+		}
+		return samsungCardParserSingletonObject;
+	}
+
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;

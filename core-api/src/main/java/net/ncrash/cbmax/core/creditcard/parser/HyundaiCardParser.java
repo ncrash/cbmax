@@ -21,6 +21,17 @@ import net.ncrash.cbmax.core.dto.CreditCardUnmanagedSms;
  */
 public class HyundaiCardParser implements CreditCardSmsParser {
 
+	private static HyundaiCardParser hyundaiCardParserSingletonObject;
+	
+	private HyundaiCardParser() { }
+	
+	public static HyundaiCardParser getHyundaiCardParser() {
+		if (hyundaiCardParserSingletonObject == null) {
+			hyundaiCardParserSingletonObject = new HyundaiCardParser();
+		}
+		return hyundaiCardParserSingletonObject;
+	}
+
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;

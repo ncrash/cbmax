@@ -21,6 +21,17 @@ import net.ncrash.cbmax.core.dto.CreditCardUnmanagedSms;
  */
 public class LotteCardParser implements CreditCardSmsParser {
 
+	private static LotteCardParser lotteCardParserSingletonObject;
+	
+	private LotteCardParser() { }
+	
+	public static LotteCardParser getLotteCardParser() {
+		if (lotteCardParserSingletonObject == null) {
+			lotteCardParserSingletonObject = new LotteCardParser();
+		}
+		return lotteCardParserSingletonObject;
+	}
+
 	public List<CreditCardPaymentSms> paymentSmsParse(String mmsContent) {
 		List<CreditCardPaymentSms> result = new ArrayList<CreditCardPaymentSms>();
 		CreditCardPaymentSms creditCardPaymentSms;

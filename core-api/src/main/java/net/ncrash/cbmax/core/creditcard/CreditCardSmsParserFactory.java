@@ -19,23 +19,23 @@ import net.ncrash.cbmax.core.creditcard.parser.ShinhanCardParser;
 public class CreditCardSmsParserFactory {
 	public static CreditCardSmsParser getParser(String parserId) {
 		if(("BC").equals(parserId)) {
-			return new BcCardParser();
+			return BcCardParser.getBcCardParser();
 		} else if(("CITY").equals(parserId)) {
-			return new CityCardParser();
+			return CityCardParser.getCityCardParser();
 		} else if(("KB").equals(parserId)) {
-			return new KbCardParser();
+			return KbCardParser.getKbCardParser();
 		} else if(("SHINHAN").equals(parserId)) {
-			return new ShinhanCardParser();
+			return ShinhanCardParser.getShinhanCardParser();
 		} else if(("KEB").equals(parserId)) {
-			return new KebCardParser();
+			return KebCardParser.getKebCardParser();
 		} else if(("HYUNDAI").equals(parserId)) {
-			return new HyundaiCardParser();
+			return HyundaiCardParser.getHyundaiCardParser();
 		} else if(("LOTTE").equals(parserId)) {
-			return new LotteCardParser();
+			return LotteCardParser.getLotteCardParser();
 		} else if(("SAMSUNG").equals(parserId)) {
-			return new SamsungCardParser();
+			return SamsungCardParser.getSamsungCardParser();
 		} else if(("HANA_SK").equals(parserId)) {
-			return new HanaSkCardParser();
+			return HanaSkCardParser.getHanaSkCardParser();
 		}
 
 		return null;
