@@ -1,0 +1,31 @@
+[ {
+  "cardCompanyName" : "현대카드",
+  "senderName" : "강대권님",
+  "payedWhenDate" : null,
+  "payedWhenTime" : "12:10",
+  "payedWhere" : "온누리조은약국",
+  "payedMoney" : "2,400",
+  "payedApproveType" : "정상승인",
+  "payedLumpSumOrInstallmentPlan" : "일시불",
+  "payedInstallmentMonths" : null,
+  "cardLastFourNumber" : null,
+  "unknownMessage" : null,
+  "payedCardType" : "C",
+  "message" : "[현대카드C]\n강대권님\n12:10\n2,400원(일시불)\n정상승인\n온누리조은약국",
+  "senderPhoneNumber" : null
+}, {
+  "cardCompanyName" : "현대카드",
+  "senderName" : "강대권님",
+  "payedWhenDate" : null,
+  "payedWhenTime" : "18:22",
+  "payedWhere" : "（주）현대홈쇼핑ＫＭＰＩ（일",
+  "payedMoney" : "3,780",
+  "payedApproveType" : "승인",
+  "payedLumpSumOrInstallmentPlan" : "일시불",
+  "payedInstallmentMonths" : null,
+  "cardLastFourNumber" : null,
+  "unknownMessage" : null,
+  "payedCardType" : "C",
+  "message" : "[현대카드C]-승인\n강대권님\n18:22\n3,780원(일시불)\n（주）현대홈쇼핑ＫＭＰＩ（일",
+  "senderPhoneNumber" : null
+} ]

@@ -56,8 +56,9 @@ public class SamsungCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardPaymentSms = new CreditCardPaymentSms(m.group());
+			creditCardPaymentSms = new CreditCardPaymentSms();
 
+			creditCardPaymentSms.setMessage(m.group());
 			creditCardPaymentSms.setSenderPhoneNumber("01027976877");
 			creditCardPaymentSms.setSenderName(null);
 			creditCardPaymentSms.setCardCompanyName(m.group(1));

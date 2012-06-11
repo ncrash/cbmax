@@ -57,8 +57,9 @@ public class KbCardParser implements CreditCardSmsParser {
 		Matcher m = p.matcher(mmsContent);
 
 		while (m.find()) {
-			creditCardPaymentSms = new CreditCardPaymentSms(m.group());
+			creditCardPaymentSms = new CreditCardPaymentSms();
 
+			creditCardPaymentSms.setMessage(m.group());
 			creditCardPaymentSms.setSenderName(m.group(3));
 			creditCardPaymentSms.setCardCompanyName(m.group(1));
 			creditCardPaymentSms.setCardLastFourNumber(null);

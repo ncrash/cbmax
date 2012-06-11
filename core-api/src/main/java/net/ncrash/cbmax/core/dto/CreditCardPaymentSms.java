@@ -1,5 +1,7 @@
 package net.ncrash.cbmax.core.dto;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  * 신용카드 사용내역 dto
  * 
@@ -8,27 +10,35 @@ package net.ncrash.cbmax.core.dto;
  * @see
  */
 public class CreditCardPaymentSms extends CreditCardSms {
+	@JsonProperty
 	private String senderName;
+	@JsonProperty
 	private String cardCompanyName;
+	@JsonProperty
 	private String cardLastFourNumber;
 	/**
 	 * 결제일자
 	 * 
 	 * 05/09, 04월05일
 	 */
+	@JsonProperty
 	private String payedWhenDate;
+	@JsonProperty
 	private String payedWhenTime;
+	@JsonProperty
 	private String payedWhere;
+	@JsonProperty
 	private String payedMoney;
+	@JsonProperty
 	private String payedCardType;
+	@JsonProperty
 	private String payedApproveType;
+	@JsonProperty
 	private String payedLumpSumOrInstallmentPlan;
+	@JsonProperty
 	private String payedInstallmentMonths;
+	@JsonProperty
 	private String unknownMessage;
-
-	public CreditCardPaymentSms(String message) {
-		super(message);
-	}
 
 	public String getSenderName() {
 		return senderName;
@@ -111,29 +121,20 @@ public class CreditCardPaymentSms extends CreditCardSms {
 		this.payedLumpSumOrInstallmentPlan = payedLumpSumOrInstallmentPlan;
 	}
 
-	public void setPayedInstallmentMonths(String payedInstallmentMonths) {
-		this.payedInstallmentMonths = payedInstallmentMonths;
-	}
-
 	public String getPayedInstallmentMonths() {
 		return payedInstallmentMonths;
 	}
 
-	public void setUnknownMessage(String unknownMessage) {
-		this.unknownMessage = unknownMessage;
+	public void setPayedInstallmentMonths(String payedInstallmentMonths) {
+		this.payedInstallmentMonths = payedInstallmentMonths;
 	}
 
 	public String getUnknownMessage() {
 		return unknownMessage;
 	}
 
-	@Override
-	public String toString() {
-		return "CreditCardPaymentSms [cardCompanyName=" + cardCompanyName + ", cardLastFourNumber="
-				+ cardLastFourNumber + ", payedApproveType=" + payedApproveType + ", payedCardType=" + payedCardType
-				+ ", payedInstallmentMonths=" + payedInstallmentMonths + ", payedLumpSumOrInstallmentPlan="
-				+ payedLumpSumOrInstallmentPlan + ", payedMoney=" + payedMoney + ", payedWhenDate=" + payedWhenDate
-				+ ", payedWhenTime=" + payedWhenTime + ", payedWhere=" + payedWhere + ", senderName=" + senderName
-				+ ", senderPhoneNumber=" + this.getSenderPhoneNumber() + ", unknownMessage=" + unknownMessage + "]";
+	public void setUnknownMessage(String unknownMessage) {
+		this.unknownMessage = unknownMessage;
 	}
+
 }
