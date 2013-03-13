@@ -5,10 +5,9 @@ cbmax
 
 ### Eclipse
 
-* Clone Git Repository : https://github.com/ncrash/cbmax.git
+* Clone Git Repository
 * Import : Maven - Existing Maven Projects
 
-## Maven
+## Command Line
 
 * mvn clean test
-
