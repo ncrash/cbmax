@@ -2,11 +2,11 @@
 .DS_Store
 
 # Eclipse Files #
-*/.project
-*/.classpath
+.project
+.classpath
 .metadata
-*/.settings/**
-*/target/**
+.settings
+target
 
 # Package Files #
 *.jar
