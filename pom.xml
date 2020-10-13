@@ -9,7 +9,7 @@
 	<name>cbmax</name>
 	<url>https://github.com/ncrash/cbmax</url>
 	<properties>
-		<junit.version>4.8.1</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<spring.version>3.1.0.RELEASE</spring.version>
 	</properties>
 	<modules>
